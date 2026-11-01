@@ -246,30 +246,10 @@
   <header>
     <div class="brand">Vokabeln pauken <span>· Latein</span></div>
     <div class="top-right">
-      <button class="icon-btn" id="profileBtn" title="Profil wechseln">
-        <span id="profileInitial">?</span><span id="profileLabel" class="plabel"></span>
-      </button>
       <button class="icon-btn" id="navLearn">Lernen</button>
       <button class="icon-btn" id="navStats">Statistik</button>
     </div>
   </header>
-
-  <!-- ================= PROFILES ================= -->
-  <section id="profiles" class="hidden">
-    <div class="panel">
-      <div class="label" style="margin-top:0">Wer lernt hier?</div>
-      <div id="profileList" class="plist"></div>
-      <div class="label">Neue Person</div>
-      <div class="pnew">
-        <input type="text" id="profileInput" placeholder="Name" maxlength="18"
-               autocomplete="off" autocorrect="off" autocapitalize="words" spellcheck="false">
-        <button class="btn small" id="profileAdd" style="width:auto;padding:0 18px">Anlegen</button>
-      </div>
-      <div class="cap" style="margin-top:14px">
-        Jede Person hat eigenen Fortschritt und eigene Einstellungen — gespeichert auf diesem Gerät.
-      </div>
-    </div>
-  </section>
 
   <!-- ================= LOBBY ================= -->
   <section id="lobby">
@@ -470,143 +450,55 @@ const today = () => new Date().toISOString().slice(0, 10);
 /* ================= persistence ================= */
 function freshState(){ return {cards:{}, days:{}}; }
 
-/* ---------- profiles ----------
-   Progress is per person and per device. Several people can share one browser by
-   picking their name; on separate phones each already has its own storage.        */
-const PROFILES_KEY = "latin-vokabeln:profiles";
-const ACTIVE_KEY = "latin-vokabeln:active";
-let profile = null;
+/* ---------- storage ----------
+   No accounts and no picker: one learner per browser, remembered automatically the
+   same way a cookie would. Each device keeps its own progress; nothing is sent anywhere. */
+const STATE_KEY = "latin-vokabeln:me:state";
+const CFG_KEY = "latin-vokabeln:me:cfg";
 
-function loadProfiles(){
-  try{
-    const list = JSON.parse(localStorage.getItem(PROFILES_KEY) || "[]");
-    return Array.isArray(list) ? list.filter(x => typeof x === "string" && x.trim()) : [];
-  }catch(e){ return []; }
+/* adopt data written by earlier versions (flat single-user store, or the profile build) */
+function migrateStorage(){
+  if(localStorage.getItem(STATE_KEY)) return;
+  const active = localStorage.getItem("latin-vokabeln:active");
+  const stateKeys = [
+    active ? `latin-vokabeln-v2:p:${active}:state` : null,
+    "latin-vokabeln-v2:p:Ich:state",
+    "latin-vokabeln-v2",
+  ].filter(Boolean);
+  for(const k of stateKeys){
+    const v = localStorage.getItem(k);
+    if(v){ localStorage.setItem(STATE_KEY, v); break; }
+  }
+  const cfgKeys = [
+    active ? `latin-vokabeln-v2:p:${active}:cfg` : null,
+    "latin-vokabeln-v2:p:Ich:cfg",
+    "latin-vokabeln-v2:cfg",
+  ].filter(Boolean);
+  for(const k of cfgKeys){
+    const v = localStorage.getItem(k);
+    if(v){ localStorage.setItem(CFG_KEY, v); break; }
+  }
 }
-function saveProfiles(list){
-  localStorage.setItem(PROFILES_KEY, JSON.stringify(list));
-}
-function stateKey(){ return STORE + ":p:" + profile + ":state"; }
-function cfgKey(){ return STORE + ":p:" + profile + ":cfg"; }
 
 function load(){
   try{
-    const raw = JSON.parse(localStorage.getItem(stateKey()) || "null");
+    const raw = JSON.parse(localStorage.getItem(STATE_KEY) || "null");
     if(raw && raw.cards) return raw;
   }catch(e){}
   return freshState();
 }
 function save(){
-  if(!profile) return;
-  localStorage.setItem(stateKey(), JSON.stringify(state));
-  localStorage.setItem(cfgKey(), JSON.stringify(cfg));
+  localStorage.setItem(STATE_KEY, JSON.stringify(state));
+  localStorage.setItem(CFG_KEY, JSON.stringify(cfg));
 }
 function loadCfg(){
   cfg = { lessons: [], types: [], mode: "typing", dir: "la-de", size: 20, audio: false, goal: 20 };
   try{
-    const c = JSON.parse(localStorage.getItem(cfgKey()) || "null");
+    const c = JSON.parse(localStorage.getItem(CFG_KEY) || "null");
     if(c) cfg = Object.assign(cfg, c);
   }catch(e){}
 }
 
-/* first run on this device: adopt whatever the single-user version had stored */
-function migrateLegacy(){
-  if(loadProfiles().length) return false;
-  let legacy = null;
-  try{ legacy = JSON.parse(localStorage.getItem("latin-vokabeln-v2") || "null"); }catch(e){}
-  if(!legacy) return false;
-  profile = "Ich";
-  saveProfiles(["Ich"]);
-  localStorage.setItem(ACTIVE_KEY, profile);
-  localStorage.setItem(stateKey(), JSON.stringify(legacy.cards ? legacy : freshState()));
-  const oldCfg = localStorage.getItem("latin-vokabeln-v2:cfg");
-  if(oldCfg) localStorage.setItem(cfgKey(), oldCfg);
-  return true;
-}
-
-function pickProfile(name){
-  profile = name;
-  localStorage.setItem(ACTIVE_KEY, name);
-  loadCfg();
-  const valid = new Set(LESSONS.map(l => l.id));
-  cfg.lessons = (cfg.lessons || []).filter(id => valid.has(id));
-  if(!cfg.lessons.length) cfg.lessons = LESSONS.map(l => l.id);
-  state = load();
-  session = null;
-  renderChips(); renderLobby(); updateProfileChip(); show("lobby");
-}
-
-function updateProfileChip(){
-  if(!profile) return;
-  el("profileInitial").textContent = profile.slice(0, 1);
-  el("profileLabel").textContent = profile;
-}
-
-function renderProfiles(){
-  const list = loadProfiles();
-  el("profileList").innerHTML = list.map(name => {
-    const raw = localStorage.getItem(STORE + ":p:" + name + ":state");
-    let n = 0, known = 0;
-    try{
-      const st = JSON.parse(raw || "null");
-      if(st && st.cards){
-        const cards = Object.values(st.cards);
-        n = cards.filter(c => c.seen).length;
-        known = cards.filter(c => (c.box ?? 0) >= 3).length;
-      }
-    }catch(e){}
-    return `<div class="prow${name === profile ? " current" : ""}" data-switch="${esc(name)}">
-      <span class="av">${esc(name.slice(0,1))}</span>
-      <span class="nm">${esc(name)}</span>
-      <span class="meta">${known} sicher</span>
-      <button class="del" data-del="${esc(name)}" title="Profil löschen">×</button>
-    </div>`;
-  }).join("") || `<div class="cap">noch niemand angelegt</div>`;
-
-  [...el("profileList").querySelectorAll("[data-switch]")].forEach(row => {
-    row.onclick = ev => {
-      if(ev.target.dataset.del !== undefined) return;
-      pickProfile(row.dataset.switch);
-    };
-  });
-  [...el("profileList").querySelectorAll("[data-del]")].forEach(b => {
-    b.onclick = ev => {
-      ev.stopPropagation();
-      const name = b.dataset.del;
-      if(!confirm(`Profil „${name}" mit dem ganzen Fortschritt löschen?`)) return;
-      const rest = loadProfiles().filter(x => x !== name);
-      saveProfiles(rest);
-      localStorage.removeItem(STORE + ":p:" + name + ":state");
-      localStorage.removeItem(STORE + ":p:" + name + ":cfg");
-      if(profile === name){
-        profile = rest[0] || null;
-        profile ? pickProfile(profile) : show("profiles");
-        if(profile) localStorage.setItem(ACTIVE_KEY, profile);
-      }
-      renderProfiles();
-      if(!rest.length) show("profiles");
-    };
-  });
-}
-
-function addProfile(){
-  const input = el("profileInput");
-  const name = (input.value || "").trim();
-  if(!name) return toast("Name fehlt");
-  const list = loadProfiles();
-  if(list.some(x => x.toLowerCase() === name.toLowerCase())) return toast("Gibt es schon");
-  list.push(name);
-  saveProfiles(list);
-  input.value = "";
-  profile = name;
-  localStorage.setItem(ACTIVE_KEY, name);
-  loadCfg();
-  cfg.lessons = LESSONS.map(l => l.id);
-  state = freshState();
-  save();
-  renderProfiles(); renderChips(); renderLobby(); updateProfileChip(); show("lobby");
-  toast(`Profil „${name}" angelegt`);
-}
 function card(id){
   if(!state.cards[id]) state.cards[id] = {box:0, due:0, right:0, wrong:0, seen:0};
   return state.cards[id];
@@ -1222,7 +1114,7 @@ function esc(s){ return (s||"").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;"
 
 /* ================= ui ================= */
 function show(view){
-  ["profiles","lobby","session","done","stats"].forEach(v => el(v).classList.toggle("hidden", v !== view));
+  ["lobby","session","done","stats"].forEach(v => el(v).classList.toggle("hidden", v !== view));
   el("navLearn").classList.toggle("on", view !== "stats");
   el("navStats").classList.toggle("on", view === "stats");
 }
@@ -1253,19 +1145,8 @@ el("retryMistakes").onclick = () => {
   undoStack = [];
   show("session"); nextCard();
 };
-el("navLearn").onclick = () => {
-  if(!profile){ renderProfiles(); return show("profiles"); }
-  renderLobby(); show("lobby");
-};
-el("navStats").onclick = () => {
-  if(!profile){ renderProfiles(); return show("profiles"); }
-  renderStats(); show("stats");
-};
-el("profileBtn").onclick = () => { renderProfiles(); show("profiles"); };
-el("profileAdd").onclick = addProfile;
-el("profileInput").addEventListener("keydown", e => {
-  if(e.key === "Enter"){ e.preventDefault(); addProfile(); }
-});
+el("navLearn").onclick = () => { renderLobby(); show("lobby"); };
+el("navStats").onclick = () => { renderStats(); show("stats"); };
 el("flipBtn").onclick = reveal;
 el("goodBtn").onclick = () => { if(session.revealed && !session.answered){ session.answered = true; applyGrade(true, false); } };
 el("againBtn").onclick = () => { if(session.revealed && !session.answered){ session.answered = true; applyGrade(false, false); } };
@@ -1325,18 +1206,13 @@ async function boot(){
   const data = await (await fetch("data/vocab.json")).json();
   VOCAB = data.words; LESSONS = data.lessons;
 
-  migrateLegacy();
-  const profiles = loadProfiles();
-  let active = localStorage.getItem(ACTIVE_KEY);
-  if(!active || !profiles.includes(active)) active = profiles[0] || null;
-
-  if(!active){
-    profile = null;
-    renderProfiles();
-    show("profiles");
-    return;
-  }
-  pickProfile(active);
+  migrateStorage();
+  loadCfg();
+  const valid = new Set(LESSONS.map(l => l.id));
+  cfg.lessons = (cfg.lessons || []).filter(id => valid.has(id));
+  if(!cfg.lessons.length) cfg.lessons = LESSONS.map(l => l.id);
+  state = load();
+  renderChips(); renderLobby(); show("lobby");
 }
 boot();
 </script>
