@@ -190,6 +190,25 @@
   .lessonbar .pct{width:38px; text-align:right; font-variant-numeric:tabular-nums; color:var(--muted); font-size:12px}
   .scroll{max-height:340px; overflow:auto; -webkit-overflow-scrolling:touch}
   .hidden{display:none !important}
+  .plist{display:flex; flex-direction:column; gap:8px}
+  .prow{display:flex; align-items:center; gap:12px; padding:12px 14px;
+    background:var(--panel-2); border:1px solid var(--line); border-radius:12px;
+    cursor:pointer; font-size:15px}
+  .prow:hover{border-color:#3a4354}
+  .prow .av{width:30px; height:30px; border-radius:50%; background:var(--accent-dim);
+    color:#dffbea; display:flex; align-items:center; justify-content:center;
+    font-size:13px; font-weight:700; flex:none; text-transform:uppercase}
+  .prow .nm{flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .prow .meta{color:var(--muted); font-size:12px; font-variant-numeric:tabular-nums}
+  .prow .del{background:none; border:none; color:var(--muted); font-size:17px;
+    cursor:pointer; padding:2px 6px; line-height:1}
+  .prow .del:hover{color:var(--bad)}
+  .prow.current{border-color:var(--accent-dim)}
+  .pnew{display:flex; gap:8px}
+  .pnew input{flex:1; max-width:none; text-align:left; font-size:16px; padding:12px 14px}
+  #profileInitial{font-weight:700; text-transform:uppercase}
+  .plabel{margin-left:6px}
+
   .toast{
     position:fixed; left:50%; bottom:22px; transform:translateX(-50%) translateY(80px);
     background:var(--panel-2); border:1px solid var(--line); color:var(--text);
@@ -202,6 +221,8 @@
     .stat{min-width:0}
     .stat b{font-size:17px}
     .stat small{font-size:9.5px; letter-spacing:.04em}
+    .plabel{display:none}
+    .brand span{display:none}
     .lobby-actions{flex-direction:column}
     .lobby-actions .btn{width:100%}
     body{padding-left:12px; padding-right:12px}
@@ -225,10 +246,30 @@
   <header>
     <div class="brand">Vokabeln pauken <span>· Latein</span></div>
     <div class="top-right">
+      <button class="icon-btn" id="profileBtn" title="Profil wechseln">
+        <span id="profileInitial">?</span><span id="profileLabel" class="plabel"></span>
+      </button>
       <button class="icon-btn" id="navLearn">Lernen</button>
       <button class="icon-btn" id="navStats">Statistik</button>
     </div>
   </header>
+
+  <!-- ================= PROFILES ================= -->
+  <section id="profiles" class="hidden">
+    <div class="panel">
+      <div class="label" style="margin-top:0">Wer lernt hier?</div>
+      <div id="profileList" class="plist"></div>
+      <div class="label">Neue Person</div>
+      <div class="pnew">
+        <input type="text" id="profileInput" placeholder="Name" maxlength="18"
+               autocomplete="off" autocorrect="off" autocapitalize="words" spellcheck="false">
+        <button class="btn small" id="profileAdd" style="width:auto;padding:0 18px">Anlegen</button>
+      </div>
+      <div class="cap" style="margin-top:14px">
+        Jede Person hat eigenen Fortschritt und eigene Einstellungen — gespeichert auf diesem Gerät.
+      </div>
+    </div>
+  </section>
 
   <!-- ================= LOBBY ================= -->
   <section id="lobby">
@@ -429,29 +470,142 @@ const today = () => new Date().toISOString().slice(0, 10);
 /* ================= persistence ================= */
 function freshState(){ return {cards:{}, days:{}}; }
 
+/* ---------- profiles ----------
+   Progress is per person and per device. Several people can share one browser by
+   picking their name; on separate phones each already has its own storage.        */
+const PROFILES_KEY = "latin-vokabeln:profiles";
+const ACTIVE_KEY = "latin-vokabeln:active";
+let profile = null;
+
+function loadProfiles(){
+  try{
+    const list = JSON.parse(localStorage.getItem(PROFILES_KEY) || "[]");
+    return Array.isArray(list) ? list.filter(x => typeof x === "string" && x.trim()) : [];
+  }catch(e){ return []; }
+}
+function saveProfiles(list){
+  localStorage.setItem(PROFILES_KEY, JSON.stringify(list));
+}
+function stateKey(){ return STORE + ":p:" + profile + ":state"; }
+function cfgKey(){ return STORE + ":p:" + profile + ":cfg"; }
+
 function load(){
   try{
-    const raw = JSON.parse(localStorage.getItem(STORE) || "null");
+    const raw = JSON.parse(localStorage.getItem(stateKey()) || "null");
     if(raw && raw.cards) return raw;
-    // migrate the v1 flat format
-    const old = JSON.parse(localStorage.getItem("latin-vokabeln-v1") || "null");
-    if(old && typeof old === "object"){
-      const s = freshState();
-      Object.entries(old).forEach(([k,v]) => { if(v && v.box !== undefined) s.cards[k] = v; });
-      return s;
-    }
   }catch(e){}
   return freshState();
 }
 function save(){
-  localStorage.setItem(STORE, JSON.stringify(state));
-  localStorage.setItem(STORE + ":cfg", JSON.stringify(cfg));
+  if(!profile) return;
+  localStorage.setItem(stateKey(), JSON.stringify(state));
+  localStorage.setItem(cfgKey(), JSON.stringify(cfg));
 }
 function loadCfg(){
+  cfg = { lessons: [], types: [], mode: "typing", dir: "la-de", size: 20, audio: false, goal: 20 };
   try{
-    const c = JSON.parse(localStorage.getItem(STORE + ":cfg") || "null");
+    const c = JSON.parse(localStorage.getItem(cfgKey()) || "null");
     if(c) cfg = Object.assign(cfg, c);
   }catch(e){}
+}
+
+/* first run on this device: adopt whatever the single-user version had stored */
+function migrateLegacy(){
+  if(loadProfiles().length) return false;
+  let legacy = null;
+  try{ legacy = JSON.parse(localStorage.getItem("latin-vokabeln-v2") || "null"); }catch(e){}
+  if(!legacy) return false;
+  profile = "Ich";
+  saveProfiles(["Ich"]);
+  localStorage.setItem(ACTIVE_KEY, profile);
+  localStorage.setItem(stateKey(), JSON.stringify(legacy.cards ? legacy : freshState()));
+  const oldCfg = localStorage.getItem("latin-vokabeln-v2:cfg");
+  if(oldCfg) localStorage.setItem(cfgKey(), oldCfg);
+  return true;
+}
+
+function pickProfile(name){
+  profile = name;
+  localStorage.setItem(ACTIVE_KEY, name);
+  loadCfg();
+  const valid = new Set(LESSONS.map(l => l.id));
+  cfg.lessons = (cfg.lessons || []).filter(id => valid.has(id));
+  if(!cfg.lessons.length) cfg.lessons = LESSONS.map(l => l.id);
+  state = load();
+  session = null;
+  renderChips(); renderLobby(); updateProfileChip(); show("lobby");
+}
+
+function updateProfileChip(){
+  if(!profile) return;
+  el("profileInitial").textContent = profile.slice(0, 1);
+  el("profileLabel").textContent = profile;
+}
+
+function renderProfiles(){
+  const list = loadProfiles();
+  el("profileList").innerHTML = list.map(name => {
+    const raw = localStorage.getItem(STORE + ":p:" + name + ":state");
+    let n = 0, known = 0;
+    try{
+      const st = JSON.parse(raw || "null");
+      if(st && st.cards){
+        const cards = Object.values(st.cards);
+        n = cards.filter(c => c.seen).length;
+        known = cards.filter(c => (c.box ?? 0) >= 3).length;
+      }
+    }catch(e){}
+    return `<div class="prow${name === profile ? " current" : ""}" data-switch="${esc(name)}">
+      <span class="av">${esc(name.slice(0,1))}</span>
+      <span class="nm">${esc(name)}</span>
+      <span class="meta">${known} sicher</span>
+      <button class="del" data-del="${esc(name)}" title="Profil löschen">×</button>
+    </div>`;
+  }).join("") || `<div class="cap">noch niemand angelegt</div>`;
+
+  [...el("profileList").querySelectorAll("[data-switch]")].forEach(row => {
+    row.onclick = ev => {
+      if(ev.target.dataset.del !== undefined) return;
+      pickProfile(row.dataset.switch);
+    };
+  });
+  [...el("profileList").querySelectorAll("[data-del]")].forEach(b => {
+    b.onclick = ev => {
+      ev.stopPropagation();
+      const name = b.dataset.del;
+      if(!confirm(`Profil „${name}" mit dem ganzen Fortschritt löschen?`)) return;
+      const rest = loadProfiles().filter(x => x !== name);
+      saveProfiles(rest);
+      localStorage.removeItem(STORE + ":p:" + name + ":state");
+      localStorage.removeItem(STORE + ":p:" + name + ":cfg");
+      if(profile === name){
+        profile = rest[0] || null;
+        profile ? pickProfile(profile) : show("profiles");
+        if(profile) localStorage.setItem(ACTIVE_KEY, profile);
+      }
+      renderProfiles();
+      if(!rest.length) show("profiles");
+    };
+  });
+}
+
+function addProfile(){
+  const input = el("profileInput");
+  const name = (input.value || "").trim();
+  if(!name) return toast("Name fehlt");
+  const list = loadProfiles();
+  if(list.some(x => x.toLowerCase() === name.toLowerCase())) return toast("Gibt es schon");
+  list.push(name);
+  saveProfiles(list);
+  input.value = "";
+  profile = name;
+  localStorage.setItem(ACTIVE_KEY, name);
+  loadCfg();
+  cfg.lessons = LESSONS.map(l => l.id);
+  state = freshState();
+  save();
+  renderProfiles(); renderChips(); renderLobby(); updateProfileChip(); show("lobby");
+  toast(`Profil „${name}" angelegt`);
 }
 function card(id){
   if(!state.cards[id]) state.cards[id] = {box:0, due:0, right:0, wrong:0, seen:0};
@@ -1068,7 +1222,7 @@ function esc(s){ return (s||"").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;"
 
 /* ================= ui ================= */
 function show(view){
-  ["lobby","session","done","stats"].forEach(v => el(v).classList.toggle("hidden", v !== view));
+  ["profiles","lobby","session","done","stats"].forEach(v => el(v).classList.toggle("hidden", v !== view));
   el("navLearn").classList.toggle("on", view !== "stats");
   el("navStats").classList.toggle("on", view === "stats");
 }
@@ -1099,8 +1253,19 @@ el("retryMistakes").onclick = () => {
   undoStack = [];
   show("session"); nextCard();
 };
-el("navLearn").onclick = () => { renderLobby(); show("lobby"); };
-el("navStats").onclick = () => { renderStats(); show("stats"); };
+el("navLearn").onclick = () => {
+  if(!profile){ renderProfiles(); return show("profiles"); }
+  renderLobby(); show("lobby");
+};
+el("navStats").onclick = () => {
+  if(!profile){ renderProfiles(); return show("profiles"); }
+  renderStats(); show("stats");
+};
+el("profileBtn").onclick = () => { renderProfiles(); show("profiles"); };
+el("profileAdd").onclick = addProfile;
+el("profileInput").addEventListener("keydown", e => {
+  if(e.key === "Enter"){ e.preventDefault(); addProfile(); }
+});
 el("flipBtn").onclick = reveal;
 el("goodBtn").onclick = () => { if(session.revealed && !session.answered){ session.answered = true; applyGrade(true, false); } };
 el("againBtn").onclick = () => { if(session.revealed && !session.answered){ session.answered = true; applyGrade(false, false); } };
@@ -1159,13 +1324,19 @@ document.addEventListener("keydown", e => {
 async function boot(){
   const data = await (await fetch("data/vocab.json")).json();
   VOCAB = data.words; LESSONS = data.lessons;
-  loadCfg();
-  // drop lesson ids that no longer exist (L4 was merged into L3)
-  const validLessons = new Set(LESSONS.map(l => l.id));
-  cfg.lessons = (cfg.lessons || []).filter(id => validLessons.has(id));
-  if(!cfg.lessons.length) cfg.lessons = LESSONS.map(l => l.id);
-  state = load();
-  renderChips(); renderLobby(); show("lobby");
+
+  migrateLegacy();
+  const profiles = loadProfiles();
+  let active = localStorage.getItem(ACTIVE_KEY);
+  if(!active || !profiles.includes(active)) active = profiles[0] || null;
+
+  if(!active){
+    profile = null;
+    renderProfiles();
+    show("profiles");
+    return;
+  }
+  pickProfile(active);
 }
 boot();
 </script>
