@@ -729,6 +729,7 @@ function nextCard(){
   el("inputBox").classList.toggle("hidden", !typing && !session.exam);
   el("mcBox").classList.toggle("hidden", !mc);
 
+  el("typeInput").style.display = "";
   if(session.exam){
     el("typeInput").value = "";
     el("typeInput").disabled = false;
@@ -796,6 +797,7 @@ function submitTyped(){
   el("answerBox").classList.remove("hidden");
   el("answerBox").classList.add("reveal");
   el("typeInput").disabled = true;
+  el("typeInput").style.display = "none";
   el("feedback").className = "feedback " + (ok ? "ok" : "no");
   el("feedback").textContent = ok ? "richtig"
     : "richtig wäre: " + (typingGerman ? w.german.join(", ") : w.latin);
