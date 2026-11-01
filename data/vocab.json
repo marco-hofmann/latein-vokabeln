@@ -1,0 +1,1298 @@
+{
+  "source": "Vokabular Prima Kompakt, Lektionen 1–4 (sortiert)",
+  "lessons": [
+    {
+      "id": "L1",
+      "label": "Lektion 1"
+    },
+    {
+      "id": "L2",
+      "label": "Lektion 2"
+    },
+    {
+      "id": "L3",
+      "label": "Lektion 3"
+    }
+  ],
+  "words": [
+    {
+      "id": "l1-domina",
+      "lesson": "L1",
+      "type": "Substantiv",
+      "latin": "domina",
+      "form": "domina, f.",
+      "german": [
+        "die Herrin"
+      ],
+      "hint": "f. – weiblich"
+    },
+    {
+      "id": "l1-serva",
+      "lesson": "L1",
+      "type": "Substantiv",
+      "latin": "serva",
+      "form": "serva, f.",
+      "german": [
+        "die Sklavin"
+      ],
+      "hint": "f. – weiblich"
+    },
+    {
+      "id": "l1-victoria",
+      "lesson": "L1",
+      "type": "Substantiv",
+      "latin": "victoria",
+      "form": "victoria, f.",
+      "german": [
+        "der Sieg"
+      ],
+      "hint": "f. – weiblich"
+    },
+    {
+      "id": "l1-dominus",
+      "lesson": "L1",
+      "type": "Substantiv",
+      "latin": "dominus",
+      "form": "dominus, m.",
+      "german": [
+        "der Herr"
+      ],
+      "hint": "m. – männlich"
+    },
+    {
+      "id": "l1-servus",
+      "lesson": "L1",
+      "type": "Substantiv",
+      "latin": "servus",
+      "form": "servus, m.",
+      "german": [
+        "der Sklave"
+      ],
+      "hint": "m. – männlich"
+    },
+    {
+      "id": "l1-equus",
+      "lesson": "L1",
+      "type": "Substantiv",
+      "latin": "equus",
+      "form": "equus, m.",
+      "german": [
+        "das Pferd"
+      ],
+      "hint": "m. – männlich"
+    },
+    {
+      "id": "l1-populus",
+      "lesson": "L1",
+      "type": "Substantiv",
+      "latin": "populus",
+      "form": "populus, m.",
+      "german": [
+        "das Volk"
+      ],
+      "hint": "m. – männlich"
+    },
+    {
+      "id": "l1-frumentum",
+      "lesson": "L1",
+      "type": "Substantiv",
+      "latin": "frumentum",
+      "form": "frumentum, n.",
+      "german": [
+        "das Getreide"
+      ],
+      "hint": "n. – sächlich"
+    },
+    {
+      "id": "l1-furtum",
+      "lesson": "L1",
+      "type": "Substantiv",
+      "latin": "furtum",
+      "form": "furtum, n.",
+      "german": [
+        "der Diebstahl"
+      ],
+      "hint": "n. – sächlich"
+    },
+    {
+      "id": "l1-victor",
+      "lesson": "L1",
+      "type": "Substantiv",
+      "latin": "victor",
+      "form": "victor, m.",
+      "german": [
+        "der Sieger"
+      ],
+      "hint": "m. – männlich"
+    },
+    {
+      "id": "l1-clamor",
+      "lesson": "L1",
+      "type": "Substantiv",
+      "latin": "clamor",
+      "form": "clamor, m.",
+      "german": [
+        "das Geschrei",
+        "der Lärm"
+      ],
+      "hint": "m. – männlich"
+    },
+    {
+      "id": "l1-mercator",
+      "lesson": "L1",
+      "type": "Substantiv",
+      "latin": "mercator",
+      "form": "mercator, m.",
+      "german": [
+        "der Kaufmann",
+        "der Händler"
+      ],
+      "hint": "m. – männlich"
+    },
+    {
+      "id": "l1-cogitare",
+      "lesson": "L1",
+      "type": "Verb",
+      "latin": "cogitare",
+      "form": "cogitare, cogitat",
+      "german": [
+        "denken",
+        "nachdenken",
+        "beabsichtigen"
+      ],
+      "hint": "3. Pers. Sg.: cogitat"
+    },
+    {
+      "id": "l1-stare",
+      "lesson": "L1",
+      "type": "Verb",
+      "latin": "stare",
+      "form": "stare, stat",
+      "german": [
+        "stehen"
+      ],
+      "hint": "3. Pers. Sg.: stat"
+    },
+    {
+      "id": "l1-spectare",
+      "lesson": "L1",
+      "type": "Verb",
+      "latin": "spectare",
+      "form": "spectare, spectat",
+      "german": [
+        "anschauen",
+        "betrachten",
+        "zuschauen"
+      ],
+      "hint": "3. Pers. Sg.: spectat"
+    },
+    {
+      "id": "l1-clamare",
+      "lesson": "L1",
+      "type": "Verb",
+      "latin": "clamare",
+      "form": "clamare, clamat",
+      "german": [
+        "laut rufen",
+        "schreien"
+      ],
+      "hint": "3. Pers. Sg.: clamat"
+    },
+    {
+      "id": "l1-rogare",
+      "lesson": "L1",
+      "type": "Verb",
+      "latin": "rogare",
+      "form": "rogare, rogat",
+      "german": [
+        "fragen",
+        "bitten (um)"
+      ],
+      "hint": "3. Pers. Sg.: rogat"
+    },
+    {
+      "id": "l1-amare",
+      "lesson": "L1",
+      "type": "Verb",
+      "latin": "amare",
+      "form": "amare, amat",
+      "german": [
+        "lieben",
+        "gernhaben"
+      ],
+      "hint": "3. Pers. Sg.: amat"
+    },
+    {
+      "id": "l1-tacere",
+      "lesson": "L1",
+      "type": "Verb",
+      "latin": "tacere",
+      "form": "tacere, tacet",
+      "german": [
+        "schweigen"
+      ],
+      "hint": "3. Pers. Sg.: tacet"
+    },
+    {
+      "id": "l1-videre",
+      "lesson": "L1",
+      "type": "Verb",
+      "latin": "videre",
+      "form": "videre, videt",
+      "german": [
+        "sehen"
+      ],
+      "hint": "3. Pers. Sg.: videt"
+    },
+    {
+      "id": "l1-gaudere",
+      "lesson": "L1",
+      "type": "Verb",
+      "latin": "gaudere",
+      "form": "gaudere, gaudet",
+      "german": [
+        "sich freuen"
+      ],
+      "hint": "3. Pers. Sg.: gaudet"
+    },
+    {
+      "id": "l1-ridere",
+      "lesson": "L1",
+      "type": "Verb",
+      "latin": "ridere",
+      "form": "ridere, ridet",
+      "german": [
+        "lachen",
+        "auslachen"
+      ],
+      "hint": "3. Pers. Sg.: ridet"
+    },
+    {
+      "id": "l1-debere",
+      "lesson": "L1",
+      "type": "Verb",
+      "latin": "debere",
+      "form": "debere, debet",
+      "german": [
+        "müssen",
+        "sollen",
+        "schulden"
+      ],
+      "hint": "3. Pers. Sg.: debet"
+    },
+    {
+      "id": "l1-venire",
+      "lesson": "L1",
+      "type": "Verb",
+      "latin": "venire",
+      "form": "venire, venit",
+      "german": [
+        "kommen"
+      ],
+      "hint": "3. Pers. Sg.: venit"
+    },
+    {
+      "id": "l1-esse",
+      "lesson": "L1",
+      "type": "Verb",
+      "latin": "esse",
+      "form": "esse, est, sunt",
+      "german": [
+        "sein",
+        "sich befinden"
+      ],
+      "hint": "est / sunt"
+    },
+    {
+      "id": "l1-adesse",
+      "lesson": "L1",
+      "type": "Verb",
+      "latin": "adesse",
+      "form": "adesse, adest, adsunt",
+      "german": [
+        "da sein",
+        "helfen"
+      ],
+      "hint": "adest / adsunt"
+    },
+    {
+      "id": "l1-quis",
+      "lesson": "L1",
+      "type": "Partikel",
+      "latin": "quis?",
+      "form": "quis?",
+      "german": [
+        "wer?"
+      ],
+      "hint": "Fragewort"
+    },
+    {
+      "id": "l1-cur",
+      "lesson": "L1",
+      "type": "Partikel",
+      "latin": "cur?",
+      "form": "cur?",
+      "german": [
+        "warum?"
+      ],
+      "hint": "Fragewort"
+    },
+    {
+      "id": "l1-ubi",
+      "lesson": "L1",
+      "type": "Partikel",
+      "latin": "ubi?",
+      "form": "ubi?",
+      "german": [
+        "wo?"
+      ],
+      "hint": "Fragewort"
+    },
+    {
+      "id": "l1-ibi",
+      "lesson": "L1",
+      "type": "Partikel",
+      "latin": "ibi",
+      "form": "ibi",
+      "german": [
+        "dort"
+      ],
+      "hint": "Adv."
+    },
+    {
+      "id": "l1-hic",
+      "lesson": "L1",
+      "type": "Partikel",
+      "latin": "hic",
+      "form": "hic",
+      "german": [
+        "hier"
+      ],
+      "hint": "Adv."
+    },
+    {
+      "id": "l1-non",
+      "lesson": "L1",
+      "type": "Partikel",
+      "latin": "non",
+      "form": "non",
+      "german": [
+        "nicht"
+      ],
+      "hint": "Adv."
+    },
+    {
+      "id": "l1-et",
+      "lesson": "L1",
+      "type": "Partikel",
+      "latin": "et",
+      "form": "et",
+      "german": [
+        "und",
+        "auch"
+      ],
+      "hint": "Konjunktion"
+    },
+    {
+      "id": "l1-etiam",
+      "lesson": "L1",
+      "type": "Partikel",
+      "latin": "etiam",
+      "form": "etiam",
+      "german": [
+        "auch",
+        "sogar"
+      ],
+      "hint": "Adv."
+    },
+    {
+      "id": "l1-sed",
+      "lesson": "L1",
+      "type": "Partikel",
+      "latin": "sed",
+      "form": "sed",
+      "german": [
+        "aber",
+        "sondern"
+      ],
+      "hint": "Konjunktion"
+    },
+    {
+      "id": "l1-nunc",
+      "lesson": "L1",
+      "type": "Partikel",
+      "latin": "nunc",
+      "form": "nunc",
+      "german": [
+        "jetzt",
+        "nun"
+      ],
+      "hint": "Adv."
+    },
+    {
+      "id": "l1-undique",
+      "lesson": "L1",
+      "type": "Partikel",
+      "latin": "undique",
+      "form": "undique",
+      "german": [
+        "von allen Seiten",
+        "von überall her"
+      ],
+      "hint": "Adv."
+    },
+    {
+      "id": "l1-semper",
+      "lesson": "L1",
+      "type": "Partikel",
+      "latin": "semper",
+      "form": "semper",
+      "german": [
+        "immer"
+      ],
+      "hint": "Adv."
+    },
+    {
+      "id": "l2-amica",
+      "lesson": "L2",
+      "type": "Substantiv",
+      "latin": "amica",
+      "form": "amica, f.",
+      "german": [
+        "die Freundin"
+      ],
+      "hint": "f. – weiblich"
+    },
+    {
+      "id": "l2-via",
+      "lesson": "L2",
+      "type": "Substantiv",
+      "latin": "via",
+      "form": "via, f.",
+      "german": [
+        "der Weg",
+        "die Straße"
+      ],
+      "hint": "f. – weiblich"
+    },
+    {
+      "id": "l2-taberna",
+      "lesson": "L2",
+      "type": "Substantiv",
+      "latin": "taberna",
+      "form": "taberna, f.",
+      "german": [
+        "das Gasthaus",
+        "der Laden",
+        "die Werkstatt"
+      ],
+      "hint": "f. – weiblich"
+    },
+    {
+      "id": "l2-bestia",
+      "lesson": "L2",
+      "type": "Substantiv",
+      "latin": "bestia",
+      "form": "bestia, f.",
+      "german": [
+        "das Tier"
+      ],
+      "hint": "f. – weiblich"
+    },
+    {
+      "id": "l2-amicus",
+      "lesson": "L2",
+      "type": "Substantiv",
+      "latin": "amicus",
+      "form": "amicus, m.",
+      "german": [
+        "der Freund"
+      ],
+      "hint": "m. – männlich"
+    },
+    {
+      "id": "l2-circus",
+      "lesson": "L2",
+      "type": "Substantiv",
+      "latin": "circus",
+      "form": "circus, m.",
+      "german": [
+        "der Zirkus",
+        "die Rennbahn"
+      ],
+      "hint": "m. – männlich"
+    },
+    {
+      "id": "l2-forum",
+      "lesson": "L2",
+      "type": "Substantiv",
+      "latin": "forum",
+      "form": "forum, n.",
+      "german": [
+        "das Forum",
+        "der Marktplatz"
+      ],
+      "hint": "n. – sächlich"
+    },
+    {
+      "id": "l2-aedificium",
+      "lesson": "L2",
+      "type": "Substantiv",
+      "latin": "aedificium",
+      "form": "aedificium, n.",
+      "german": [
+        "das Gebäude",
+        "das Haus"
+      ],
+      "hint": "n. – sächlich"
+    },
+    {
+      "id": "l2-senator",
+      "lesson": "L2",
+      "type": "Substantiv",
+      "latin": "senator",
+      "form": "senator, senatoris m.",
+      "german": [
+        "der Senator"
+      ],
+      "hint": "m. – Gen. senatoris"
+    },
+    {
+      "id": "l2-praetor",
+      "lesson": "L2",
+      "type": "Substantiv",
+      "latin": "praetor",
+      "form": "praetor, praetoris m.",
+      "german": [
+        "der Prätor",
+        "der römische Gerichtsbeamte"
+      ],
+      "hint": "m. – Gen. praetoris"
+    },
+    {
+      "id": "l2-properare",
+      "lesson": "L2",
+      "type": "Verb",
+      "latin": "properare",
+      "form": "properare, properat",
+      "german": [
+        "eilen",
+        "sich beeilen"
+      ],
+      "hint": "3. Pers. Sg.: properat"
+    },
+    {
+      "id": "l2-narrare",
+      "lesson": "L2",
+      "type": "Verb",
+      "latin": "narrare",
+      "form": "narrare, narrat",
+      "german": [
+        "erzählen"
+      ],
+      "hint": "3. Pers. Sg.: narrat"
+    },
+    {
+      "id": "l2-adiuvare",
+      "lesson": "L2",
+      "type": "Verb",
+      "latin": "adiuvare",
+      "form": "adiuvare, adiuvat (+ Akk.)",
+      "german": [
+        "helfen",
+        "unterstützen"
+      ],
+      "hint": "mit Akkusativ"
+    },
+    {
+      "id": "l2-vocare",
+      "lesson": "L2",
+      "type": "Verb",
+      "latin": "vocare",
+      "form": "vocare, vocat",
+      "german": [
+        "rufen",
+        "nennen"
+      ],
+      "hint": "3. Pers. Sg.: vocat"
+    },
+    {
+      "id": "l2-exspectare",
+      "lesson": "L2",
+      "type": "Verb",
+      "latin": "exspectare",
+      "form": "exspectare, exspectat",
+      "german": [
+        "warten",
+        "erwarten"
+      ],
+      "hint": "3. Pers. Sg.: exspectat"
+    },
+    {
+      "id": "l2-audire",
+      "lesson": "L2",
+      "type": "Verb",
+      "latin": "audire",
+      "form": "audire, audit",
+      "german": [
+        "hören"
+      ],
+      "hint": "3. Pers. Sg.: audit"
+    },
+    {
+      "id": "l2-reperire",
+      "lesson": "L2",
+      "type": "Verb",
+      "latin": "reperire",
+      "form": "reperire, reperit",
+      "german": [
+        "finden",
+        "wiederfinden"
+      ],
+      "hint": "3. Pers. Sg.: reperit"
+    },
+    {
+      "id": "l2-ad",
+      "lesson": "L2",
+      "type": "Präposition",
+      "latin": "ad",
+      "form": "ad + Akk.",
+      "german": [
+        "zu",
+        "zu ... hin",
+        "bei",
+        "nach"
+      ],
+      "hint": "mit Akkusativ"
+    },
+    {
+      "id": "l2-per",
+      "lesson": "L2",
+      "type": "Präposition",
+      "latin": "per",
+      "form": "per + Akk.",
+      "german": [
+        "durch",
+        "durch ... hindurch"
+      ],
+      "hint": "mit Akkusativ"
+    },
+    {
+      "id": "l2-in",
+      "lesson": "L2",
+      "type": "Präposition",
+      "latin": "in",
+      "form": "in + Akk.",
+      "german": [
+        "in",
+        "in ... hinein",
+        "nach",
+        "gegen"
+      ],
+      "hint": "mit Akkusativ"
+    },
+    {
+      "id": "l2-ante",
+      "lesson": "L2",
+      "type": "Präposition",
+      "latin": "ante",
+      "form": "ante + Akk.",
+      "german": [
+        "vor"
+      ],
+      "hint": "mit Akkusativ"
+    },
+    {
+      "id": "l2-ecce",
+      "lesson": "L2",
+      "type": "Partikel",
+      "latin": "ecce!",
+      "form": "ecce!",
+      "german": [
+        "schau!",
+        "schaut!",
+        "sieh da!",
+        "seht da!"
+      ],
+      "hint": "Ausruf"
+    },
+    {
+      "id": "l2-itaque",
+      "lesson": "L2",
+      "type": "Partikel",
+      "latin": "itaque",
+      "form": "itaque",
+      "german": [
+        "deshalb"
+      ],
+      "hint": "Konjunktion"
+    },
+    {
+      "id": "l2-tum",
+      "lesson": "L2",
+      "type": "Partikel",
+      "latin": "tum",
+      "form": "tum",
+      "german": [
+        "da",
+        "dann",
+        "damals"
+      ],
+      "hint": "Adv."
+    },
+    {
+      "id": "l2-bene",
+      "lesson": "L2",
+      "type": "Partikel",
+      "latin": "bene",
+      "form": "bene",
+      "german": [
+        "gut"
+      ],
+      "hint": "Adv."
+    },
+    {
+      "id": "l2-iterum",
+      "lesson": "L2",
+      "type": "Partikel",
+      "latin": "iterum",
+      "form": "iterum",
+      "german": [
+        "wieder",
+        "wiederum",
+        "zum zweiten Mal"
+      ],
+      "hint": "Adv."
+    },
+    {
+      "id": "l2-subito",
+      "lesson": "L2",
+      "type": "Partikel",
+      "latin": "subito",
+      "form": "subito",
+      "german": [
+        "plötzlich"
+      ],
+      "hint": "Adv."
+    },
+    {
+      "id": "l2-statim",
+      "lesson": "L2",
+      "type": "Partikel",
+      "latin": "statim",
+      "form": "statim",
+      "german": [
+        "sofort",
+        "auf der Stelle"
+      ],
+      "hint": "Adv."
+    },
+    {
+      "id": "l2-iam",
+      "lesson": "L2",
+      "type": "Partikel",
+      "latin": "iam",
+      "form": "iam",
+      "german": [
+        "schon",
+        "bereits",
+        "nun"
+      ],
+      "hint": "Adv."
+    },
+    {
+      "id": "l2-diu",
+      "lesson": "L2",
+      "type": "Partikel",
+      "latin": "diu",
+      "form": "diu",
+      "german": [
+        "lange",
+        "lange Zeit"
+      ],
+      "hint": "Adv."
+    },
+    {
+      "id": "l2-quid",
+      "lesson": "L2",
+      "type": "Partikel",
+      "latin": "quid?",
+      "form": "quid?",
+      "german": [
+        "was?"
+      ],
+      "hint": "Fragewort"
+    },
+    {
+      "id": "l2-nos",
+      "lesson": "L2",
+      "type": "Pronomen",
+      "latin": "nos",
+      "form": "nos (Akk.)",
+      "german": [
+        "uns"
+      ],
+      "hint": "Akkusativ"
+    },
+    {
+      "id": "l3-thermae",
+      "lesson": "L3",
+      "type": "Substantiv",
+      "latin": "thermae",
+      "form": "thermae, f. Pl.",
+      "german": [
+        "die Thermen",
+        "die Badeanlage"
+      ],
+      "hint": "Plural"
+    },
+    {
+      "id": "l3-audacia",
+      "lesson": "L3",
+      "type": "Substantiv",
+      "latin": "audacia",
+      "form": "audacia, f.",
+      "german": [
+        "die Frechheit",
+        "die Kühnheit"
+      ],
+      "hint": "f. – weiblich"
+    },
+    {
+      "id": "l3-verbum",
+      "lesson": "L3",
+      "type": "Substantiv",
+      "latin": "verbum",
+      "form": "verbum, n.",
+      "german": [
+        "das Wort",
+        "die Äußerung"
+      ],
+      "hint": "n. – sächlich"
+    },
+    {
+      "id": "l3-consilium",
+      "lesson": "L3",
+      "type": "Substantiv",
+      "latin": "consilium",
+      "form": "consilium, n.",
+      "german": [
+        "die Beratung",
+        "der Beschluss",
+        "der Plan",
+        "der Rat"
+      ],
+      "hint": "n. – sächlich"
+    },
+    {
+      "id": "l3-intrare",
+      "lesson": "L3",
+      "type": "Verb",
+      "latin": "intrare",
+      "form": "intrare, intro",
+      "german": [
+        "eintreten",
+        "betreten"
+      ],
+      "hint": "1. Pers. Sg.: intro"
+    },
+    {
+      "id": "l3-parare",
+      "lesson": "L3",
+      "type": "Verb",
+      "latin": "parare",
+      "form": "parare, paro",
+      "german": [
+        "bereiten",
+        "vorbereiten",
+        "vorhaben"
+      ],
+      "hint": "1. Pers. Sg.: paro"
+    },
+    {
+      "id": "l3-laborare",
+      "lesson": "L3",
+      "type": "Verb",
+      "latin": "laborare",
+      "form": "laborare, laboro",
+      "german": [
+        "arbeiten",
+        "sich anstrengen"
+      ],
+      "hint": "1. Pers. Sg.: laboro"
+    },
+    {
+      "id": "l3-curare",
+      "lesson": "L3",
+      "type": "Verb",
+      "latin": "curare",
+      "form": "curare, curo (+ Akk.)",
+      "german": [
+        "sorgen für",
+        "sich kümmern um",
+        "pflegen"
+      ],
+      "hint": "mit Akkusativ"
+    },
+    {
+      "id": "l3-necare",
+      "lesson": "L3",
+      "type": "Verb",
+      "latin": "necare",
+      "form": "necare, neco",
+      "german": [
+        "töten"
+      ],
+      "hint": "1. Pers. Sg.: neco"
+    },
+    {
+      "id": "l3-salutare",
+      "lesson": "L3",
+      "type": "Verb",
+      "latin": "salutare",
+      "form": "salutare, saluto",
+      "german": [
+        "grüßen",
+        "begrüßen"
+      ],
+      "hint": "1. Pers. Sg.: saluto"
+    },
+    {
+      "id": "l3-portare",
+      "lesson": "L3",
+      "type": "Verb",
+      "latin": "portare",
+      "form": "portare, porto",
+      "german": [
+        "tragen",
+        "bringen"
+      ],
+      "hint": "1. Pers. Sg.: porto"
+    },
+    {
+      "id": "l3-servare",
+      "lesson": "L3",
+      "type": "Verb",
+      "latin": "servare",
+      "form": "servare, servo",
+      "german": [
+        "retten",
+        "bewahren"
+      ],
+      "hint": "1. Pers. Sg.: servo"
+    },
+    {
+      "id": "l3-laudare",
+      "lesson": "L3",
+      "type": "Verb",
+      "latin": "laudare",
+      "form": "laudare, laudo",
+      "german": [
+        "loben"
+      ],
+      "hint": "1. Pers. Sg.: laudo"
+    },
+    {
+      "id": "l3-sedere",
+      "lesson": "L3",
+      "type": "Verb",
+      "latin": "sedere",
+      "form": "sedere, sedeo",
+      "german": [
+        "sitzen"
+      ],
+      "hint": "1. Pers. Sg.: sedeo"
+    },
+    {
+      "id": "l3-parere",
+      "lesson": "L3",
+      "type": "Verb",
+      "latin": "parere",
+      "form": "parere, pareo",
+      "german": [
+        "gehorchen"
+      ],
+      "hint": "1. Pers. Sg.: pareo"
+    },
+    {
+      "id": "l3-monere",
+      "lesson": "L3",
+      "type": "Verb",
+      "latin": "monere",
+      "form": "monere, moneo",
+      "german": [
+        "mahnen",
+        "ermahnen"
+      ],
+      "hint": "1. Pers. Sg.: moneo"
+    },
+    {
+      "id": "l3-audere",
+      "lesson": "L3",
+      "type": "Verb",
+      "latin": "audere",
+      "form": "audere, audeo",
+      "german": [
+        "wagen",
+        "sich trauen"
+      ],
+      "hint": "1. Pers. Sg.: audeo"
+    },
+    {
+      "id": "l3-habere",
+      "lesson": "L3",
+      "type": "Verb",
+      "latin": "habere",
+      "form": "habere, habeo",
+      "german": [
+        "haben",
+        "halten"
+      ],
+      "hint": "1. Pers. Sg.: habeo"
+    },
+    {
+      "id": "l3-scire",
+      "lesson": "L3",
+      "type": "Verb",
+      "latin": "scire",
+      "form": "scire, scio",
+      "german": [
+        "wissen",
+        "kennen"
+      ],
+      "hint": "1. Pers. Sg.: scio"
+    },
+    {
+      "id": "l3-velle",
+      "lesson": "L3",
+      "type": "Verb",
+      "latin": "velle",
+      "form": "velle, volo (3. Sg. vult, 3. Pl. volunt)",
+      "german": [
+        "wollen"
+      ],
+      "hint": "volo / vult / volunt"
+    },
+    {
+      "id": "l3-salve",
+      "lesson": "L3",
+      "type": "Partikel",
+      "latin": "salve! / salvete!",
+      "form": "salve! / salvete!",
+      "german": [
+        "sei gegrüßt!",
+        "seid gegrüßt!"
+      ],
+      "hint": "Begrüßung"
+    },
+    {
+      "id": "l3-apud",
+      "lesson": "L3",
+      "type": "Präposition",
+      "latin": "apud",
+      "form": "apud + Akk.",
+      "german": [
+        "bei"
+      ],
+      "hint": "mit Akkusativ"
+    },
+    {
+      "id": "l3-propter",
+      "lesson": "L3",
+      "type": "Präposition",
+      "latin": "propter",
+      "form": "propter + Akk.",
+      "german": [
+        "wegen"
+      ],
+      "hint": "mit Akkusativ"
+    },
+    {
+      "id": "l3-quin",
+      "lesson": "L3",
+      "type": "Partikel",
+      "latin": "quin?",
+      "form": "quin?",
+      "german": [
+        "warum nicht?"
+      ],
+      "hint": "Fragewort"
+    },
+    {
+      "id": "l3-quemadmodum",
+      "lesson": "L3",
+      "type": "Partikel",
+      "latin": "quemadmodum?",
+      "form": "quemadmodum?",
+      "german": [
+        "wie?",
+        "auf welche Weise?"
+      ],
+      "hint": "Fragewort"
+    },
+    {
+      "id": "l3-io",
+      "lesson": "L3",
+      "type": "Partikel",
+      "latin": "io!",
+      "form": "io!",
+      "german": [
+        "hurra!",
+        "ha!",
+        "ach!"
+      ],
+      "hint": "Ausruf"
+    },
+    {
+      "id": "l3-certe",
+      "lesson": "L3",
+      "type": "Partikel",
+      "latin": "certe",
+      "form": "certe",
+      "german": [
+        "gewiss",
+        "sicherlich"
+      ],
+      "hint": "Adv."
+    },
+    {
+      "id": "l3-recte",
+      "lesson": "L3",
+      "type": "Partikel",
+      "latin": "recte",
+      "form": "recte",
+      "german": [
+        "richtig",
+        "zu Recht"
+      ],
+      "hint": "Adv."
+    },
+    {
+      "id": "l3-aliter",
+      "lesson": "L3",
+      "type": "Partikel",
+      "latin": "aliter",
+      "form": "aliter",
+      "german": [
+        "anders",
+        "sonst"
+      ],
+      "hint": "Adv."
+    },
+    {
+      "id": "l3-paulo",
+      "lesson": "L3",
+      "type": "Partikel",
+      "latin": "paulo",
+      "form": "paulo",
+      "german": [
+        "ein wenig",
+        "um ein wenig"
+      ],
+      "hint": "Adv."
+    },
+    {
+      "id": "l3-post",
+      "lesson": "L3",
+      "type": "Partikel",
+      "latin": "post",
+      "form": "post",
+      "german": [
+        "dann",
+        "später"
+      ],
+      "hint": "Adv."
+    },
+    {
+      "id": "l3-paulo-post",
+      "lesson": "L3",
+      "type": "Partikel",
+      "latin": "paulo post",
+      "form": "paulo post",
+      "german": [
+        "wenig später",
+        "kurz darauf"
+      ],
+      "hint": "Adv."
+    },
+    {
+      "id": "l4-tamen",
+      "lesson": "L3",
+      "type": "Partikel",
+      "latin": "tamen",
+      "form": "tamen",
+      "german": [
+        "dennoch",
+        "trotzdem"
+      ],
+      "hint": "Konjunktion"
+    },
+    {
+      "id": "l4-autem",
+      "lesson": "L3",
+      "type": "Partikel",
+      "latin": "autem",
+      "form": "autem (nachgestellt)",
+      "german": [
+        "aber",
+        "andererseits"
+      ],
+      "hint": "nachgestellt"
+    },
+    {
+      "id": "l4-non-iam",
+      "lesson": "L3",
+      "type": "Partikel",
+      "latin": "non iam",
+      "form": "non iam",
+      "german": [
+        "nicht mehr"
+      ],
+      "hint": "Adv."
+    },
+    {
+      "id": "l4-ego",
+      "lesson": "L3",
+      "type": "Pronomen",
+      "latin": "ego",
+      "form": "ego (Nom., betont)",
+      "german": [
+        "ich"
+      ],
+      "hint": "Personalpronomen"
+    },
+    {
+      "id": "l4-tu",
+      "lesson": "L3",
+      "type": "Pronomen",
+      "latin": "tu",
+      "form": "tu (Nom., betont)",
+      "german": [
+        "du"
+      ],
+      "hint": "Personalpronomen"
+    },
+    {
+      "id": "l4-me",
+      "lesson": "L3",
+      "type": "Pronomen",
+      "latin": "me",
+      "form": "me (Akk.)",
+      "german": [
+        "mich"
+      ],
+      "hint": "Akkusativ"
+    },
+    {
+      "id": "l4-te",
+      "lesson": "L3",
+      "type": "Pronomen",
+      "latin": "te",
+      "form": "te (Akk.)",
+      "german": [
+        "dich"
+      ],
+      "hint": "Akkusativ"
+    }
+  ]
+}

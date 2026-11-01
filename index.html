@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>
+  // Behind the Tailscale Funnel the 307 from "/latein" is swallowed by the proxy, so the
+  // page can arrive without a trailing slash. Normalise first, or every relative asset
+  // path (manifest, icons, vocab.json) resolves one level too high.
+  if (!location.pathname.endsWith("/")) {
+    location.replace(location.pathname + "/" + location.search + location.hash);
+  }
+</script>
+<meta name="theme-color" content="#0d0f13">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Vokabeln">
+<meta name="format-detection" content="telephone=no">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<title>Vokabeln pauken — Latein</title>
+<style>
+  :root{
+    --bg:#0d0f13; --panel:#151920; --panel-2:#1b202a; --line:#252b36;
+    --text:#e7eaf0; --muted:#8b93a5; --accent:#6ee7a8; --accent-dim:#2f6b4f;
+    --bad:#f4707f; --warn:#f5b942; --info:#7fb6f5;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    overscroll-behavior-y:none; touch-action:manipulation;
+    font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    display:flex; flex-direction:column; align-items:center;
+    padding:calc(14px + env(safe-area-inset-top)) 14px calc(16px + env(safe-area-inset-bottom));
+    min-height:100vh;
+  }
+  .shell{width:100%; max-width:600px; display:flex; flex-direction:column; gap:12px; flex:1}
+  /* each view is a flex column so the card can grow to fill the screen */
+  .shell > section{display:flex; flex-direction:column; gap:12px; flex:1}
+  header{display:flex; align-items:center; gap:10px; padding-top:2px}
+  .brand{font-size:14px; font-weight:650; letter-spacing:-.01em; white-space:nowrap}
+  .brand span{color:var(--muted); font-weight:400}
+  .top-right{margin-left:auto; display:flex; gap:6px}
+  .icon-btn{
+    background:var(--panel-2); border:1px solid var(--line); color:var(--muted);
+    border-radius:9px; padding:7px 10px; font-size:12px; cursor:pointer;
+  }
+  .icon-btn:hover{color:var(--text)}
+  .icon-btn.on{background:var(--accent-dim); border-color:var(--accent); color:#dffbea}
+
+  .panel{background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:16px}
+  .big{font-size:36px; font-weight:700; letter-spacing:-.02em; font-variant-numeric:tabular-nums; line-height:1.1}
+  .sub{color:var(--muted); font-size:13px}
+  .row{display:flex; gap:10px; flex-wrap:wrap}
+  .row.stats{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; align-items:start}
+  .stat{flex:1; min-width:84px}
+  .stat b{display:block; font-size:19px; font-variant-numeric:tabular-nums}
+  .stat small{color:var(--muted); font-size:10.5px; text-transform:uppercase; letter-spacing:.06em}
+  .label{font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:14px 0 7px}
+  .chips{display:flex; flex-wrap:wrap; gap:7px}
+  .chip{
+    border:1px solid var(--line); background:var(--panel-2); color:var(--muted);
+    border-radius:999px; padding:6px 12px; font-size:13px; cursor:pointer;
+    user-select:none; -webkit-user-select:none; touch-action:manipulation;
+    transition:background .12s, color .12s, border-color .12s;
+  }
+  .chip:hover{color:var(--text)}
+  .chip.on{background:var(--accent-dim); border-color:var(--accent); color:#dffbea}
+  .btn{
+    width:100%; border:none; border-radius:13px; padding:15px; font-size:16px;
+    font-weight:650; cursor:pointer; background:var(--accent); color:#07130c;
+  }
+  .btn:active{transform:scale(.99)}
+  .btn:disabled{opacity:.4; cursor:default}
+  .btn.ghost{background:var(--panel-2); color:var(--text); border:1px solid var(--line)}
+  .btn.small{padding:11px; font-size:13px; font-weight:550}
+
+  .ring{display:flex; align-items:center; gap:14px}
+  .ring svg{flex:none}
+  .goal-num{font-size:13px; color:var(--muted); font-variant-numeric:tabular-nums}
+
+  /* ---- session ---- */
+  .progress{height:4px; background:var(--panel-2); border-radius:99px; overflow:hidden}
+  .progress i{display:block; height:100%; background:var(--accent); width:0; transition:width .3s}
+  .flash{
+    position:relative;
+    background:var(--panel); border:1px solid var(--line); border-radius:18px;
+    min-height:260px; display:flex; flex-direction:column; align-items:center;
+    justify-content:center; text-align:center; padding:24px 18px; gap:8px; flex:1;
+  }
+  .star{
+    position:absolute; top:9px; right:10px; background:none; border:none; cursor:pointer;
+    font-size:21px; line-height:1; color:#3d4657; padding:6px 8px; border-radius:9px;
+  }
+  .star:hover{color:var(--muted); background:var(--panel-2)}
+  .star.on{color:var(--warn)}
+  .flash .tag{font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted)}
+  .prompt{font-size:33px; font-weight:700; letter-spacing:-.02em; line-height:1.22}
+  .prompt.de{font-size:25px; line-height:1.3}
+  .answer{font-size:23px; line-height:1.35; color:var(--accent)}
+  .answer.de{color:var(--text)}
+  .hintline{font-size:13px; color:var(--muted)}
+  .divider{width:50px; height:1px; background:var(--line); margin:4px 0}
+  .reveal{animation:pop .22s ease-out}
+  @keyframes pop{from{opacity:0; transform:translateY(5px)} to{opacity:1; transform:none}}
+  input[type=text]{
+    width:100%; max-width:360px; background:var(--panel-2); border:1px solid var(--line);
+    color:var(--text); border-radius:12px; padding:14px 16px; font-size:18px; text-align:center;
+    outline:none;
+  }
+  input[type=text]:focus{border-color:var(--accent-dim)}
+  .feedback{font-size:14px; min-height:21px}
+  .feedback.ok{color:var(--accent)}
+  .feedback.no{color:var(--bad)}
+  .actions{display:flex; gap:9px}
+  .actions .btn{flex:1}
+  .btn.good{background:var(--accent); color:#07130c}
+  .btn.bad{background:var(--panel-2); color:var(--bad); border:1px solid var(--line)}
+  .kbd{font-size:11px; color:var(--muted); text-align:center; padding-bottom:2px}
+
+  .mc{display:grid; grid-template-columns:1fr 1fr; gap:9px; width:100%; margin-top:6px}
+  .mc button{
+    background:var(--panel-2); border:1px solid var(--line); color:var(--text);
+    border-radius:12px; padding:14px 10px; font-size:15px; cursor:pointer; text-align:center;
+    line-height:1.3; min-height:58px;
+  }
+  .mc button:hover{border-color:#3a4354}
+  .mc button.right{background:rgba(110,231,168,.16); border-color:var(--accent); color:#dffbea}
+  .mc button.wrong{background:rgba(244,112,127,.14); border-color:var(--bad); color:#ffd9de}
+  .mc button:disabled{cursor:default}
+
+  .undo{background:none; border:none; color:var(--muted); font-size:12px; cursor:pointer;
+        text-decoration:underline; padding:4px}
+  .undo:hover{color:var(--text)}
+
+  /* ---- stats ---- */
+  table{width:100%; border-collapse:collapse; font-size:13px}
+  th{text-align:left; color:var(--muted); font-weight:500; font-size:10.5px;
+     text-transform:uppercase; letter-spacing:.06em; padding:6px 4px}
+  td{padding:7px 4px; border-top:1px solid var(--line); vertical-align:top}
+  td.num{text-align:right; font-variant-numeric:tabular-nums; color:var(--muted)}
+  /* ---- charts ---- */
+  .ov{display:flex; align-items:center; gap:18px}
+  .donut{position:relative; width:132px; height:132px; flex:none}
+  .donut svg{transform:rotate(-90deg)}
+  .donut .c{position:absolute; inset:0; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:1px}
+  .donut .c b{font-size:26px; font-weight:700; letter-spacing:-.02em; font-variant-numeric:tabular-nums}
+  .donut .c small{font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:.07em}
+  .legend{display:flex; flex-direction:column; gap:9px; font-size:13px; flex:1}
+  .legend .li{display:flex; align-items:center; gap:8px}
+  .legend .li i{width:9px; height:9px; border-radius:3px; flex:none}
+  .legend .li b{margin-left:auto; font-variant-numeric:tabular-nums}
+
+  .act{display:flex; align-items:flex-end; gap:4px; height:120px; margin-top:6px}
+  .act .col{flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; height:100%}
+  .act .bar{width:100%; display:flex; flex-direction:column-reverse; justify-content:flex-start;
+    border-radius:3px; overflow:hidden; min-height:2px}
+  .act .bar i{display:block; width:100%}
+  .act .bar i.ok{background:var(--accent)}
+  .act .bar i.bad{background:var(--bad)}
+  .act .bar.empty{background:var(--panel-2)}
+  .act .d{font-size:9px; color:var(--muted); white-space:nowrap}
+  .act .grow{flex:1; width:100%; display:flex; align-items:flex-end}
+  .cap{font-size:11.5px; color:var(--muted); margin-top:8px; display:flex; justify-content:space-between}
+
+  .accwrap{position:relative; margin-top:4px}
+  .accwrap svg{width:100%; height:86px; display:block; overflow:visible}
+
+  .stack{display:flex; gap:10px; align-items:center; margin-top:10px; font-size:13px}
+  .stack .nm{width:78px; color:var(--muted); font-size:12px; flex:none;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .stack .track{flex:1; height:9px; background:var(--panel-2); border-radius:99px;
+    overflow:hidden; display:flex}
+  .stack .track i{display:block; height:100%}
+  .stack .track i.k{background:var(--accent)}
+  .stack .track i.l{background:var(--info)}
+  .stack .track i.n{background:#3b4452}
+  .stack .pct{width:34px; text-align:right; font-variant-numeric:tabular-nums;
+    color:var(--muted); font-size:11.5px; flex:none}
+  .subhead{font-size:10.5px; text-transform:uppercase; letter-spacing:.08em;
+    color:var(--muted); margin:16px 0 2px}
+  .lessonbar{display:flex; align-items:center; gap:10px; margin-top:9px; font-size:13px}
+  .lessonbar .nm{width:74px; color:var(--muted); font-size:12px}
+  .lessonbar .track{flex:1; height:6px; background:var(--panel-2); border-radius:99px; overflow:hidden}
+  .lessonbar .track i{display:block; height:100%; background:var(--accent); border-radius:99px}
+  .lessonbar .pct{width:38px; text-align:right; font-variant-numeric:tabular-nums; color:var(--muted); font-size:12px}
+  .scroll{max-height:340px; overflow:auto; -webkit-overflow-scrolling:touch}
+  .hidden{display:none !important}
+  .toast{
+    position:fixed; left:50%; bottom:22px; transform:translateX(-50%) translateY(80px);
+    background:var(--panel-2); border:1px solid var(--line); color:var(--text);
+    padding:10px 16px; border-radius:10px; font-size:13px; opacity:0;
+    transition:.25s; pointer-events:none; z-index:50;
+  }
+  .toast.show{opacity:1; transform:translateX(-50%)}
+
+  @media (max-width:430px){
+    .stat{min-width:0}
+    .stat b{font-size:17px}
+    .stat small{font-size:9.5px; letter-spacing:.04em}
+    .lobby-actions{flex-direction:column}
+    .lobby-actions .btn{width:100%}
+    body{padding-left:12px; padding-right:12px}
+    .shell{gap:10px}
+    .big{font-size:30px}
+    .prompt{font-size:28px}
+    .prompt.de{font-size:22px}
+    .answer{font-size:20px}
+    .flash{min-height:220px; padding:20px 14px}
+    .mc button{font-size:14px; min-height:54px; padding:12px 8px}
+    .stack .nm{width:72px; font-size:11px}
+    .act{height:104px}
+    .kbd{font-size:10px}
+    input[type=text]{font-size:17px; padding:12px 14px}
+    .btn{padding:14px; font-size:15px}
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <header>
+    <div class="brand">Vokabeln pauken <span>· Latein</span></div>
+    <div class="top-right">
+      <button class="icon-btn" id="navLearn">Lernen</button>
+      <button class="icon-btn" id="navStats">Statistik</button>
+    </div>
+  </header>
+
+  <!-- ================= LOBBY ================= -->
+  <section id="lobby">
+    <div class="panel">
+      <div class="ring">
+        <svg width="62" height="62" viewBox="0 0 62 62">
+          <circle cx="31" cy="31" r="27" fill="none" stroke="#252b36" stroke-width="5"/>
+          <circle id="goalArc" cx="31" cy="31" r="27" fill="none" stroke="#7fb6f5" stroke-width="5"
+                  stroke-linecap="round" stroke-dasharray="169.6" stroke-dashoffset="169.6"
+                  transform="rotate(-90 31 31)"/>
+        </svg>
+        <div style="flex:1">
+          <div class="big" id="dueCount">–</div>
+          <div class="sub" id="dueLabel">Karten fällig</div>
+        </div>
+        <div style="text-align:right">
+          <div class="goal-num" id="streakNum">0</div>
+          <div class="sub" style="font-size:11px">Tage-Serie</div>
+        </div>
+      </div>
+      <div class="row stats" style="margin-top:14px">
+        <div class="stat"><b id="stKnown">–</b><small>sicher</small></div>
+        <div class="stat"><b id="stTotal">–</b><small>Wörter</small></div>
+        <div class="stat"><b id="stToday">0</b><small>heute</small></div>
+        <div class="stat"><b id="stAcc">–</b><small>Quote</small></div>
+      </div>
+    </div>
+
+    <button class="btn" id="startBtn">Lernen starten</button>
+    <div class="actions lobby-actions">
+      <button class="btn ghost small" id="focusBtn">Nur Wackelkandidaten</button>
+      <button class="btn ghost small" id="markedBtn">Markiert (0)</button>
+    </div>
+    <button class="btn ghost small" id="examBtn">Prüfung (20)</button>
+
+    <div class="panel">
+      <div class="label" style="margin-top:0">Lektionen</div>
+      <div class="chips" id="lessonChips"></div>
+      <div class="label">Wortarten</div>
+      <div class="chips" id="typeChips"></div>
+      <div class="label">Abfrage</div>
+      <div class="chips" id="modeChips"></div>
+      <div class="label">Richtung</div>
+      <div class="chips" id="dirChips"></div>
+      <div class="label">Optionen</div>
+      <div class="chips" id="optChips"></div>
+      <div class="label">Tagesziel</div>
+      <div class="chips" id="goalChips"></div>
+    </div>
+  </section>
+
+  <!-- ================= SESSION ================= -->
+  <section id="session" class="hidden">
+    <div class="progress"><i id="bar"></i></div>
+    <div class="flash">
+      <button class="star" id="starBtn" title="merken">☆</button>
+      <div class="tag" id="cardTag">Latein → Deutsch</div>
+      <div class="prompt" id="prompt"></div>
+      <div id="answerBox" class="hidden">
+        <div class="divider"></div>
+        <div class="answer" id="answer"></div>
+        <div class="hintline" id="hint"></div>
+      </div>
+      <div id="inputBox" class="hidden" style="width:100%;flex-direction:column;align-items:center;gap:9px">
+        <input type="text" id="typeInput" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Antwort…">
+        <div class="feedback" id="feedback"></div>
+      </div>
+      <div id="mcBox" class="mc hidden"></div>
+    </div>
+
+    <div class="actions" id="revealActions">
+      <button class="btn ghost" id="flipBtn">Umdrehen</button>
+    </div>
+    <div class="actions hidden" id="gradeActions">
+      <button class="btn bad" id="againBtn">Nochmal</button>
+      <button class="btn good" id="goodBtn">Gewusst</button>
+    </div>
+    <div class="actions hidden" id="examActions">
+      <button class="btn" id="examNext">Weiter</button>
+    </div>
+    <div style="display:flex; justify-content:center; gap:14px">
+      <button class="undo" id="undoBtn">Rückgängig</button>
+      <button class="undo" id="quitBtn">Beenden</button>
+    </div>
+    <div class="kbd" id="kbdHint">Leertaste = umdrehen · 1 / 2 = nochmal / gewusst</div>
+  </section>
+
+  <!-- ================= DONE ================= -->
+  <section id="done" class="hidden">
+    <div class="panel" style="text-align:center">
+      <div class="big" id="doneScore">–</div>
+      <div class="sub" id="doneCaption">Karten in dieser Runde</div>
+      <div class="row" style="margin-top:16px">
+        <div class="stat"><b id="doneRight">0</b><small>gewusst</small></div>
+        <div class="stat"><b id="doneWrong">0</b><small>nochmal</small></div>
+        <div class="stat"><b id="doneAcc">–</b><small>Quote</small></div>
+      </div>
+    </div>
+    <div class="panel hidden" id="doneMistakes">
+      <div class="label" style="margin-top:0">Diese kamen nicht</div>
+      <div id="mistakeList"></div>
+    </div>
+    <button class="btn" id="againRound">Weiter lernen</button>
+    <div class="actions">
+      <button class="btn ghost small" id="retryMistakes">Nur die Fehler</button>
+      <button class="btn ghost small" id="toLobby">Zurück</button>
+    </div>
+  </section>
+
+  <!-- ================= STATS ================= -->
+  <section id="stats" class="hidden">
+    <div class="panel">
+      <div class="label" style="margin-top:0">Überblick</div>
+      <div class="ov">
+        <div class="donut">
+          <svg width="132" height="132" viewBox="0 0 132 132">
+            <circle cx="66" cy="66" r="52" fill="none" stroke="#1b202a" stroke-width="13"/>
+            <circle id="arcKnown" cx="66" cy="66" r="52" fill="none" stroke="#6ee7a8" stroke-width="13"
+                    stroke-linecap="round" stroke-dasharray="0 327"/>
+            <circle id="arcLearning" cx="66" cy="66" r="52" fill="none" stroke="#7fb6f5" stroke-width="13"
+                    stroke-linecap="round" stroke-dasharray="0 327"/>
+          </svg>
+          <div class="c"><b id="ovPct">–</b><small>sicher</small></div>
+        </div>
+        <div class="legend">
+          <div class="li"><i style="background:#6ee7a8"></i> sicher <b id="ovKnown">–</b></div>
+          <div class="li"><i style="background:#7fb6f5"></i> am Lernen <b id="ovLearning">–</b></div>
+          <div class="li"><i style="background:#3b4452"></i> neu <b id="ovNew">–</b></div>
+          <div class="li" style="color:var(--muted);font-size:12px">
+            <i style="background:var(--warn)"></i> Serie <b id="ovStreak">0</b></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="label" style="margin-top:0">Aktivität · 14 Tage</div>
+      <div class="act" id="actChart"></div>
+      <div class="cap"><span id="actTotal">–</span><span id="actBest">–</span></div>
+    </div>
+
+    <div class="panel">
+      <div class="label" style="margin-top:0">Genauigkeit im Verlauf</div>
+      <div class="accwrap" id="accChart"></div>
+      <div class="cap"><span id="accAvg">–</span><span id="accLast">–</span></div>
+    </div>
+
+    <div class="panel">
+      <div class="label" style="margin-top:0">Nach Lektion</div>
+      <div id="lessonBars"></div>
+      <div class="subhead">Nach Wortart</div>
+      <div id="typeBars"></div>
+    </div>
+
+    <div class="panel">
+      <div class="label" style="margin-top:0">Markiert</div>
+      <div id="markedList"></div>
+      <button class="btn ghost small" id="markedStudy" style="margin-top:10px">Nur markierte lernen</button>
+    </div>
+
+    <div class="panel">
+      <div class="label" style="margin-top:0">Wackelkandidaten</div>
+      <table><thead><tr><th>Wort</th><th>Deutsch</th><th style="text-align:right">Fehler</th></tr></thead>
+        <tbody id="weakBody"></tbody></table>
+    </div>
+
+    <div class="panel">
+      <div class="label" style="margin-top:0">Alle Wörter</div>
+      <div class="scroll"><table>
+        <thead><tr><th>Latein</th><th>Deutsch</th><th style="text-align:right">Box</th></tr></thead>
+        <tbody id="allBody"></tbody></table></div>
+    </div>
+
+    <div class="actions">
+      <button class="btn ghost small" id="exportBtn">Export</button>
+      <button class="btn ghost small" id="importBtn">Import</button>
+      <button class="btn ghost small" id="resetBtn">Zurücksetzen</button>
+    </div>
+    <input type="file" id="importFile" accept="application/json" class="hidden">
+  </section>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const STORE = "latin-vokabeln-v2";
+const BOX_DAYS = [0, 1, 2, 5, 10, 21];
+const MC_OPTIONS = 4;
+const EXAM_SIZE = 20;
+
+let VOCAB = [], LESSONS = [], state = {}, cfg = {
+  lessons: [], types: [], mode: "typing", dir: "la-de", size: 20,
+  audio: false, goal: 20
+};
+let session = null, undoStack = [];
+
+const el = id => document.getElementById(id);
+const today = () => new Date().toISOString().slice(0, 10);
+
+/* ================= persistence ================= */
+function freshState(){ return {cards:{}, days:{}}; }
+
+function load(){
+  try{
+    const raw = JSON.parse(localStorage.getItem(STORE) || "null");
+    if(raw && raw.cards) return raw;
+    // migrate the v1 flat format
+    const old = JSON.parse(localStorage.getItem("latin-vokabeln-v1") || "null");
+    if(old && typeof old === "object"){
+      const s = freshState();
+      Object.entries(old).forEach(([k,v]) => { if(v && v.box !== undefined) s.cards[k] = v; });
+      return s;
+    }
+  }catch(e){}
+  return freshState();
+}
+function save(){
+  localStorage.setItem(STORE, JSON.stringify(state));
+  localStorage.setItem(STORE + ":cfg", JSON.stringify(cfg));
+}
+function loadCfg(){
+  try{
+    const c = JSON.parse(localStorage.getItem(STORE + ":cfg") || "null");
+    if(c) cfg = Object.assign(cfg, c);
+  }catch(e){}
+}
+function card(id){
+  if(!state.cards[id]) state.cards[id] = {box:0, due:0, right:0, wrong:0, seen:0};
+  return state.cards[id];
+}
+function logAnswer(ok){
+  const d = today();
+  if(!state.days[d]) state.days[d] = {r:0, w:0};
+  ok ? state.days[d].r++ : state.days[d].w++;
+}
+function todayCount(){
+  const d = state.days[today()];
+  return d ? d.r + d.w : 0;
+}
+
+/* ================= text helpers ================= */
+function norm(s){
+  return (s||"").toLowerCase()
+    .replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue").replace(/ß/g,"ss")
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[·.,;:!?"'’`´()\[\]{}\/–—-]/g," ")
+    .replace(/\s+/g," ").trim();
+}
+function stripArticle(s){ return norm(s).replace(/^(der|die|das|den|dem)\s+/,""); }
+function latinKey(s){ return norm(s).replace(/\s+/g,""); }
+
+function germanMatches(input, word){
+  const given = norm(input);
+  if(!given) return false;
+  const g = stripArticle(given);
+  return word.german.some(g0 => {
+    const full = norm(g0), bare = stripArticle(g0);
+    if(given === full || g === bare) return true;
+    const words = bare.split(" ").filter(w => w.length >= 4);
+    return g.split(" ").length === 1 && words.includes(g);
+  });
+}
+function latinMatches(input, word){
+  const typed = latinKey(input);
+  if(!typed) return false;
+  const target = latinKey(word.latin.split("/")[0]);
+  return typed === target || (target.startsWith(typed) && typed.length >= 4);
+}
+function answerFor(word, dir){
+  return dir === "de-la" ? word.latin : word.german.join(", ");
+}
+function promptFor(word, dir){
+  return dir === "de-la" ? word.german[0] : word.latin;
+}
+
+/* ================= audio ================= */
+function speak(text){
+  if(!cfg.audio || !window.speechSynthesis) return;
+  try{
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text.replace(/[?!]/g,""));
+    u.lang = "it-IT"; u.rate = 0.9;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+
+/* ================= pool / scheduling ================= */
+function pool(){
+  return VOCAB.filter(w =>
+    (!cfg.lessons.length || cfg.lessons.includes(w.lesson)) &&
+    (!cfg.types.length   || cfg.types.includes(w.type)));
+}
+function isDue(c){ return c.due <= Date.now(); }
+function dueList(){
+  return pool().filter(w => { const c = card(w.id); return c.seen > 0 && isDue(c); })
+               .sort((a,b) => card(a.id).due - card(b.id).due);
+}
+function newList(){ return pool().filter(w => !card(w.id).seen); }
+// marked words ignore the lesson/type filters — if you flagged it, you want to see it
+function markedList(){ return VOCAB.filter(w => state.cards[w.id] && state.cards[w.id].marked); }
+function isMarked(w){ return !!(state.cards[w.id] && state.cards[w.id].marked); }
+function toggleMark(w){
+  const c = card(w.id);
+  c.marked = !c.marked;
+  save();
+  updateStar();
+  renderLobby();
+  return c.marked;
+}
+function updateStar(){
+  const b = el("starBtn");
+  if(!session || !session.current){ b.classList.remove("on"); b.textContent = "☆"; return; }
+  const on = isMarked(session.current);
+  b.classList.toggle("on", on);
+  b.textContent = on ? "★" : "☆";
+}
+function weakList(){
+  return pool().filter(w => { const c = state.cards[w.id]; return c && c.seen && (c.box <= 1 || c.wrong > 0); })
+               .sort((a,b) => {
+                 const ca = state.cards[a.id], cb = state.cards[b.id];
+                 return (cb.wrong - ca.wrong) || (ca.box - cb.box);
+               });
+}
+function shuffle(a){
+  const out = a.slice();
+  for(let i = out.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+
+/* ================= chips ================= */
+function makeChip(label, on, handler){
+  const d = document.createElement("div");
+  d.className = "chip" + (on ? " on" : "");
+  d.textContent = label;
+  d.onclick = () => handler(d);
+  return d;
+}
+function renderChips(){
+  el("lessonChips").innerHTML = "";
+  LESSONS.forEach(l => {
+    const on = cfg.lessons.includes(l.id);
+    el("lessonChips").appendChild(makeChip(l.label, on, () => {
+      const i = cfg.lessons.indexOf(l.id);
+      if(i >= 0){
+        if(cfg.lessons.length === 1) return toast("Mindestens eine Lektion");
+        cfg.lessons.splice(i,1);
+      } else cfg.lessons.push(l.id);
+      save(); renderChips(); renderLobby();
+    }));
+  });
+
+  el("typeChips").innerHTML = "";
+  [...new Set(VOCAB.map(w => w.type))].forEach(t => {
+    const on = cfg.types.includes(t);
+    el("typeChips").appendChild(makeChip(t, on, () => {
+      const i = cfg.types.indexOf(t);
+      i >= 0 ? cfg.types.splice(i,1) : cfg.types.push(t);
+      save(); renderChips(); renderLobby();
+    }));
+  });
+
+  el("modeChips").innerHTML = "";
+  [["typing","Tippen"],["cards","Karten"],["mc","Multiple Choice"]].forEach(([v,label]) => {
+    el("modeChips").appendChild(makeChip(label, cfg.mode === v, () => {
+      cfg.mode = v; save(); renderChips(); renderLobby();
+    }));
+  });
+
+  el("dirChips").innerHTML = "";
+  [["la-de","Latein → Deutsch"],["de-la","Deutsch → Latein"]].forEach(([v,label]) => {
+    el("dirChips").appendChild(makeChip(label, cfg.dir === v, () => {
+      cfg.dir = v; save(); renderChips(); renderLobby();
+    }));
+  });
+
+  el("optChips").innerHTML = "";
+  el("optChips").appendChild(makeChip("Aussprache", cfg.audio, () => {
+    cfg.audio = !cfg.audio; save(); renderChips();
+    if(cfg.audio) speak("salve");
+  }));
+
+  el("goalChips").innerHTML = "";
+  [10, 20, 40, 60].forEach(g => {
+    el("goalChips").appendChild(makeChip(String(g), cfg.goal === g, () => {
+      cfg.goal = g; save(); renderChips(); renderLobby();
+    }));
+  });
+}
+
+/* ================= lobby ================= */
+function renderLobby(){
+  const due = dueList().length, fresh = newList().length;
+  const planned = Math.min(cfg.size, due + fresh);
+  el("dueCount").textContent = planned;
+  el("dueLabel").textContent = due
+    ? `${due} fällig · ${fresh} neu`
+    : (fresh ? `${fresh} neue Wörter bereit` : "alles wiederholt — Respekt");
+
+  const done = todayCount();
+  const frac = Math.min(1, done / cfg.goal);
+  el("goalArc").setAttribute("stroke-dashoffset", String(169.6 * (1 - frac)));
+  el("goalArc").setAttribute("stroke", done >= cfg.goal ? "#6ee7a8" : "#7fb6f5");
+  el("stToday").textContent = done + " / " + cfg.goal;
+
+  const all = pool();
+  el("stKnown").textContent = all.filter(w => (state.cards[w.id]?.box ?? 0) >= 3).length;
+  el("stTotal").textContent = all.length;
+  let r = 0, w2 = 0;
+  all.forEach(x => { const c = state.cards[x.id]; if(c){ r += c.right; w2 += c.wrong; } });
+  el("stAcc").textContent = (r + w2) ? Math.round(100 * r / (r + w2)) + "%" : "–";
+  el("streakNum").textContent = streak();
+
+  el("startBtn").textContent = planned ? "Lernen starten" : "Alles wiederholen";
+  el("focusBtn").disabled = weakList().length === 0;
+  const marked = markedList().length;
+  el("markedBtn").textContent = `Markiert (${marked})`;
+  el("markedBtn").disabled = marked === 0;
+}
+
+function streak(){
+  let n = 0;
+  const d = new Date();
+  for(;;){
+    const key = d.toISOString().slice(0,10);
+    const day = state.days[key];
+    if(day && (day.r + day.w) > 0){ n++; d.setDate(d.getDate() - 1); }
+    else break;
+    if(n > 999) break;
+  }
+  // a day not yet started must not break a running streak
+  if(n === 0){
+    const y = new Date(); y.setDate(y.getDate() - 1);
+    const day = state.days[y.toISOString().slice(0,10)];
+    if(day && (day.r + day.w) > 0) return 1;
+  }
+  return n;
+}
+
+/* ================= session ================= */
+function startSession(kind){
+  let queue = [], exam = false;
+
+  if(kind === "focus"){
+    queue = weakList().slice(0, cfg.size);
+    if(!queue.length) return toast("Keine Wackelkandidaten — stark");
+  } else if(kind === "marked"){
+    queue = markedList();
+    if(!queue.length) return toast("Nichts markiert");
+  } else if(kind === "exam"){
+    queue = shuffle(pool()).slice(0, EXAM_SIZE);
+    exam = true;
+  } else {
+    const due = dueList();
+    queue = due.slice(0, cfg.size);
+    if(queue.length < cfg.size) queue = queue.concat(newList().slice(0, cfg.size - due.length));
+    if(!queue.length) queue = shuffle(pool()).slice(0, cfg.size);
+  }
+
+  session = {
+    queue, index: 0, right: 0, wrong: 0, revealed: false, answered: false,
+    current: null, repeats: {}, exam, mistakes: [], answers: []
+  };
+  undoStack = [];
+  show("session");
+  nextCard();
+}
+
+function nextCard(){
+  session.revealed = false;
+  session.answered = false;
+  if(session.index >= session.queue.length) return finish();
+
+  const w = session.queue[session.index];
+  session.current = w;
+  const c = card(w.id);
+  if(!session.exam) c.seen = (c.seen || 0) + 1;
+
+  const deToLa = cfg.dir === "de-la";
+  el("cardTag").textContent = (session.exam ? "Prüfung" : (deToLa ? "Deutsch → Latein" : "Latein → Deutsch"));
+  el("prompt").textContent = promptFor(w, cfg.dir);
+  el("prompt").className = "prompt" + (deToLa ? " de" : "");
+  el("answer").textContent = answerFor(w, cfg.dir);
+  el("answer").className = "answer" + (deToLa ? "" : " de");
+  el("hint").textContent = deToLa ? (w.form || "") : (w.hint || "");
+
+  el("answerBox").classList.add("hidden");
+  el("answerBox").classList.remove("reveal");
+  el("gradeActions").classList.add("hidden");
+  el("examActions").classList.add("hidden");
+  const needFlip = !session.exam && cfg.mode === "cards";
+  el("revealActions").classList.toggle("hidden", !needFlip);
+  el("bar").style.width = (100 * session.index / session.queue.length) + "%";
+  el("feedback").textContent = "";
+
+  const typing = !session.exam && cfg.mode === "typing";
+  const mc = !session.exam && cfg.mode === "mc";
+  el("inputBox").classList.toggle("hidden", !typing && !session.exam);
+  el("mcBox").classList.toggle("hidden", !mc);
+
+  if(session.exam){
+    el("typeInput").value = "";
+    el("typeInput").disabled = false;
+    el("typeInput").placeholder = deToLa ? "Latein…" : "Deutsch…";
+    el("examActions").classList.remove("hidden");
+    setTimeout(() => el("typeInput").focus(), 60);
+  } else if(typing){
+    el("typeInput").value = "";
+    el("typeInput").disabled = false;
+    el("typeInput").placeholder = "Antwort…";
+    setTimeout(() => el("typeInput").focus(), 60);
+  } else if(mc){
+    buildChoices(w);
+  }
+
+  updateStar();
+  if(cfg.audio && !deToLa) speak(w.latin);
+  el("kbdHint").textContent = session.exam
+    ? "Enter = weiter"
+    : (cfg.mode === "cards" ? "Leertaste = umdrehen · 1 / 2 = nochmal / gewusst · m = merken"
+                            : "Tippen und Enter");
+}
+
+function buildChoices(w){
+  const deToLa = cfg.dir === "de-la";
+  const correct = deToLa ? w.latin : w.german[0];
+  const others = shuffle(VOCAB.filter(x =>
+      x.id !== w.id && x.type === w.type &&
+      (!cfg.lessons.length || cfg.lessons.includes(x.lesson))))
+    .slice(0, MC_OPTIONS - 1)
+    .map(x => deToLa ? x.latin : x.german[0]);
+
+  const options = shuffle([correct, ...others]);
+  el("mcBox").innerHTML = "";
+  options.forEach(opt => {
+    const b = document.createElement("button");
+    b.textContent = opt;
+    b.onclick = () => answerMC(b, opt, correct);
+    el("mcBox").appendChild(b);
+  });
+}
+
+function answerMC(button, chosen, correct){
+  const ok = norm(chosen) === norm(correct);
+  [...el("mcBox").children].forEach(b => {
+    b.disabled = true;
+    if(norm(b.textContent) === norm(correct)) b.classList.add("right");
+  });
+  if(!ok) button.classList.add("wrong");
+  el("feedback").className = "feedback " + (ok ? "ok" : "no");
+  el("feedback").textContent = ok ? "richtig" : "richtig wäre: " + correct;
+  session.revealed = true;
+  applyGrade(ok, true);
+}
+
+function submitTyped(){
+  if(session.revealed || !session.current) return;
+  const w = session.current;
+  if(session.exam) return submitExam();
+
+  const typingGerman = cfg.dir === "la-de";
+  const ok = typingGerman ? germanMatches(el("typeInput").value, w) : latinMatches(el("typeInput").value, w);
+
+  session.revealed = true;
+  el("answerBox").classList.remove("hidden");
+  el("answerBox").classList.add("reveal");
+  el("typeInput").disabled = true;
+  el("feedback").className = "feedback " + (ok ? "ok" : "no");
+  el("feedback").textContent = ok ? "richtig"
+    : "richtig wäre: " + (typingGerman ? w.german.join(", ") : w.latin);
+  applyGrade(ok, true);
+}
+
+function submitExam(){
+  const w = session.current;
+  const typingGerman = cfg.dir === "la-de";
+  const ok = typingGerman ? germanMatches(el("typeInput").value, w) : latinMatches(el("typeInput").value, w);
+  session.answers.push({id: w.id, ok});
+  if(!ok) session.mistakes.push(w);
+  if(ok) session.right++; else session.wrong++;
+  session.index++;
+  nextCard();
+}
+
+function reveal(){
+  if(session.revealed) return;
+  session.revealed = true;
+  el("answerBox").classList.remove("hidden");
+  el("answerBox").classList.add("reveal");
+  el("revealActions").classList.add("hidden");
+  el("gradeActions").classList.remove("hidden");
+  if(cfg.audio && cfg.dir === "la-de") speak(session.current.latin);
+}
+
+function applyGrade(ok, auto){
+  const w = session.current;
+  const c = card(w.id);
+  undoStack.push({id: w.id, before: JSON.parse(JSON.stringify(c))});
+
+  if(ok){
+    c.box = Math.min(BOX_DAYS.length - 1, (c.box || 0) + 1);
+    c.right++;
+    session.right++;
+  } else {
+    c.box = 0;
+    c.wrong++;
+    session.wrong++;
+    const asked = session.repeats[w.id] || 0;
+    if(asked < 2){
+      session.repeats[w.id] = asked + 1;
+      const at = Math.min(session.index + 4, session.queue.length);
+      session.queue.splice(at, 0, w);
+    }
+  }
+  c.due = Date.now() + BOX_DAYS[c.box] * 86400000;
+  logAnswer(ok);
+  save();
+
+  const advance = () => { session.index++; nextCard(); };
+  if(auto) setTimeout(advance, ok ? 720 : 1600);
+  else advance();
+}
+
+function undo(){
+  const last = undoStack.pop();
+  if(!last) return toast("Nichts rückgängig zu machen");
+  state.cards[last.id] = last.before;
+  session.index = Math.max(0, session.index - 1);
+  session.right = Math.max(0, session.right - 1);
+  save();
+  nextCard();
+  toast("Rückgängig");
+}
+
+/* ================= done ================= */
+function finish(){
+  el("bar").style.width = "100%";
+  const total = session.right + session.wrong;
+
+  if(session.exam){
+    session.answers.forEach(a => {
+      const c = card(a.id);
+      c.seen = (c.seen || 0) + 1;
+      if(a.ok){ c.box = Math.min(BOX_DAYS.length - 1, (c.box || 0) + 1); c.right++; }
+      else { c.box = 0; c.wrong++; }
+      c.due = Date.now() + BOX_DAYS[c.box] * 86400000;
+      logAnswer(a.ok);
+    });
+    save();
+  }
+
+  el("doneScore").textContent = total;
+  el("doneCaption").textContent = session.exam ? "Prüfung abgeschlossen" : "Karten in dieser Runde";
+  el("doneRight").textContent = session.right;
+  el("doneWrong").textContent = session.wrong;
+  el("doneAcc").textContent = total ? Math.round(100 * session.right / total) + "%" : "–";
+
+  const candidates = session.mistakes.length ? session.mistakes : [];
+  const uniq = [];
+  const seenIds = new Set();
+  candidates.forEach(w => { if(!seenIds.has(w.id)){ seenIds.add(w.id); uniq.push(w); } });
+
+  el("doneMistakes").classList.toggle("hidden", !uniq.length);
+  el("retryMistakes").disabled = !uniq.length;
+  el("mistakeList").innerHTML = uniq.map(w =>
+    `<div style="display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-top:1px solid var(--line)">
+       <span>${esc(w.latin)}</span>
+       <span style="color:var(--muted);text-align:right">${esc(w.german.join(", "))}</span>
+     </div>`).join("");
+
+  session.mistakeIds = uniq.map(w => w.id);
+  show("done");
+  renderLobby();
+}
+
+/* ================= stats view ================= */
+function renderStats(){
+  const all = VOCAB;
+  const known = all.filter(w => (state.cards[w.id]?.box ?? 0) >= 3).length;
+  const learning = all.filter(w => { const c = state.cards[w.id]; return c && c.seen && c.box < 3; }).length;
+  const fresh = all.length - known - learning;
+
+  /* ---- donut ---- */
+  const C = 2 * Math.PI * 52;
+  const kFrac = all.length ? known / all.length : 0;
+  const lFrac = all.length ? learning / all.length : 0;
+  el("arcKnown").setAttribute("stroke-dasharray", `${C * kFrac} ${C}`);
+  el("arcLearning").setAttribute("stroke-dasharray", `${C * lFrac} ${C}`);
+  el("arcLearning").setAttribute("stroke-dashoffset", String(-C * kFrac));
+  el("ovPct").textContent = Math.round(100 * kFrac) + "%";
+  el("ovKnown").textContent = known;
+  el("ovLearning").textContent = learning;
+  el("ovNew").textContent = fresh;
+  el("ovStreak").textContent = streak();
+
+  /* ---- last 14 days ---- */
+  const WD = ["So","Mo","Di","Mi","Do","Fr","Sa"];
+  const days = [];
+  for(let i = 13; i >= 0; i--){
+    const d = new Date(); d.setDate(d.getDate() - i);
+    const key = d.toISOString().slice(0,10);
+    const day = state.days[key] || {r:0, w:0};
+    days.push({key, label: WD[d.getDay()], r: day.r, w: day.w, n: day.r + day.w});
+  }
+
+  /* ---- activity bars ---- */
+  const max = Math.max(1, ...days.map(d => d.n));
+  const act = el("actChart");
+  act.innerHTML = "";
+  days.forEach(d => {
+    const col = document.createElement("div"); col.className = "col";
+    const grow = document.createElement("div"); grow.className = "grow";
+    const bar = document.createElement("div");
+    bar.className = "bar" + (d.n ? "" : " empty");
+    bar.style.height = d.n ? Math.max(3, Math.round(100 * d.n / max)) + "%" : "3%";
+    if(d.n){
+      const ok = document.createElement("i");
+      ok.className = "ok"; ok.style.height = (100 * d.r / d.n) + "%";
+      const bad = document.createElement("i");
+      bad.className = "bad"; bad.style.height = (100 * d.w / d.n) + "%";
+      bar.append(ok, bad);
+    }
+    bar.title = `${d.key}: ${d.r} richtig · ${d.w} falsch`;
+    const lab = document.createElement("span");
+    lab.className = "d"; lab.textContent = d.label;
+    grow.appendChild(bar);
+    col.append(grow, lab);
+    act.appendChild(col);
+  });
+
+  const total = days.reduce((a,d) => a + d.n, 0);
+  if(total === 0){
+    act.innerHTML = `<div style="color:var(--muted);font-size:12.5px;padding:26px 0;text-align:center">
+      noch keine Antworten — starte eine Runde, dann füllt sich das Diagramm</div>`;
+  }
+  const best = days.reduce((a,d) => d.n > a.n ? d : a, days[0]);
+  el("actTotal").textContent = total ? `${total} Antworten in 14 Tagen` : "noch keine Aktivität";
+  el("actBest").textContent = best.n ? `bester Tag: ${best.n}` : "";
+
+  /* ---- accuracy line ---- */
+  const active = days.map((d, i) => ({i, d})).filter(x => x.d.n > 0);
+  const box = el("accChart");
+  if(active.length < 2){
+    box.innerHTML = `<div style="color:var(--muted);font-size:12.5px;padding:14px 0">
+      noch zu wenig Daten — zwei Tage mit Antworten und der Verlauf erscheint</div>`;
+    el("accAvg").textContent = active.length
+      ? `Trefferquote: ${Math.round(100 * active[0].d.r / active[0].d.n)}%` : "";
+    el("accLast").textContent = "";
+  } else {
+    const W = 300, H = 80, pad = 4;
+    const x = i => pad + (i / 13) * (W - 2 * pad);
+    const y = acc => H - pad - acc * (H - 2 * pad);
+    const pts = active.map(a => [x(a.i), y(a.d.r / a.d.n)]);
+    const line = pts.map(p => p.map(v => v.toFixed(1)).join(",")).join(" ");
+    const area = `${pad},${H} ${line} ${(W - pad).toFixed(1)},${H}`;
+    box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
+      <defs><linearGradient id="accG" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#6ee7a8" stop-opacity=".16"/>
+        <stop offset="100%" stop-color="#6ee7a8" stop-opacity="0"/>
+      </linearGradient></defs>
+      <line x1="0" y1="${(H/2).toFixed(1)}" x2="${W}" y2="${(H/2).toFixed(1)}"
+            stroke="#252b36" stroke-width="1" vector-effect="non-scaling-stroke"/>
+      <line x1="0" y1="${pad}" x2="${W}" y2="${pad}"
+            stroke="#252b36" stroke-width="1" vector-effect="non-scaling-stroke"/>
+      <polygon points="${area}" fill="url(#accG)"/>
+      <polyline points="${line}" fill="none" stroke="#6ee7a8" stroke-width="2"
+                stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+      ${pts.map(p => `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="2.6"
+          fill="#0d0f13" stroke="#6ee7a8" stroke-width="1.8"/>`).join("")}
+    </svg>`;
+    const sumR = active.reduce((a,x) => a + x.d.r, 0);
+    const sumN = active.reduce((a,x) => a + x.d.n, 0);
+    const last = active[active.length - 1].d;
+    el("accAvg").textContent = `Ø ${Math.round(100 * sumR / sumN)}% an ${active.length} Tagen`;
+    el("accLast").textContent = `zuletzt ${Math.round(100 * last.r / last.n)}%`;
+  }
+
+  /* ---- stacked bars ---- */
+  const stackRows = (container, groups) => {
+    container.innerHTML = groups.map(([label, words]) => {
+      const k = words.filter(w => (state.cards[w.id]?.box ?? 0) >= 3).length;
+      const l = words.filter(w => { const c = state.cards[w.id]; return c && c.seen && c.box < 3; }).length;
+      const n = words.length - k - l;
+      const tot = words.length || 1;
+      const pct = Math.round(100 * k / tot);
+      return `<div class="stack"><span class="nm" title="${esc(label)}">${esc(label)}</span>
+        <span class="track">
+          <i class="k" style="width:${100 * k / tot}%"></i>
+          <i class="l" style="width:${100 * l / tot}%"></i>
+          <i class="n" style="width:${100 * n / tot}%"></i>
+        </span><span class="pct">${pct}%</span></div>`;
+    }).join("");
+  };
+
+  stackRows(el("lessonBars"), LESSONS.map(l => [l.label, all.filter(w => w.lesson === l.id)]));
+  stackRows(el("typeBars"), [...new Set(all.map(w => w.type))]
+    .map(t => [t, all.filter(w => w.type === t)]));
+
+  /* ---- marked ---- */
+  const marked = markedList();
+  el("markedList").innerHTML = marked.length ? marked.map(w =>
+    `<div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-top:1px solid var(--line)">
+       <span style="flex:1">${esc(w.latin)}</span>
+       <span style="color:var(--muted);font-size:12px;text-align:right">${esc(w.german.join(", "))}</span>
+       <button class="undo" data-unmark="${esc(w.id)}">×</button>
+     </div>`).join("")
+    : `<div style="color:var(--muted);font-size:13px">noch nichts markiert — auf der Karte ☆ antippen</div>`;
+  el("markedStudy").disabled = !marked.length;
+  [...el("markedList").querySelectorAll("[data-unmark]")].forEach(b => {
+    b.onclick = () => {
+      const w = VOCAB.find(x => x.id === b.dataset.unmark);
+      state.cards[w.id].marked = false;
+      save(); renderStats(); renderLobby();
+    };
+  });
+
+  /* ---- weak + all ---- */
+  const weak = all.filter(w => state.cards[w.id]?.wrong)
+                  .sort((a,b) => state.cards[b.id].wrong - state.cards[a.id].wrong)
+                  .slice(0, 12);
+  el("weakBody").innerHTML = weak.length ? weak.map(w =>
+    `<tr><td>${esc(w.latin)}</td><td style="color:var(--muted)">${esc(w.german[0])}</td>
+     <td class="num">${state.cards[w.id].wrong}×</td></tr>`).join("")
+    : `<tr><td colspan="3" style="color:var(--muted)">noch keine Fehler — gut so</td></tr>`;
+
+  el("allBody").innerHTML = all.map(w => {
+    const c = state.cards[w.id];
+    const bx = c && c.seen ? c.box : "–";
+    return `<tr><td>${esc(w.latin)}</td><td style="color:var(--muted)">${esc(w.german[0])}</td>
+            <td class="num">${bx}</td></tr>`;
+  }).join("");
+}
+
+function esc(s){ return (s||"").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+/* ================= ui ================= */
+function show(view){
+  ["lobby","session","done","stats"].forEach(v => el(v).classList.toggle("hidden", v !== view));
+  el("navLearn").classList.toggle("on", view !== "stats");
+  el("navStats").classList.toggle("on", view === "stats");
+}
+let toastTimer;
+function toast(msg){
+  const t = el("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 1800);
+}
+
+/* ================= wiring ================= */
+el("startBtn").onclick = () => startSession("normal");
+el("focusBtn").onclick = () => startSession("focus");
+el("examBtn").onclick = () => startSession("exam");
+el("markedBtn").onclick = () => startSession("marked");
+el("markedStudy").onclick = () => startSession("marked");
+el("starBtn").onclick = () => { if(session && session.current) toggleMark(session.current); };
+el("againRound").onclick = () => startSession("normal");
+el("toLobby").onclick = () => { renderLobby(); show("lobby"); };
+el("retryMistakes").onclick = () => {
+  const ids = session.mistakeIds || [];
+  const queue = ids.map(id => VOCAB.find(w => w.id === id)).filter(Boolean);
+  if(!queue.length) return;
+  session = { queue, index:0, right:0, wrong:0, revealed:false, answered:false,
+              current:null, repeats:{}, exam:false, mistakes:[], answers:[] };
+  undoStack = [];
+  show("session"); nextCard();
+};
+el("navLearn").onclick = () => { renderLobby(); show("lobby"); };
+el("navStats").onclick = () => { renderStats(); show("stats"); };
+el("flipBtn").onclick = reveal;
+el("goodBtn").onclick = () => { if(session.revealed && !session.answered){ session.answered = true; applyGrade(true, false); } };
+el("againBtn").onclick = () => { if(session.revealed && !session.answered){ session.answered = true; applyGrade(false, false); } };
+el("examNext").onclick = () => submitExam();
+el("undoBtn").onclick = undo;
+el("quitBtn").onclick = () => { if(confirm("Runde beenden?")) finish(); };
+
+el("exportBtn").onclick = () => {
+  const blob = new Blob([JSON.stringify({v:2, cards: state.cards, days: state.days, cfg}, null, 2)],
+                        {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "vokabeln-fortschritt.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast("Export erstellt");
+};
+el("importBtn").onclick = () => el("importFile").click();
+el("importFile").onchange = ev => {
+  const f = ev.target.files[0];
+  if(!f) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try{
+      const d = JSON.parse(reader.result);
+      if(d.cards){ state.cards = d.cards; state.days = d.days || {}; }
+      if(d.cfg) cfg = Object.assign(cfg, d.cfg);
+      save(); renderChips(); renderLobby(); renderStats();
+      toast("Import OK");
+    }catch(e){ toast("Datei nicht lesbar"); }
+  };
+  reader.readAsText(f);
+};
+el("resetBtn").onclick = () => {
+  if(confirm("Fortschritt für alle Wörter löschen?")){
+    state = freshState(); save(); renderLobby(); renderStats();
+  }
+};
+
+el("typeInput").addEventListener("keydown", e => {
+  if(e.key === "Enter"){ e.preventDefault(); submitTyped(); }
+});
+
+document.addEventListener("keydown", e => {
+  if(el("session").classList.contains("hidden")) return;
+  if(document.activeElement === el("typeInput")) return;
+  if((e.key === "m" || e.key === "M") && session && session.current){
+    e.preventDefault(); toggleMark(session.current);
+  }
+  if(e.key === " " && cfg.mode === "cards" && !session.exam){ e.preventDefault(); reveal(); }
+  if(e.key === "1" && session.revealed && !session.exam){ e.preventDefault(); session.answered = true; applyGrade(false, false); }
+  if(e.key === "2" && session.revealed && !session.exam){ e.preventDefault(); session.answered = true; applyGrade(true, false); }
+});
+
+/* ================= boot ================= */
+async function boot(){
+  const data = await (await fetch("data/vocab.json")).json();
+  VOCAB = data.words; LESSONS = data.lessons;
+  loadCfg();
+  // drop lesson ids that no longer exist (L4 was merged into L3)
+  const validLessons = new Set(LESSONS.map(l => l.id));
+  cfg.lessons = (cfg.lessons || []).filter(id => validLessons.has(id));
+  if(!cfg.lessons.length) cfg.lessons = LESSONS.map(l => l.id);
+  state = load();
+  renderChips(); renderLobby(); show("lobby");
+}
+boot();
+</script>
+</body>
+</html>
