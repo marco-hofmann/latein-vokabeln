@@ -80,6 +80,7 @@
 
   .ring{display:flex; align-items:center; gap:14px}
   .ring svg{flex:none}
+  .ringtrack{stroke:var(--panel-2)}
   .goal-num{font-size:13px; color:var(--muted); font-variant-numeric:tabular-nums}
 
   /* ---- session ---- */
@@ -190,6 +191,36 @@
   .lessonbar .pct{width:38px; text-align:right; font-variant-numeric:tabular-nums; color:var(--muted); font-size:12px}
   .scroll{max-height:340px; overflow:auto; -webkit-overflow-scrolling:touch}
   .hidden{display:none !important}
+  /* ---- light theme ---- */
+  html[data-theme="light"]{
+    --bg:#f4f6f9; --panel:#ffffff; --panel-2:#eceff5; --line:#dbe0e9;
+    --text:#12161c; --muted:#5d6779; --accent:#0f9d58; --accent-dim:#c9f0dc;
+    --bad:#d92d43; --warn:#b45309; --info:#2563eb;
+  }
+  html[data-theme="light"] .btn{color:#04150c}
+  html[data-theme="light"] .chip.on,
+  html[data-theme="light"] .icon-btn.on,
+  html[data-theme="light"] .subj.on{color:#06301c}
+  html[data-theme="light"] .star{color:#b9c0cc}
+  html[data-theme="light"] .mc button.right{background:rgba(15,157,88,.12); color:#0b5c36}
+  html[data-theme="light"] .mc button.wrong{background:rgba(217,45,67,.10); color:#8c1220}
+  html[data-theme="light"] .stack .track i.n{background:#cdd4df}
+  html[data-theme="light"] .act .bar.empty{background:#e3e8f0}
+  html[data-theme="light"] .prow .av{color:#06301c}
+  html[data-theme="light"] .cooprow:hover{background:#f7f9fc}
+
+  .subjectbar{display:flex; gap:7px; flex-wrap:wrap; align-items:center}
+  .subj{border:1px solid var(--line); background:var(--panel-2); color:var(--muted);
+    border-radius:11px; padding:8px 13px; font-size:13px; cursor:pointer;
+    display:flex; align-items:center; gap:7px; user-select:none}
+  .subj i{width:8px; height:8px; border-radius:50%; display:block}
+  .subj.on{background:var(--panel); border-color:var(--accent); color:var(--text)}
+  textarea{
+    width:100%; background:var(--panel-2); border:1px solid var(--line); color:var(--text);
+    border-radius:10px; padding:11px 12px; font-size:14px; font-family:ui-monospace,Menlo,monospace;
+    resize:vertical; outline:none;
+  }
+  textarea:focus{border-color:var(--accent-dim)}
   .plist{display:flex; flex-direction:column; gap:8px}
   .prow{display:flex; align-items:center; gap:12px; padding:12px 14px;
     background:var(--panel-2); border:1px solid var(--line); border-radius:12px;
@@ -246,6 +277,7 @@
   <header>
     <div class="brand">Vokabeln pauken <span>· Latein</span></div>
     <div class="top-right">
+      <button class="icon-btn" id="themeBtn" title="Hell / dunkel">☾</button>
       <button class="icon-btn" id="navLearn">Lernen</button>
       <button class="icon-btn" id="navStats">Statistik</button>
     </div>
@@ -253,10 +285,12 @@
 
   <!-- ================= LOBBY ================= -->
   <section id="lobby">
+    <div class="subjectbar" id="subjectBar"></div>
+
     <div class="panel">
       <div class="ring">
         <svg width="62" height="62" viewBox="0 0 62 62">
-          <circle cx="31" cy="31" r="27" fill="none" stroke="#252b36" stroke-width="5"/>
+          <circle cx="31" cy="31" r="27" fill="none" class="ringtrack" stroke-width="5"/>
           <circle id="goalArc" cx="31" cy="31" r="27" fill="none" stroke="#7fb6f5" stroke-width="5"
                   stroke-linecap="round" stroke-dasharray="169.6" stroke-dashoffset="169.6"
                   transform="rotate(-90 31 31)"/>
@@ -366,7 +400,7 @@
       <div class="ov">
         <div class="donut">
           <svg width="132" height="132" viewBox="0 0 132 132">
-            <circle cx="66" cy="66" r="52" fill="none" stroke="#1b202a" stroke-width="13"/>
+            <circle cx="66" cy="66" r="52" fill="none" class="ringtrack" stroke-width="13"/>
             <circle id="arcKnown" cx="66" cy="66" r="52" fill="none" stroke="#6ee7a8" stroke-width="13"
                     stroke-linecap="round" stroke-dasharray="0 327"/>
             <circle id="arcLearning" cx="66" cy="66" r="52" fill="none" stroke="#7fb6f5" stroke-width="13"
@@ -422,6 +456,18 @@
         <tbody id="allBody"></tbody></table></div>
     </div>
 
+    <div class="panel">
+      <div class="label" style="margin-top:0">Eigene Wörter</div>
+      <div class="cap" style="margin-bottom:8px">Eine Zeile pro Wort: <code>terme = Übersetzung, Übersetzung</code></div>
+      <textarea id="addWords" rows="4" spellcheck="false"
+        placeholder="bonjour = hallo, guten Tag&#10;au revoir = auf Wiedersehen"></textarea>
+      <div class="pnew" style="margin-top:8px">
+        <input type="text" id="addLesson" placeholder="Lektion (optional)" maxlength="14">
+        <button class="btn small" id="addWordsBtn" style="width:auto;padding:0 16px">Hinzufügen</button>
+      </div>
+      <div class="cap" id="customInfo" style="margin-top:10px"></div>
+    </div>
+
     <div class="actions">
       <button class="btn ghost small" id="exportBtn">Export</button>
       <button class="btn ghost small" id="importBtn">Import</button>
@@ -453,48 +499,56 @@ function freshState(){ return {cards:{}, days:{}}; }
 /* ---------- storage ----------
    No accounts and no picker: one learner per browser, remembered automatically the
    same way a cookie would. Each device keeps its own progress; nothing is sent anywhere. */
-const STATE_KEY = "latin-vokabeln:me:state";
-const CFG_KEY = "latin-vokabeln:me:cfg";
+const SUBJ_KEY = "latin-vokabeln:subject";
+const THEME_KEY = "latin-vokabeln:theme";
+let SUBJECTS = [], deck = null, subjectId = null;
+
+function STATE_KEY(){ return `latin-vokabeln:subj:${subjectId}:state`; }
+function CFG_KEY(){ return `latin-vokabeln:subj:${subjectId}:cfg`; }
+function CUSTOM_KEY(){ return `latin-vokabeln:subj:${subjectId}:custom`; }
 
 /* adopt data written by earlier versions (flat single-user store, or the profile build) */
 function migrateStorage(){
-  if(localStorage.getItem(STATE_KEY)) return;
+  if(localStorage.getItem(STATE_KEY())) return;
+  if(subjectId !== "latin") return;
   const active = localStorage.getItem("latin-vokabeln:active");
   const stateKeys = [
+    "latin-vokabeln:me:state",
     active ? `latin-vokabeln-v2:p:${active}:state` : null,
     "latin-vokabeln-v2:p:Ich:state",
     "latin-vokabeln-v2",
   ].filter(Boolean);
   for(const k of stateKeys){
     const v = localStorage.getItem(k);
-    if(v){ localStorage.setItem(STATE_KEY, v); break; }
+    if(v){ localStorage.setItem(STATE_KEY(), v); break; }
   }
   const cfgKeys = [
+    "latin-vokabeln:me:cfg",
     active ? `latin-vokabeln-v2:p:${active}:cfg` : null,
     "latin-vokabeln-v2:p:Ich:cfg",
     "latin-vokabeln-v2:cfg",
   ].filter(Boolean);
   for(const k of cfgKeys){
     const v = localStorage.getItem(k);
-    if(v){ localStorage.setItem(CFG_KEY, v); break; }
+    if(v){ localStorage.setItem(CFG_KEY(), v); break; }
   }
 }
 
 function load(){
   try{
-    const raw = JSON.parse(localStorage.getItem(STATE_KEY) || "null");
+    const raw = JSON.parse(localStorage.getItem(STATE_KEY()) || "null");
     if(raw && raw.cards) return raw;
   }catch(e){}
   return freshState();
 }
 function save(){
-  localStorage.setItem(STATE_KEY, JSON.stringify(state));
-  localStorage.setItem(CFG_KEY, JSON.stringify(cfg));
+  localStorage.setItem(STATE_KEY(), JSON.stringify(state));
+  localStorage.setItem(CFG_KEY(), JSON.stringify(cfg));
 }
 function loadCfg(){
   cfg = { lessons: [], types: [], mode: "typing", dir: "la-de", size: 20, audio: false, goal: 20 };
   try{
-    const c = JSON.parse(localStorage.getItem(CFG_KEY) || "null");
+    const c = JSON.parse(localStorage.getItem(CFG_KEY()) || "null");
     if(c) cfg = Object.assign(cfg, c);
   }catch(e){}
 }
@@ -538,14 +592,16 @@ function germanMatches(input, word){
 function latinMatches(input, word){
   const typed = latinKey(input);
   if(!typed) return false;
-  const target = latinKey(word.latin.split("/")[0]);
+  const target = latinKey(front(word).split("/")[0]);
   return typed === target || (target.startsWith(typed) && typed.length >= 4);
 }
+function front(w){ return w.term != null ? w.term : (w.latin || ""); }
+
 function answerFor(word, dir){
-  return dir === "de-la" ? word.latin : word.german.join(", ");
+  return dir === "de-la" ? front(word) : word.german.join(", ");
 }
 function promptFor(word, dir){
-  return dir === "de-la" ? word.german[0] : word.latin;
+  return dir === "de-la" ? word.german[0] : front(word);
 }
 
 /* ================= audio ================= */
@@ -792,7 +848,7 @@ function nextCard(){
   }
 
   updateStar();
-  if(cfg.audio && !deToLa) speak(w.latin);
+  if(cfg.audio && !deToLa) speak(front(w));
   el("kbdHint").textContent = session.exam
     ? "Enter = weiter"
     : (cfg.mode === "cards" ? "Leertaste = umdrehen · 1 / 2 = nochmal / gewusst · m = merken"
@@ -801,12 +857,12 @@ function nextCard(){
 
 function buildChoices(w){
   const deToLa = cfg.dir === "de-la";
-  const correct = deToLa ? w.latin : w.german[0];
+  const correct = deToLa ? front(w) : w.german[0];
   const others = shuffle(VOCAB.filter(x =>
       x.id !== w.id && x.type === w.type &&
       (!cfg.lessons.length || cfg.lessons.includes(x.lesson))))
     .slice(0, MC_OPTIONS - 1)
-    .map(x => deToLa ? x.latin : x.german[0]);
+    .map(x => deToLa ? front(x) : x.german[0]);
 
   const options = shuffle([correct, ...others]);
   el("mcBox").innerHTML = "";
@@ -846,7 +902,7 @@ function submitTyped(){
   el("typeInput").style.display = "none";
   el("feedback").className = "feedback " + (ok ? "ok" : "no");
   el("feedback").textContent = ok ? "richtig"
-    : "richtig wäre: " + (typingGerman ? w.german.join(", ") : w.latin);
+    : "richtig wäre: " + (typingGerman ? w.german.join(", ") : front(w));
   applyGrade(ok, true);
 }
 
@@ -868,7 +924,7 @@ function reveal(){
   el("answerBox").classList.add("reveal");
   el("revealActions").classList.add("hidden");
   el("gradeActions").classList.remove("hidden");
-  if(cfg.audio && cfg.dir === "la-de") speak(session.current.latin);
+  if(cfg.audio && cfg.dir === "la-de") speak(front(session.current));
 }
 
 function applyGrade(ok, auto){
@@ -943,7 +999,7 @@ function finish(){
   el("retryMistakes").disabled = !uniq.length;
   el("mistakeList").innerHTML = uniq.map(w =>
     `<div style="display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-top:1px solid var(--line)">
-       <span>${esc(w.latin)}</span>
+       <span>${esc(front(w))}</span>
        <span style="color:var(--muted);text-align:right">${esc(w.german.join(", "))}</span>
      </div>`).join("");
 
@@ -1079,7 +1135,7 @@ function renderStats(){
   const marked = markedList();
   el("markedList").innerHTML = marked.length ? marked.map(w =>
     `<div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-top:1px solid var(--line)">
-       <span style="flex:1">${esc(w.latin)}</span>
+       <span style="flex:1">${esc(front(w))}</span>
        <span style="color:var(--muted);font-size:12px;text-align:right">${esc(w.german.join(", "))}</span>
        <button class="undo" data-unmark="${esc(w.id)}">×</button>
      </div>`).join("")
@@ -1098,14 +1154,14 @@ function renderStats(){
                   .sort((a,b) => state.cards[b.id].wrong - state.cards[a.id].wrong)
                   .slice(0, 12);
   el("weakBody").innerHTML = weak.length ? weak.map(w =>
-    `<tr><td>${esc(w.latin)}</td><td style="color:var(--muted)">${esc(w.german[0])}</td>
+    `<tr><td>${esc(front(w))}</td><td style="color:var(--muted)">${esc(w.german[0])}</td>
      <td class="num">${state.cards[w.id].wrong}×</td></tr>`).join("")
     : `<tr><td colspan="3" style="color:var(--muted)">noch keine Fehler — gut so</td></tr>`;
 
   el("allBody").innerHTML = all.map(w => {
     const c = state.cards[w.id];
     const bx = c && c.seen ? c.box : "–";
-    return `<tr><td>${esc(w.latin)}</td><td style="color:var(--muted)">${esc(w.german[0])}</td>
+    return `<tr><td>${esc(front(w))}</td><td style="color:var(--muted)">${esc(w.german[0])}</td>
             <td class="num">${bx}</td></tr>`;
   }).join("");
 }
@@ -1145,6 +1201,13 @@ el("retryMistakes").onclick = () => {
   undoStack = [];
   show("session"); nextCard();
 };
+el("themeBtn").onclick = () => {
+  setTheme(document.documentElement.dataset.theme === "light" ? "dark" : "light");
+};
+el("addWordsBtn").onclick = addCustomWords;
+el("addLesson").addEventListener("keydown", e => {
+  if(e.key === "Enter"){ e.preventDefault(); addCustomWords(); }
+});
 el("navLearn").onclick = () => { renderLobby(); show("lobby"); };
 el("navStats").onclick = () => { renderStats(); show("stats"); };
 el("flipBtn").onclick = reveal;
@@ -1202,18 +1265,118 @@ document.addEventListener("keydown", e => {
 });
 
 /* ================= boot ================= */
-async function boot(){
-  const data = await (await fetch("data/vocab.json")).json();
-  VOCAB = data.words; LESSONS = data.lessons;
+/* ================= theme ================= */
+function initTheme(){
+  const saved = localStorage.getItem(THEME_KEY);
+  const sys = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+  setTheme(saved || sys);
+}
+function setTheme(t){
+  document.documentElement.dataset.theme = t;
+  localStorage.setItem(THEME_KEY, t);
+  const b = el("themeBtn");
+  if(b) b.textContent = t === "light" ? "☀" : "☾";
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if(meta) meta.content = t === "light" ? "#f4f6f9" : "#0d0f13";
+}
+
+/* ================= subjects ================= */
+function loadCustom(){
+  try{
+    const list = JSON.parse(localStorage.getItem(CUSTOM_KEY()) || "[]");
+    return Array.isArray(list) ? list : [];
+  }catch(e){ return []; }
+}
+function mergeLessons(declared, words){
+  const out = (declared || []).slice();
+  const have = new Set(out.map(l => l.id));
+  words.forEach(w => {
+    if(w.lesson && !have.has(w.lesson)){
+      have.add(w.lesson);
+      out.push({ id: w.lesson, label: w.lesson });
+    }
+  });
+  return out;
+}
+function renderSubjectBar(){
+  const bar = el("subjectBar");
+  bar.innerHTML = "";
+  SUBJECTS.forEach(s => {
+    const b = document.createElement("div");
+    b.className = "subj" + (s.id === subjectId ? " on" : "");
+    b.innerHTML = `<i style="background:${esc(s.accent || "#6ee7a8")}"></i>${esc(s.name)}`;
+    b.onclick = () => { if(s.id !== subjectId) loadSubject(s.id); };
+    bar.appendChild(b);
+  });
+}
+function renderCustomInfo(){
+  const n = loadCustom().length;
+  el("customInfo").innerHTML = n
+    ? `${n} eigene Wörter in „${esc(deck.name)}" · <button class="undo" id="clearCustom">alle löschen</button>`
+    : "Noch keine eigenen Wörter.";
+  const btn = el("clearCustom");
+  if(btn) btn.onclick = () => {
+    if(!confirm("Eigene Wörter in diesem Fach löschen?")) return;
+    localStorage.removeItem(CUSTOM_KEY());
+    loadSubject(subjectId);
+  };
+}
+function addCustomWords(){
+  const raw = el("addWords").value || "";
+  const lesson = (el("addLesson").value || "").trim() || "Eigene";
+  const list = loadCustom();
+  let added = 0, line = 0;
+  raw.split("\n").forEach(text => {
+    line++;
+    const t = text.trim();
+    if(!t || !t.includes("=")) return;
+    const [left, right] = t.split("=");
+    const term = left.trim();
+    const german = right.split(/[,;]/).map(x => x.trim()).filter(Boolean);
+    if(!term || !german.length) return;
+    list.push({ id: `c${Date.now()}_${line}`, lesson, type: "Eigene",
+                term, form: "", german, hint: "" });
+    added++;
+  });
+  if(!added) return toast("Keine gültige Zeile — Format: wort = übersetzung");
+  localStorage.setItem(CUSTOM_KEY(), JSON.stringify(list));
+  el("addWords").value = "";
+  loadSubject(subjectId).then(() => toast(`${added} ${added === 1 ? "Wort" : "Wörter"} hinzugefügt`));
+}
+
+async function loadSubject(id){
+  subjectId = id;
+  localStorage.setItem(SUBJ_KEY, id);
+  const meta = SUBJECTS.find(x => x.id === id) || SUBJECTS[0];
+  deck = await (await fetch("data/" + meta.file)).json();
+
+  VOCAB = (deck.words || []).concat(loadCustom());
+  LESSONS = mergeLessons(deck.lessons, VOCAB);
 
   migrateStorage();
   loadCfg();
   const valid = new Set(LESSONS.map(l => l.id));
-  cfg.lessons = (cfg.lessons || []).filter(id => valid.has(id));
+  cfg.lessons = (cfg.lessons || []).filter(x => valid.has(x));
   if(!cfg.lessons.length) cfg.lessons = LESSONS.map(l => l.id);
   state = load();
-  renderChips(); renderLobby(); show("lobby");
+  session = null;
+
+  document.title = "Vokabeln pauken — " + deck.name;
+  const brandSub = document.querySelector(".brand span");
+  if(brandSub) brandSub.textContent = "· " + deck.name;
+  renderSubjectBar(); renderChips(); renderLobby(); renderCustomInfo(); show("lobby");
 }
+
+async function boot(){
+  initTheme();
+  const index = await (await fetch("data/subjects.json")).json();
+  SUBJECTS = index.subjects || [];
+  if(!SUBJECTS.length) return toast("Keine Fächer gefunden");
+  let id = localStorage.getItem(SUBJ_KEY);
+  if(!id || !SUBJECTS.some(x => x.id === id)) id = SUBJECTS[0].id;
+  await loadSubject(id);
+}
+
 boot();
 </script>
 </body>

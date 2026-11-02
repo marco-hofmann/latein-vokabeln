@@ -1,0 +1,234 @@
+{
+  "id": "english",
+  "name": "English",
+  "subtitle": "Grundwortschatz · unregelmässige Verben",
+  "lessons": [
+    {
+      "id": "G1",
+      "label": "Grundwortschatz"
+    }
+  ],
+  "words": [
+    {
+      "id": "en-01",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "to be",
+      "form": "was / been",
+      "german": [
+        "sein"
+      ],
+      "hint": "was / been"
+    },
+    {
+      "id": "en-02",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "to have",
+      "form": "had / had",
+      "german": [
+        "haben"
+      ],
+      "hint": "had / had"
+    },
+    {
+      "id": "en-03",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "to go",
+      "form": "went / gone",
+      "german": [
+        "gehen"
+      ],
+      "hint": "went / gone"
+    },
+    {
+      "id": "en-04",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "to do",
+      "form": "did / done",
+      "german": [
+        "machen",
+        "tun"
+      ],
+      "hint": "did / done"
+    },
+    {
+      "id": "en-05",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "to say",
+      "form": "said / said",
+      "german": [
+        "sagen"
+      ],
+      "hint": "said / said"
+    },
+    {
+      "id": "en-06",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "to see",
+      "form": "saw / seen",
+      "german": [
+        "sehen"
+      ],
+      "hint": "saw / seen"
+    },
+    {
+      "id": "en-07",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "to come",
+      "form": "came / come",
+      "german": [
+        "kommen"
+      ],
+      "hint": "came / come"
+    },
+    {
+      "id": "en-08",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "to take",
+      "form": "took / taken",
+      "german": [
+        "nehmen"
+      ],
+      "hint": "took / taken"
+    },
+    {
+      "id": "en-09",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "to know",
+      "form": "knew / known",
+      "german": [
+        "wissen"
+      ],
+      "hint": "knew / known"
+    },
+    {
+      "id": "en-10",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "to think",
+      "form": "thought / thought",
+      "german": [
+        "denken"
+      ],
+      "hint": "thought / thought"
+    },
+    {
+      "id": "en-11",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "to give",
+      "form": "gave / given",
+      "german": [
+        "geben"
+      ],
+      "hint": "gave / given"
+    },
+    {
+      "id": "en-12",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "to find",
+      "form": "found / found",
+      "german": [
+        "finden"
+      ],
+      "hint": "found / found"
+    },
+    {
+      "id": "en-13",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "to tell",
+      "form": "told / told",
+      "german": [
+        "erzählen"
+      ],
+      "hint": "told / told"
+    },
+    {
+      "id": "en-14",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "to become",
+      "form": "became / become",
+      "german": [
+        "werden"
+      ],
+      "hint": "became / become"
+    },
+    {
+      "id": "en-15",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "to leave",
+      "form": "left / left",
+      "german": [
+        "verlassen"
+      ],
+      "hint": "left / left"
+    },
+    {
+      "id": "en-16",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "to feel",
+      "form": "felt / felt",
+      "german": [
+        "fühlen"
+      ],
+      "hint": "felt / felt"
+    },
+    {
+      "id": "en-17",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "to bring",
+      "form": "brought / brought",
+      "german": [
+        "bringen"
+      ],
+      "hint": "brought / brought"
+    },
+    {
+      "id": "en-18",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "to buy",
+      "form": "bought / bought",
+      "german": [
+        "kaufen"
+      ],
+      "hint": "bought / bought"
+    },
+    {
+      "id": "en-19",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "to speak",
+      "form": "spoke / spoken",
+      "german": [
+        "sprechen"
+      ],
+      "hint": "spoke / spoken"
+    },
+    {
+      "id": "en-20",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "to write",
+      "form": "wrote / written",
+      "german": [
+        "schreiben"
+      ],
+      "hint": "wrote / written"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "subjects": [
+    {
+      "id": "latin",
+      "name": "Latein",
+      "file": "latin.json",
+      "accent": "#6ee7a8"
+    },
+    {
+      "id": "french",
+      "name": "Französisch",
+      "file": "french.json",
+      "accent": "#7fb6f5"
+    },
+    {
+      "id": "english",
+      "name": "English",
+      "file": "english.json",
+      "accent": "#f5b942"
+    }
+  ]
+}

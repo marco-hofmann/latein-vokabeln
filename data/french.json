@@ -1,0 +1,236 @@
+{
+  "id": "french",
+  "name": "Französisch",
+  "subtitle": "Grundwortschatz",
+  "lessons": [
+    {
+      "id": "G1",
+      "label": "Grundwortschatz"
+    }
+  ],
+  "words": [
+    {
+      "id": "fr-01",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "être",
+      "form": "je suis",
+      "german": [
+        "sein"
+      ],
+      "hint": "je suis"
+    },
+    {
+      "id": "fr-02",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "avoir",
+      "form": "j'ai",
+      "german": [
+        "haben"
+      ],
+      "hint": "j'ai"
+    },
+    {
+      "id": "fr-03",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "aller",
+      "form": "je vais",
+      "german": [
+        "gehen",
+        "fahren"
+      ],
+      "hint": "je vais"
+    },
+    {
+      "id": "fr-04",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "faire",
+      "form": "je fais",
+      "german": [
+        "machen",
+        "tun"
+      ],
+      "hint": "je fais"
+    },
+    {
+      "id": "fr-05",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "dire",
+      "form": "je dis",
+      "german": [
+        "sagen"
+      ],
+      "hint": "je dis"
+    },
+    {
+      "id": "fr-06",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "pouvoir",
+      "form": "je peux",
+      "german": [
+        "können"
+      ],
+      "hint": "je peux"
+    },
+    {
+      "id": "fr-07",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "vouloir",
+      "form": "je veux",
+      "german": [
+        "wollen"
+      ],
+      "hint": "je veux"
+    },
+    {
+      "id": "fr-08",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "savoir",
+      "form": "je sais",
+      "german": [
+        "wissen"
+      ],
+      "hint": "je sais"
+    },
+    {
+      "id": "fr-09",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "voir",
+      "form": "je vois",
+      "german": [
+        "sehen"
+      ],
+      "hint": "je vois"
+    },
+    {
+      "id": "fr-10",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "venir",
+      "form": "je viens",
+      "german": [
+        "kommen"
+      ],
+      "hint": "je viens"
+    },
+    {
+      "id": "fr-11",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "prendre",
+      "form": "je prends",
+      "german": [
+        "nehmen"
+      ],
+      "hint": "je prends"
+    },
+    {
+      "id": "fr-12",
+      "lesson": "G1",
+      "type": "Verb",
+      "term": "parler",
+      "form": "je parle",
+      "german": [
+        "sprechen"
+      ],
+      "hint": "je parle"
+    },
+    {
+      "id": "fr-13",
+      "lesson": "G1",
+      "type": "Substantiv",
+      "term": "la maison",
+      "form": "",
+      "german": [
+        "das Haus"
+      ],
+      "hint": ""
+    },
+    {
+      "id": "fr-14",
+      "lesson": "G1",
+      "type": "Substantiv",
+      "term": "l'école",
+      "form": "",
+      "german": [
+        "die Schule"
+      ],
+      "hint": ""
+    },
+    {
+      "id": "fr-15",
+      "lesson": "G1",
+      "type": "Substantiv",
+      "term": "le livre",
+      "form": "",
+      "german": [
+        "das Buch"
+      ],
+      "hint": ""
+    },
+    {
+      "id": "fr-16",
+      "lesson": "G1",
+      "type": "Substantiv",
+      "term": "l'ami",
+      "form": "",
+      "german": [
+        "der Freund"
+      ],
+      "hint": ""
+    },
+    {
+      "id": "fr-17",
+      "lesson": "G1",
+      "type": "Substantiv",
+      "term": "l'amie",
+      "form": "",
+      "german": [
+        "die Freundin"
+      ],
+      "hint": ""
+    },
+    {
+      "id": "fr-18",
+      "lesson": "G1",
+      "type": "Substantiv",
+      "term": "le jour",
+      "form": "",
+      "german": [
+        "der Tag"
+      ],
+      "hint": ""
+    },
+    {
+      "id": "fr-19",
+      "lesson": "G1",
+      "type": "Substantiv",
+      "term": "le temps",
+      "form": "",
+      "german": [
+        "die Zeit",
+        "das Wetter"
+      ],
+      "hint": ""
+    },
+    {
+      "id": "fr-20",
+      "lesson": "G1",
+      "type": "Substantiv",
+      "term": "l'eau",
+      "form": "",
+      "german": [
+        "das Wasser"
+      ],
+      "hint": ""
+    }
+  ]
+}
