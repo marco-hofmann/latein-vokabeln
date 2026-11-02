@@ -1066,11 +1066,7 @@ function nextCard(){
   session.deShown = false;
   const deBlank = cloze ? blankGermanSentence(w) : "";
   el("clozeDe").classList.toggle("hidden", !cloze);
-  if(cloze && deBlank.includes("___")){
-    el("clozeDe").innerHTML = esc(deBlank).replace("___", '<span class="gap"></span>');
-  } else {
-    el("clozeDe").textContent = deBlank;
-  }
+  paintGermanSentence();
   const canReveal = !!(cloze && deBlank.includes("___"));
   el("clozeReveal").classList.toggle("hidden", !canReveal);
   el("clozeReveal").textContent = "Wort zeigen";
@@ -1120,17 +1116,28 @@ function nextCard(){
   saveSession();
 }
 
+/* One place that paints the German line: with its gap, or filled once revealed. */
+function paintGermanSentence(){
+  if(!session || !session.current) return;
+  const w = session.current;
+  const blank = blankGermanSentence(w);
+  const showFull = !session.cloze || session.deShown || !blank.includes("___");
+  if(showFull){
+    el("clozeDe").textContent = (w.example && w.example.de) || "";
+  } else {
+    el("clozeDe").innerHTML = esc(blank).replace("___", '<span class="gap"></span>');
+  }
+}
 function showGermanFull(){
   if(!session || !session.cloze || !session.current) return;
-  el("clozeDe").textContent = session.current.example.de || "";
+  session.deShown = true;
+  paintGermanSentence();
   el("clozeReveal").classList.add("hidden");
 }
 function toggleGermanWord(){
   if(!session || !session.cloze || !session.current) return;
   session.deShown = !session.deShown;
-  el("clozeDe").textContent = session.deShown
-    ? (session.current.example.de || "")
-    : blankGermanSentence(session.current);
+  paintGermanSentence();
   el("clozeReveal").textContent = session.deShown ? "Wort verbergen" : "Wort zeigen";
 }
 
