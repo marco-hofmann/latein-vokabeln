@@ -564,7 +564,7 @@ const BOX_DAYS = [0, 1, 2, 5, 10, 21];
 const MC_OPTIONS = 4;
 const CFG_DEFAULTS = {
   lessons: [], types: [], mode: "typing", dir: "la-de", size: 20,
-  audio: false, goal: 20, examSize: 20, examTime: 0, clozeMC: false,
+  voice: "off", goal: 20, examSize: 20, examTime: 0, clozeMC: false,
   examWeak: false, examDate: ""
 };
 
@@ -671,6 +671,9 @@ function loadCfg(){
     const c = JSON.parse(localStorage.getItem(CFG_KEY()) || "null");
     if(c) cfg = Object.assign(cfg, c);
   }catch(e){}
+  // earlier builds had a boolean `audio` switch
+  if(cfg.voice === undefined || cfg.voice === null) cfg.voice = cfg.audio ? "f" : "off";
+  delete cfg.audio;
 }
 
 function SESSION_KEY(){ return `latin-vokabeln:subj:${scope()}:session`; }
@@ -864,11 +867,17 @@ function clozeMatches(input, w){
   return targets.some(t => t && (typed === t || (t.startsWith(typed) && typed.length >= 4 && t.length - typed.length <= 2)));
 }
 
-/* ================= audio ================= */
-/* Each subject carries its own voice language: Latin has no browser voice, Italian is the
-   closest relative, while French and English must not be read with it. */
-function speak(text){
-  if(!cfg.audio || !window.speechSynthesis) return;
+/* ================= audio =================
+   Pronunciation is pre-generated (static/audio/<voice>/<scope>/<id>.mp3, neural voices, one female
+   and one male per language) so it works offline and needs no key. The browser voice is only the
+   fallback for words the learner uploaded themselves. */
+let voiceAudio = null;
+function spokenText(w){
+  if(!w) return "";
+  return (deck && deck.fixedDir ? (w.german || [])[0] : front(w)) || "";
+}
+function speakFallback(text){
+  if(!window.speechSynthesis) return;
   try{
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text.replace(/[?!]/g, ""));
@@ -876,6 +885,20 @@ function speak(text){
     u.rate = 0.9;
     speechSynthesis.speak(u);
   }catch(e){}
+}
+function playWord(w){
+  if(cfg.voice === "off" || !w) return;
+  const text = spokenText(w);
+  if(!text) return;
+  const scope = deckLang ? `${subjectId}-${deckLang}` : subjectId;
+  try{
+    if(!voiceAudio) voiceAudio = new Audio();
+    voiceAudio.onerror = () => speakFallback(text);
+    voiceAudio.src = `audio/${cfg.voice}/${scope}/${w.id}.mp3`;
+    voiceAudio.currentTime = 0;
+    const p = voiceAudio.play();
+    if(p && p.catch) p.catch(() => speakFallback(text));
+  }catch(e){ speakFallback(text); }
 }
 
 /* ================= pool / scheduling ================= */
@@ -1040,10 +1063,13 @@ function renderChips(){
 
   /* ---- extras: only what can actually act here ---- */
   el("optChips").innerHTML = "";
-  el("optChips").appendChild(makeChip("Aussprache", cfg.audio, () => {
-    cfg.audio = !cfg.audio; save(); renderChips();
-    if(cfg.audio) speak("salve");
-  }, { disabled: cfg.mode === "cloze", reason: "In der Lücke wird nichts vorgelesen — sonst wäre die Antwort zu hören" }));
+  [["off", "Stimme aus"], ["f", "Weiblich"], ["m", "Männlich"]].forEach(([v, label]) => {
+    el("optChips").appendChild(makeChip(label, cfg.voice === v, () => {
+      cfg.voice = v; save(); renderChips();
+      if(v !== "off") playWord(session && session.current ? session.current : VOCAB[0]);
+    }, { disabled: cfg.mode === "cloze" && v !== "off",
+         reason: "In der Lücke wird nichts vorgelesen — sonst wäre die Antwort zu hören" }));
+  });
   if(cfg.mode === "cloze"){
     el("optChips").appendChild(makeChip("Lücke per Auswahl", cfg.clozeMC, () => {
       cfg.clozeMC = !cfg.clozeMC; save(); renderChips();
@@ -1272,7 +1298,7 @@ function nextCard(){
 
   updateStar();
   // never speak the answer in cloze mode — the missing word is the whole exercise
-  if(cfg.audio && !deToLa && !cloze) speak(front(w));
+  if(!deToLa && !cloze) playWord(w);
   el("kbdHint").textContent = mc
     ? (session.exam ? "1–4 = Antwort" : "1–4 = Antwort · m = merken · Esc = beenden")
     : (session.exam
@@ -1460,7 +1486,7 @@ function reveal(){
   el("answerBox").classList.add("reveal");
   el("revealActions").classList.add("hidden");
   el("gradeActions").classList.remove("hidden");
-  if(cfg.audio && cfg.dir === "la-de") speak(front(session.current));
+  if(cfg.dir === "la-de") playWord(session.current);
   showGermanFull();
 }
 
