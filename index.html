@@ -1188,6 +1188,26 @@ function toggleGermanWord(){
 function buildChoices(w){
   const deToLa = cfg.dir === "de-la";
   const correct = deToLa ? front(w) : w.german[0];
+
+  // Grammar cards ship their own option list (`mc`): the forms of THIS word, or the four case
+  // names for the case questions. Another word's forms must never appear as an option.
+  if(Array.isArray(w.mc) && w.mc.length >= 2){
+    // keep the grid at four buttons; longer lists (esse has seven forms) are sampled
+    const given = w.mc.slice();
+    const opts = given.length <= MC_OPTIONS
+      ? shuffle(given)
+      : shuffle([correct, ...shuffle(given.filter(x => latinKey(x) !== latinKey(correct)))
+                                  .slice(0, MC_OPTIONS - 1)]);
+    el("mcBox").innerHTML = "";
+    opts.forEach(opt => {
+      const b = document.createElement("button");
+      b.textContent = opt;
+      b.onclick = () => answerMC(b, opt, correct);
+      el("mcBox").appendChild(b);
+    });
+    return;
+  }
+
   const candidates = shuffle(VOCAB.filter(x =>
       x.id !== w.id && x.type === w.type &&
       (!cfg.lessons.length || cfg.lessons.includes(x.lesson))));
