@@ -539,6 +539,12 @@
       </div>
       <input type="file" id="wordsFile" class="hidden"
              accept=".txt,.csv,.tsv,.json,text/plain,text/csv,application/json">
+      <div class="label" style="margin-top:14px">Neue Sprache</div>
+      <div class="pnew">
+        <input type="text" id="newSubjName" placeholder="z.B. Italienisch" maxlength="20">
+        <button class="btn small" id="newSubjBtn" style="width:auto;padding:0 16px">Anlegen</button>
+      </div>
+      <div class="cap" id="customSubjInfo" style="margin-top:10px"></div>
       <div class="cap" id="customInfo" style="margin-top:10px"></div>
     </div>
 
@@ -584,6 +590,35 @@ function scope(){ return deckLang ? `${subjectId}:${deckLang}` : subjectId; }
 function STATE_KEY(){ return `latin-vokabeln:subj:${scope()}:state`; }
 function CFG_KEY(){ return `latin-vokabeln:subj:${scope()}:cfg`; }
 function CUSTOM_KEY(){ return `latin-vokabeln:subj:${scope()}:custom`; }
+const CUSTOM_SUBJ_KEY = "latin-vokabeln:subjects:custom";
+
+/* Languages the learner adds stay on this device: a subject entry plus a word list, nothing global. */
+function loadCustomSubjects(){
+  try{
+    const a = JSON.parse(localStorage.getItem(CUSTOM_SUBJ_KEY) || "[]");
+    return Array.isArray(a) ? a : [];
+  }catch(e){ return []; }
+}
+function saveCustomSubjects(list){
+  try{ localStorage.setItem(CUSTOM_SUBJ_KEY, JSON.stringify(list)); }catch(e){}
+}
+function addCustomSubject(name){
+  const clean = (name || "").trim().slice(0, 20);
+  if(!clean) return null;
+  const id = "u-" + (clean.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "sprache");
+  const list = loadCustomSubjects();
+  if(list.some(s => s.id === id || s.name.toLowerCase() === clean.toLowerCase())) return null;
+  list.push({ id, name: clean, accent: "#f472b6", custom: true });
+  saveCustomSubjects(list);
+  return id;
+}
+function removeCustomSubject(id){
+  saveCustomSubjects(loadCustomSubjects().filter(s => s.id !== id));
+  // drop that subject's progress, settings, words and exams along with it
+  Object.keys(localStorage)
+    .filter(k => k.startsWith(`latin-vokabeln:subj:${id}:`) || k === `latin-vokabeln:lang:${id}`)
+    .forEach(k => localStorage.removeItem(k));
+}
 function LANG_KEY(){ return `latin-vokabeln:lang:${subjectId}`; }
 function loadLang(){
   try{ return localStorage.getItem(LANG_KEY()); }catch(e){ return null; }
@@ -996,7 +1031,7 @@ function renderChips(){
   el("dirChips").classList.toggle("hidden", !dirRelevant);
   el("dirChips").innerHTML = "";
   if(dirRelevant){
-    [["la-de", "Latein → Deutsch"], ["de-la", "Deutsch → Latein"]].forEach(([v, label]) => {
+    [[ "la-de", `${deck.name} → Deutsch`], ["de-la", `Deutsch → ${deck.name}`]].forEach(([v, label]) => {
       el("dirChips").appendChild(makeChip(label, cfg.dir === v, () => {
         cfg.dir = v; save(); renderChips(); renderLobby();
       }));
@@ -1858,6 +1893,17 @@ el("themeBtn").onclick = () => {
   setTheme(document.documentElement.dataset.theme === "light" ? "dark" : "light");
 };
 el("addWordsBtn").onclick = addCustomWords;
+el("newSubjBtn").onclick = () => {
+  const id = addCustomSubject(el("newSubjName").value);
+  if(!id) return toast("Name fehlt oder existiert schon");
+  el("newSubjName").value = "";
+  SUBJECTS = SUBJECTS.filter(s => !s.custom).concat(loadCustomSubjects());
+  renderSubjectBar();
+  loadSubject(id).then(() => toast("Sprache angelegt — jetzt Wörter hochladen"));
+};
+el("newSubjName").addEventListener("keydown", e => {
+  if(e.key === "Enter"){ e.preventDefault(); el("newSubjBtn").click(); }
+});
 el("wordsFileBtn").onclick = () => el("wordsFile").click();
 el("wordsFile").onchange = ev => {
   const f = ev.target.files && ev.target.files[0];
@@ -2012,6 +2058,16 @@ function renderSubjectBar(){
     b.onclick = () => { if(s.id !== subjectId) loadSubject(s.id); };
     bar.appendChild(b);
   });
+  // add a personal language (stays on this device)
+  const add = document.createElement("div");
+  add.className = "subj";
+  add.title = "Eigene Sprache anlegen";
+  add.innerHTML = `<i style="background:#f472b6"></i>+ Sprache`;
+  add.onclick = () => {
+    renderStats(); show("stats");
+    setTimeout(() => el("newSubjName").focus(), 60);
+  };
+  bar.appendChild(add);
 }
 function renderCustomInfo(){
   const n = loadCustom().length;
@@ -2024,6 +2080,23 @@ function renderCustomInfo(){
     localStorage.removeItem(CUSTOM_KEY());
     loadSubject(subjectId);
   };
+
+  const mine = loadCustomSubjects();
+  el("customSubjInfo").innerHTML = mine.length
+    ? "Eigene Sprachen (nur hier): " + mine.map(s =>
+        `${esc(s.name)} <button class="undo" data-delsubj="${esc(s.id)}">×</button>`).join(" · ")
+    : "Neue Sprachen bleiben auf diesem Gerät — kein Server, kein Konto.";
+  [...el("customSubjInfo").querySelectorAll("[data-delsubj]")].forEach(b => {
+    b.onclick = () => {
+      const id = b.dataset.delsubj;
+      const name = (mine.find(s => s.id === id) || {}).name || id;
+      if(!confirm(`„${name}" mit Fortschritt und Wörtern löschen?`)) return;
+      removeCustomSubject(id);
+      SUBJECTS = SUBJECTS.filter(s => s.id !== id);
+      if(subjectId === id){ loadSubject(SUBJECTS[0].id); return; }
+      renderSubjectBar(); renderCustomInfo();
+    };
+  });
 }
 /* Accepted shapes — pasted lines or an uploaded file, everything stays on this device:
    "term = meaning, meaning"  ·  "term;meaning;meaning"  ·  "term<TAB>meaning"
@@ -2086,15 +2159,20 @@ async function loadSubject(id){
   const meta = SUBJECTS.find(x => x.id === id) || SUBJECTS[0];
   subjectMeta = meta;
   deckLang = null;
-  let file = meta.file;
-  if(meta.decks){
-    // the grammar subject has one deck per language; its progress lives in its own namespace
-    const langs = Object.keys(meta.decks);
-    const saved = loadLang();
-    deckLang = langs.includes(saved) ? saved : langs[0];
-    file = meta.decks[deckLang];
+  if(meta.custom){
+    // a learner-made language: no file, the deck is just its own word list
+    deck = { id: meta.id, name: meta.name, subtitle: "eigene Sprache", fixedDir: false, lessons: [], words: [] };
+  } else {
+    let file = meta.file;
+    if(meta.decks){
+      // the grammar subject has one deck per language; its progress lives in its own namespace
+      const langs = Object.keys(meta.decks);
+      const saved = loadLang();
+      deckLang = langs.includes(saved) ? saved : langs[0];
+      file = meta.decks[deckLang];
+    }
+    deck = await (await fetch("data/" + file)).json();
   }
-  deck = await (await fetch("data/" + file)).json();
 
   VOCAB = (deck.words || []).concat(loadCustom());
   LESSONS = mergeLessons(deck.lessons, VOCAB);
@@ -2117,7 +2195,7 @@ async function loadSubject(id){
 async function boot(){
   initTheme();
   const index = await (await fetch("data/subjects.json")).json();
-  SUBJECTS = index.subjects || [];
+  SUBJECTS = (index.subjects || []).concat(loadCustomSubjects());
   if(!SUBJECTS.length) return toast("Keine Fächer gefunden");
   let id = localStorage.getItem(SUBJ_KEY);
   if(!id || !SUBJECTS.some(x => x.id === id)) id = SUBJECTS[0].id;
