@@ -206,6 +206,8 @@
   .settings > summary .sum{font-weight:400; color:var(--muted); font-size:12px}
   .settings[open]{padding-bottom:18px}
   .cloze-de{font-size:14px; line-height:1.45; color:var(--muted); max-width:34ch}
+  .cloze-de .gap{display:inline-block; min-width:1.9em; height:.8em; vertical-align:baseline;
+    margin:0 .08em; border-bottom:2px solid currentColor; opacity:.55}
   .hidden{display:none !important}
   /* ---- light theme ---- */
   html[data-theme="light"]{
@@ -1064,7 +1066,11 @@ function nextCard(){
   session.deShown = false;
   const deBlank = cloze ? blankGermanSentence(w) : "";
   el("clozeDe").classList.toggle("hidden", !cloze);
-  el("clozeDe").textContent = deBlank;
+  if(cloze && deBlank.includes("___")){
+    el("clozeDe").innerHTML = esc(deBlank).replace("___", '<span class="gap"></span>');
+  } else {
+    el("clozeDe").textContent = deBlank;
+  }
   const canReveal = !!(cloze && deBlank.includes("___"));
   el("clozeReveal").classList.toggle("hidden", !canReveal);
   el("clozeReveal").textContent = "Wort zeigen";
