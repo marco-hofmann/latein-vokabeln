@@ -333,6 +333,7 @@
         <div class="stat"><b id="stToday">0</b><small>heute</small></div>
         <div class="stat"><b id="stAcc">–</b><small>Quote</small></div>
       </div>
+      <div class="sub hidden" id="examCountdown" style="margin-top:10px;font-weight:600"></div>
     </div>
 
     <button class="btn" id="startBtn">Lernen starten</button>
@@ -362,6 +363,7 @@
       <div class="label">Prüfung</div>
       <div class="chips" id="examSizeChips"></div>
       <div class="chips" id="examTimeChips" style="margin-top:7px"></div>
+      <div class="chips" id="examScopeChips" style="margin-top:7px"></div>
       <div class="label">Optionen</div>
       <div class="chips" id="optChips"></div>
       <div class="label">Tagesziel</div>
@@ -456,6 +458,17 @@
     </div>
 
     <div class="panel">
+      <div class="label" style="margin-top:0">Planung</div>
+      <div class="act" id="planChart"></div>
+      <div class="cap"><span id="planCap">–</span><span id="planNext"></span></div>
+      <div class="pnew" style="margin-top:12px">
+        <input type="date" id="examDate" style="max-width:none;flex:1;text-align:left;font-size:15px;padding:11px 12px">
+        <button class="btn small" id="examDateClear" style="width:auto;padding:0 14px">×</button>
+      </div>
+      <div class="cap" id="examPlan" style="margin-top:9px"></div>
+    </div>
+
+    <div class="panel">
       <div class="label" style="margin-top:0">Aktivität · 14 Tage</div>
       <div class="act" id="actChart"></div>
       <div class="cap"><span id="actTotal">–</span><span id="actBest">–</span></div>
@@ -501,20 +514,31 @@
 
     <div class="panel">
       <div class="label" style="margin-top:0">Alle Wörter</div>
+      <input type="text" id="wordSearch" placeholder="suchen…" autocomplete="off" spellcheck="false"
+             style="max-width:none;text-align:left;font-size:15px;padding:11px 13px;margin-bottom:9px">
+      <div class="chips" id="wordFilter" style="margin-bottom:8px"></div>
+      <div class="cap" id="wordCount" style="margin:0 0 6px"></div>
       <div class="scroll"><table>
-        <thead><tr><th>Latein</th><th>Deutsch</th><th style="text-align:right">Box</th></tr></thead>
+        <thead><tr><th>Wort</th><th>Bedeutung</th><th style="text-align:right">Box</th></tr></thead>
         <tbody id="allBody"></tbody></table></div>
     </div>
 
     <div class="panel">
       <div class="label" style="margin-top:0">Eigene Wörter</div>
-      <div class="cap" style="margin-bottom:8px">Eine Zeile pro Wort: <code>terme = Übersetzung, Übersetzung</code></div>
+      <div class="cap" style="margin-bottom:8px">Eine Zeile pro Wort: <code>terme = Übersetzung, Übersetzung</code>
+        — oder eine Datei (.txt, .csv, .json) wählen. Alles bleibt nur auf diesem Gerät.</div>
       <textarea id="addWords" rows="4" spellcheck="false"
         placeholder="bonjour = hallo, guten Tag&#10;au revoir = auf Wiedersehen"></textarea>
       <div class="pnew" style="margin-top:8px">
         <input type="text" id="addLesson" placeholder="Lektion (optional)" maxlength="14">
         <button class="btn small" id="addWordsBtn" style="width:auto;padding:0 16px">Hinzufügen</button>
       </div>
+      <div class="actions" style="margin-top:8px">
+        <button class="btn ghost small" id="wordsFileBtn">Datei wählen…</button>
+        <button class="btn ghost small" id="wordsExportBtn">Eigene sichern</button>
+      </div>
+      <input type="file" id="wordsFile" class="hidden"
+             accept=".txt,.csv,.tsv,.json,text/plain,text/csv,application/json">
       <div class="cap" id="customInfo" style="margin-top:10px"></div>
     </div>
 
@@ -534,7 +558,8 @@ const BOX_DAYS = [0, 1, 2, 5, 10, 21];
 const MC_OPTIONS = 4;
 const CFG_DEFAULTS = {
   lessons: [], types: [], mode: "typing", dir: "la-de", size: 20,
-  audio: false, goal: 20, examSize: 20, examTime: 0, clozeMC: false
+  audio: false, goal: 20, examSize: 20, examTime: 0, clozeMC: false,
+  examWeak: false, examDate: ""
 };
 
 let VOCAB = [], LESSONS = [], state = {}, cfg = Object.assign({}, CFG_DEFAULTS);
@@ -855,6 +880,29 @@ function weakList(){
                  return (cb.wrong - ca.wrong) || (ca.box - cb.box);
                });
 }
+/* what an exam would deal right now — the weak set on request, otherwise the whole selection */
+function examBase(){
+  const base = cfg.examWeak ? weakList() : pool();
+  return cfg.mode === "cloze" ? base.filter(hasCloze) : base;
+}
+/* the exam date turns "due" into a plan: how many words per day until then */
+function examPlan(){
+  if(!cfg.examDate) return null;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const when = new Date(cfg.examDate + "T00:00:00");
+  const days = Math.round((when - today) / 86400000);
+  if(!isFinite(days)) return null;
+  const all = pool();
+  const open = all.filter(w => (state.cards[w.id]?.box ?? 0) < 3).length;
+  return {
+    days, open, total: all.length,
+    perDay: days > 0 ? Math.ceil(open / days) : open,
+    short: days > 0 ? `Prüfung in ${days} ${days === 1 ? "Tag" : "Tagen"}` : (days === 0 ? "Prüfung heute" : "Prüfungsdatum vorbei"),
+    long: days > 0
+      ? `${open} von ${all.length} noch nicht sicher · ~${Math.ceil(open / days)} Karten/Tag`
+      : (days === 0 ? `${open} von ${all.length} noch nicht sicher` : `${open} von ${all.length} offen — Datum liegt zurück`)
+  };
+}
 function shuffle(a){
   const out = a.slice();
   for(let i = out.length - 1; i > 0; i--){
@@ -968,7 +1016,14 @@ function renderChips(){
   }
 
   /* ---- exam: length is limited by what the current selection holds ---- */
-  const examPool = (cfg.mode === "cloze" ? pool().filter(hasCloze) : pool()).length;
+  const weakPool = (cfg.mode === "cloze" ? weakList().filter(hasCloze) : weakList()).length;
+  el("examScopeChips").innerHTML = "";
+  el("examScopeChips").appendChild(makeChip(`nur Wackelkandidaten (${weakPool})`, cfg.examWeak, () => {
+    cfg.examWeak = !cfg.examWeak; save(); renderChips(); renderLobby();
+  }, { disabled: weakPool === 0, reason: "Noch keine Wackelkandidaten — erst ein paar Runden lernen" }));
+  if(cfg.examWeak && weakPool === 0){ cfg.examWeak = false; save(); }
+
+  const examPool = examBase().length;
   // clamp BEFORE drawing, or the chip shows unselected while the button already uses "alle"
   if(typeof cfg.examSize === "number" && cfg.examSize > examPool){
     const fitting = [10, 20, 40].filter(n => n <= examPool);
@@ -1025,10 +1080,14 @@ function renderLobby(){
 
   el("startBtn").textContent = planned ? "Lernen starten" : "Alles wiederholen";
   // the exam can only deal the cards the current selection actually holds
-  const examPool = (cfg.mode === "cloze" ? pool().filter(hasCloze) : pool()).length;
+  const examPool = examBase().length;
   const examN = cfg.examSize === "all" ? examPool : Math.min(cfg.examSize, examPool);
   el("examBtn").textContent = `Prüfung (${examN})`;
   el("examBtn").disabled = examPool === 0;
+
+  const plan = examPlan();
+  el("examCountdown").classList.toggle("hidden", !plan);
+  if(plan) el("examCountdown").textContent = plan.short;
   el("focusBtn").disabled = weakList().length === 0;
   const marked = markedList().length;
   el("markedBtn").textContent = `Markiert (${marked})`;
@@ -1080,7 +1139,7 @@ function startSession(kind){
     queue = narrow(markedList());
     if(!queue.length) return toast(cfg.mode === "cloze" ? "Nichts Markiertes mit Satz" : "Nichts markiert");
   } else if(kind === "exam"){
-    const all = shuffle(narrow(pool()));
+    const all = shuffle(narrow(cfg.examWeak ? weakList() : pool()));
     queue = cfg.examSize === "all" ? all : all.slice(0, cfg.examSize);
     exam = true;
     if(!queue.length) return toast("Keine Wörter für eine Prüfung");
@@ -1180,7 +1239,7 @@ function nextCard(){
   // never speak the answer in cloze mode — the missing word is the whole exercise
   if(cfg.audio && !deToLa && !cloze) speak(front(w));
   el("kbdHint").textContent = mc
-    ? (session.exam ? "Antwort antippen" : "Antwort antippen · m = merken")
+    ? (session.exam ? "1–4 = Antwort" : "1–4 = Antwort · m = merken · Esc = beenden")
     : (session.exam
         ? "Enter = weiter"
         : (cfg.mode === "cards" ? "Leertaste = umdrehen · 1 / 2 = nochmal / gewusst · m = merken"
@@ -1471,6 +1530,7 @@ function finish(){
   session.mistakeIds = uniq.map(w => w.id);
   show("done");
   renderLobby();
+  renderChips();   // counts (weak candidates, exam pool) change with every finished round
 }
 
 /* ================= stats view ================= */
@@ -1575,6 +1635,9 @@ function renderStats(){
     el("accLast").textContent = `zuletzt ${Math.round(100 * last.r / last.n)}%`;
   }
 
+  /* ---- planning: what is due in the next 7 days, and the way to the exam ---- */
+  renderPlan();
+
   /* ---- exams ---- */
   renderExams();
 
@@ -1626,12 +1689,90 @@ function renderStats(){
      <td class="num">${state.cards[w.id].wrong}×</td></tr>`).join("")
     : `<tr><td colspan="3" style="color:var(--muted)">noch keine Fehler — gut so</td></tr>`;
 
-  el("allBody").innerHTML = all.map(w => {
+  el("allBody").innerHTML = "";
+  renderWordList();
+}
+
+/* ---- planning chart ---- */
+function renderPlan(){
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const WD = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
+  const days = [];
+  for(let i = 0; i < 7; i++){
+    const s = today.getTime() + i * 86400000, e = s + 86400000;
+    const n = pool().filter(w => {
+      const c = state.cards[w.id];
+      if(!c || !c.seen) return false;
+      return i === 0 ? c.due < e : (c.due >= s && c.due < e);
+    }).length;
+    days.push({ i, n, label: i === 0 ? "heute" : WD[new Date(s).getDay()] });
+  }
+
+  const max = Math.max(1, ...days.map(d => d.n));
+  const chart = el("planChart");
+  chart.innerHTML = "";
+  days.forEach(d => {
+    const col = document.createElement("div"); col.className = "col";
+    const grow = document.createElement("div"); grow.className = "grow";
+    const bar = document.createElement("div");
+    bar.className = "bar" + (d.n ? "" : " empty");
+    bar.style.height = d.n ? Math.max(4, Math.round(100 * d.n / max)) + "%" : "3%";
+    if(d.n){
+      const fill = document.createElement("i");
+      fill.className = "ok";
+      fill.style.height = "100%";
+      bar.appendChild(fill);
+    }
+    bar.title = `${d.label}: ${d.n} Karten`;
+    const lab = document.createElement("span");
+    lab.className = "d"; lab.textContent = d.label;
+    grow.appendChild(bar);
+    col.append(grow, lab);
+    chart.appendChild(col);
+  });
+
+  const total = days.reduce((a, d) => a + d.n, 0);
+  el("planCap").textContent = total ? `${total} Karten in 7 Tagen fällig` : "nichts fällig — alles wiederholt";
+  el("planNext").textContent = days[1].n ? `morgen ${days[1].n}` : "";
+
+  el("examDate").value = cfg.examDate || "";
+  const plan = examPlan();
+  el("examPlan").textContent = plan ? plan.long : "Prüfungsdatum setzen — dann rechnet die App das Tagespensum aus";
+}
+
+/* ---- searchable word list ---- */
+let wordQuery = "", wordOnly = "all";
+
+function renderWordList(){
+  const wrongN = VOCAB.filter(w => (state.cards[w.id]?.wrong ?? 0) > 0).length;
+  const weakN = VOCAB.filter(w => { const c = state.cards[w.id]; return c && c.seen && (c.box ?? 0) <= 1; }).length;
+
+  el("wordFilter").innerHTML = "";
+  [["all", `alle (${VOCAB.length})`], ["weak", `Box 0–1 (${weakN})`], ["wrong", `mit Fehlern (${wrongN})`]]
+    .forEach(([v, label]) => {
+      el("wordFilter").appendChild(makeChip(label, wordOnly === v, () => {
+        wordOnly = v; renderWordList();
+      }, { disabled: v === "wrong" && wrongN === 0, reason: "Noch keine Fehler — gut so" }));
+    });
+
+  const q = norm(wordQuery);
+  const rows = VOCAB.filter(w => {
+    const c = state.cards[w.id] || {};
+    if(wordOnly === "wrong" && !(c.wrong > 0)) return false;
+    if(wordOnly === "weak" && !(c.seen && (c.box ?? 0) <= 1)) return false;
+    if(!q) return true;
+    return norm(front(w)).includes(q) || (w.german || []).some(g => norm(g).includes(q));
+  });
+
+  el("wordCount").textContent = wordQuery || wordOnly !== "all"
+    ? `${rows.length} von ${VOCAB.length} Wörtern`
+    : `${VOCAB.length} Wörter`;
+  el("allBody").innerHTML = rows.length ? rows.map(w => {
     const c = state.cards[w.id];
     const bx = c && c.seen ? c.box : "–";
     return `<tr><td>${esc(front(w))}</td><td style="color:var(--muted)">${esc(w.german[0])}</td>
             <td class="num">${bx}</td></tr>`;
-  }).join("");
+  }).join("") : `<tr><td colspan="3" style="color:var(--muted)">nichts gefunden</td></tr>`;
 }
 
 function renderExams(){
@@ -1717,6 +1858,31 @@ el("themeBtn").onclick = () => {
   setTheme(document.documentElement.dataset.theme === "light" ? "dark" : "light");
 };
 el("addWordsBtn").onclick = addCustomWords;
+el("wordsFileBtn").onclick = () => el("wordsFile").click();
+el("wordsFile").onchange = ev => {
+  const f = ev.target.files && ev.target.files[0];
+  if(!f) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    const lesson = (el("addLesson").value || "").trim() || "Eigene";
+    const added = importWords(String(reader.result || ""), lesson);
+    ev.target.value = "";
+    if(!added) return toast("In der Datei war kein Wort zu erkennen");
+    loadSubject(subjectId).then(() => toast(`${added} ${added === 1 ? "Wort" : "Wörter"} importiert`));
+  };
+  reader.readAsText(f);
+};
+el("wordsExportBtn").onclick = () => {
+  const list = loadCustom();
+  if(!list.length) return toast("Noch keine eigenen Wörter");
+  const blob = new Blob([JSON.stringify({ words: list }, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `eigene-woerter-${subjectId}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast("Eigene Wörter gesichert");
+};
 el("addLesson").addEventListener("keydown", e => {
   if(e.key === "Enter"){ e.preventDefault(); addCustomWords(); }
 });
@@ -1768,14 +1934,38 @@ el("typeInput").addEventListener("keydown", e => {
 });
 
 document.addEventListener("keydown", e => {
+  if(!el("done").classList.contains("hidden")){
+    if(e.key === "Enter" || e.key === " "){ e.preventDefault(); el("againRound").click(); }
+    return;
+  }
   if(el("session").classList.contains("hidden")) return;
-  if(document.activeElement === el("typeInput")) return;
+  if(document.activeElement === el("typeInput")){
+    if(e.key === "Escape"){ e.preventDefault(); if(confirm("Runde beenden?")) finish(); }
+    return;
+  }
+  if(e.key === "Escape"){ e.preventDefault(); if(confirm("Runde beenden?")) finish(); return; }
+  // multiple choice: 1..4 pick the visible option
+  if(!el("mcBox").classList.contains("hidden") && /^[1-9]$/.test(e.key)){
+    const btn = [...el("mcBox").children].filter(b => !b.disabled)[Number(e.key) - 1];
+    if(btn){ e.preventDefault(); btn.click(); return; }
+  }
   if((e.key === "m" || e.key === "M") && session && session.current){
     e.preventDefault(); toggleMark(session.current);
   }
   if(e.key === " " && cfg.mode === "cards" && !session.exam){ e.preventDefault(); reveal(); }
   if(e.key === "1" && session.revealed && !session.exam){ e.preventDefault(); session.answered = true; applyGrade(false, false); }
   if(e.key === "2" && session.revealed && !session.exam){ e.preventDefault(); session.answered = true; applyGrade(true, false); }
+});
+
+el("wordSearch").addEventListener("input", e => { wordQuery = e.target.value; renderWordList(); });
+// opening the settings must show current counts, not the ones from page load
+el("settingsPanel").addEventListener("toggle", () => { if(el("settingsPanel").open) renderChips(); });
+el("examDate").addEventListener("change", e => {
+  cfg.examDate = e.target.value || "";
+  save(); renderStats(); renderLobby();
+});
+el("examDateClear").addEventListener("click", () => {
+  cfg.examDate = ""; save(); renderStats(); renderLobby();
 });
 
 /* ================= boot ================= */
@@ -1835,25 +2025,57 @@ function renderCustomInfo(){
     loadSubject(subjectId);
   };
 }
-function addCustomWords(){
-  const raw = el("addWords").value || "";
-  const lesson = (el("addLesson").value || "").trim() || "Eigene";
-  const list = loadCustom();
-  let added = 0, line = 0;
-  raw.split("\n").forEach(text => {
-    line++;
-    const t = text.trim();
-    if(!t || !t.includes("=")) return;
-    const [left, right] = t.split("=");
-    const term = left.trim();
-    const german = right.split(/[,;]/).map(x => x.trim()).filter(Boolean);
+/* Accepted shapes — pasted lines or an uploaded file, everything stays on this device:
+   "term = meaning, meaning"  ·  "term;meaning;meaning"  ·  "term<TAB>meaning"
+   JSON: [{"term":"…","german":["…"]}] or {"words":[…]} */
+function parseWordLines(text){
+  const out = [];
+  (text || "").split(/\r?\n/).forEach(line => {
+    const raw = line.trim();
+    if(!raw || raw.startsWith("#")) return;
+    const sep = raw.includes("=") ? "=" : (raw.includes("\t") ? "\t" : (raw.includes(";") ? ";" : null));
+    if(!sep) return;
+    const at = raw.indexOf(sep);
+    const term = raw.slice(0, at).trim();
+    const rest = raw.slice(at + 1).trim();
+    const german = rest.split(/[,;]/).map(s => s.trim()).filter(Boolean);
     if(!term || !german.length) return;
-    list.push({ id: `c${Date.now()}_${line}`, lesson, type: "Eigene",
-                term, form: "", german, hint: "" });
-    added++;
+    out.push({ term, german });
   });
-  if(!added) return toast("Keine gültige Zeile — Format: wort = übersetzung");
+  return out;
+}
+function parseWordFile(text){
+  const t = (text || "").trim();
+  if(t.startsWith("[") || t.startsWith("{")){
+    try{
+      const d = JSON.parse(t);
+      const arr = Array.isArray(d) ? d : (d.words || []);
+      return arr.map(w => {
+        const term = String(w.term || w.latin || w.front || "").trim();
+        const german = [].concat(w.german || w.meanings || w.meaning || [])
+                         .map(s => String(s).trim()).filter(Boolean);
+        return term && german.length ? { term, german, lesson: w.lesson } : null;
+      }).filter(Boolean);
+    }catch(e){ return []; }
+  }
+  return parseWordLines(t);
+}
+function importWords(text, lesson){
+  const parsed = parseWordFile(text);
+  if(!parsed.length) return 0;
+  const list = loadCustom();
+  const stamp = Date.now();
+  parsed.forEach((p, i) => list.push({
+    id: `c${stamp}_${i}`, lesson: p.lesson || lesson, type: "Eigene",
+    term: p.term, form: "", german: p.german, hint: ""
+  }));
   localStorage.setItem(CUSTOM_KEY(), JSON.stringify(list));
+  return parsed.length;
+}
+function addCustomWords(){
+  const lesson = (el("addLesson").value || "").trim() || "Eigene";
+  const added = importWords(el("addWords").value || "", lesson);
+  if(!added) return toast("Keine gültige Zeile — Format: wort = übersetzung");
   el("addWords").value = "";
   loadSubject(subjectId).then(() => toast(`${added} ${added === 1 ? "Wort" : "Wörter"} hinzugefügt`));
 }
