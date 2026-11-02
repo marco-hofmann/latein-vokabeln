@@ -24,7 +24,12 @@
         "die Herrin"
       ],
       "hint": "f. – weiblich",
-      "term": "domina"
+      "term": "domina",
+      "example": {
+        "s": "___ servam vocat.",
+        "a": "domina",
+        "de": "Die Herrin ruft die Sklavin."
+      }
     },
     {
       "id": "l1-serva",
@@ -35,7 +40,12 @@
         "die Sklavin"
       ],
       "hint": "f. – weiblich",
-      "term": "serva"
+      "term": "serva",
+      "example": {
+        "s": "___ frumentum portat.",
+        "a": "serva",
+        "de": "Die Sklavin trägt das Getreide."
+      }
     },
     {
       "id": "l1-victoria",
@@ -46,7 +56,12 @@
         "der Sieg"
       ],
       "hint": "f. – weiblich",
-      "term": "victoria"
+      "term": "victoria",
+      "example": {
+        "s": "___ magna est.",
+        "a": "victoria",
+        "de": "Der Sieg ist groß."
+      }
     },
     {
       "id": "l1-dominus",
@@ -57,7 +72,12 @@
         "der Herr"
       ],
       "hint": "m. – männlich",
-      "term": "dominus"
+      "term": "dominus",
+      "example": {
+        "s": "___ servum laudat.",
+        "a": "dominus",
+        "de": "Der Herr lobt den Sklaven."
+      }
     },
     {
       "id": "l1-servus",
@@ -68,7 +88,12 @@
         "der Sklave"
       ],
       "hint": "m. – männlich",
-      "term": "servus"
+      "term": "servus",
+      "example": {
+        "s": "___ ad tabernam properat.",
+        "a": "servus",
+        "de": "Der Sklave eilt zum Gasthaus."
+      }
     },
     {
       "id": "l1-equus",
@@ -79,7 +104,12 @@
         "das Pferd"
       ],
       "hint": "m. – männlich",
-      "term": "equus"
+      "term": "equus",
+      "example": {
+        "s": "___ in via stat.",
+        "a": "equus",
+        "de": "Das Pferd steht auf der Straße."
+      }
     },
     {
       "id": "l1-populus",
@@ -90,7 +120,12 @@
         "das Volk"
       ],
       "hint": "m. – männlich",
-      "term": "populus"
+      "term": "populus",
+      "example": {
+        "s": "___ clamorem audit.",
+        "a": "populus",
+        "de": "Das Volk hört das Geschrei."
+      }
     },
     {
       "id": "l1-frumentum",
@@ -101,7 +136,12 @@
         "das Getreide"
       ],
       "hint": "n. – sächlich",
-      "term": "frumentum"
+      "term": "frumentum",
+      "example": {
+        "s": "serva ___ portat.",
+        "a": "frumentum",
+        "de": "Die Sklavin trägt das Getreide."
+      }
     },
     {
       "id": "l1-furtum",
@@ -112,7 +152,12 @@
         "der Diebstahl"
       ],
       "hint": "n. – sächlich",
-      "term": "furtum"
+      "term": "furtum",
+      "example": {
+        "s": "dominus ___ videt.",
+        "a": "furtum",
+        "de": "Der Herr sieht den Diebstahl."
+      }
     },
     {
       "id": "l1-victor",
@@ -123,7 +168,12 @@
         "der Sieger"
       ],
       "hint": "m. – männlich",
-      "term": "victor"
+      "term": "victor",
+      "example": {
+        "s": "___ populum salutat.",
+        "a": "victor",
+        "de": "Der Sieger grüßt das Volk."
+      }
     },
     {
       "id": "l1-clamor",
@@ -135,7 +185,12 @@
         "der Lärm"
       ],
       "hint": "m. – männlich",
-      "term": "clamor"
+      "term": "clamor",
+      "example": {
+        "s": "___ magnus est.",
+        "a": "clamor",
+        "de": "Das Geschrei ist laut."
+      }
     },
     {
       "id": "l1-mercator",
@@ -147,7 +202,12 @@
         "der Händler"
       ],
       "hint": "m. – männlich",
-      "term": "mercator"
+      "term": "mercator",
+      "example": {
+        "s": "___ in foro stat.",
+        "a": "mercator",
+        "de": "Der Kaufmann steht auf dem Forum."
+      }
     },
     {
       "id": "l1-cogitare",
@@ -160,7 +220,12 @@
         "beabsichtigen"
       ],
       "hint": "3. Pers. Sg.: cogitat",
-      "term": "cogitare"
+      "term": "cogitare",
+      "example": {
+        "s": "dominus multa ___.",
+        "a": "cogitat",
+        "de": "Der Herr denkt viel nach."
+      }
     },
     {
       "id": "l1-stare",
@@ -171,7 +236,12 @@
         "stehen"
       ],
       "hint": "3. Pers. Sg.: stat",
-      "term": "stare"
+      "term": "stare",
+      "example": {
+        "s": "equus ante tabernam ___.",
+        "a": "stat",
+        "de": "Das Pferd steht vor dem Gasthaus."
+      }
     },
     {
       "id": "l1-spectare",
@@ -184,7 +254,12 @@
         "zuschauen"
       ],
       "hint": "3. Pers. Sg.: spectat",
-      "term": "spectare"
+      "term": "spectare",
+      "example": {
+        "s": "populus forum ___.",
+        "a": "spectat",
+        "de": "Das Volk betrachtet das Forum."
+      }
     },
     {
       "id": "l1-clamare",
@@ -196,7 +271,12 @@
         "schreien"
       ],
       "hint": "3. Pers. Sg.: clamat",
-      "term": "clamare"
+      "term": "clamare",
+      "example": {
+        "s": "serva magna voce ___.",
+        "a": "clamat",
+        "de": "Die Sklavin ruft laut."
+      }
     },
     {
       "id": "l1-rogare",
@@ -208,7 +288,12 @@
         "bitten (um)"
       ],
       "hint": "3. Pers. Sg.: rogat",
-      "term": "rogare"
+      "term": "rogare",
+      "example": {
+        "s": "serva dominam ___.",
+        "a": "rogat",
+        "de": "Die Sklavin fragt die Herrin."
+      }
     },
     {
       "id": "l1-amare",
@@ -220,7 +305,12 @@
         "gernhaben"
       ],
       "hint": "3. Pers. Sg.: amat",
-      "term": "amare"
+      "term": "amare",
+      "example": {
+        "s": "dominus servam ___.",
+        "a": "amat",
+        "de": "Der Herr liebt die Sklavin."
+      }
     },
     {
       "id": "l1-tacere",
@@ -231,7 +321,12 @@
         "schweigen"
       ],
       "hint": "3. Pers. Sg.: tacet",
-      "term": "tacere"
+      "term": "tacere",
+      "example": {
+        "s": "servus ___, non clamat.",
+        "a": "tacet",
+        "de": "Der Sklave schweigt, er schreit nicht."
+      }
     },
     {
       "id": "l1-videre",
@@ -242,7 +337,12 @@
         "sehen"
       ],
       "hint": "3. Pers. Sg.: videt",
-      "term": "videre"
+      "term": "videre",
+      "example": {
+        "s": "domina servum ___.",
+        "a": "videt",
+        "de": "Die Herrin sieht den Sklaven."
+      }
     },
     {
       "id": "l1-gaudere",
@@ -253,7 +353,12 @@
         "sich freuen"
       ],
       "hint": "3. Pers. Sg.: gaudet",
-      "term": "gaudere"
+      "term": "gaudere",
+      "example": {
+        "s": "victor ___.",
+        "a": "gaudet",
+        "de": "Der Sieger freut sich."
+      }
     },
     {
       "id": "l1-ridere",
@@ -265,7 +370,12 @@
         "auslachen"
       ],
       "hint": "3. Pers. Sg.: ridet",
-      "term": "ridere"
+      "term": "ridere",
+      "example": {
+        "s": "serva ___.",
+        "a": "ridet",
+        "de": "Die Sklavin lacht."
+      }
     },
     {
       "id": "l1-debere",
@@ -278,7 +388,12 @@
         "schulden"
       ],
       "hint": "3. Pers. Sg.: debet",
-      "term": "debere"
+      "term": "debere",
+      "example": {
+        "s": "servus laborare ___.",
+        "a": "debet",
+        "de": "Der Sklave muss arbeiten."
+      }
     },
     {
       "id": "l1-venire",
@@ -289,7 +404,12 @@
         "kommen"
       ],
       "hint": "3. Pers. Sg.: venit",
-      "term": "venire"
+      "term": "venire",
+      "example": {
+        "s": "dominus in forum ___.",
+        "a": "venit",
+        "de": "Der Herr kommt aufs Forum."
+      }
     },
     {
       "id": "l1-esse",
@@ -301,7 +421,12 @@
         "sich befinden"
       ],
       "hint": "est / sunt",
-      "term": "esse"
+      "term": "esse",
+      "example": {
+        "s": "serva in via ___.",
+        "a": "est",
+        "de": "Die Sklavin ist auf der Straße."
+      }
     },
     {
       "id": "l1-adesse",
@@ -313,7 +438,12 @@
         "helfen"
       ],
       "hint": "adest / adsunt",
-      "term": "adesse"
+      "term": "adesse",
+      "example": {
+        "s": "servus domino ___.",
+        "a": "adest",
+        "de": "Der Sklave ist beim Herrn da."
+      }
     },
     {
       "id": "l1-quis",
@@ -324,7 +454,12 @@
         "wer?"
       ],
       "hint": "Fragewort",
-      "term": "quis?"
+      "term": "quis?",
+      "example": {
+        "s": "___ servum vocat?",
+        "a": "quis",
+        "de": "Wer ruft den Sklaven?"
+      }
     },
     {
       "id": "l1-cur",
@@ -335,7 +470,12 @@
         "warum?"
       ],
       "hint": "Fragewort",
-      "term": "cur?"
+      "term": "cur?",
+      "example": {
+        "s": "___ servus properat?",
+        "a": "cur",
+        "de": "Warum eilt der Sklave?"
+      }
     },
     {
       "id": "l1-ubi",
@@ -346,7 +486,12 @@
         "wo?"
       ],
       "hint": "Fragewort",
-      "term": "ubi?"
+      "term": "ubi?",
+      "example": {
+        "s": "___ est forum?",
+        "a": "ubi",
+        "de": "Wo ist das Forum?"
+      }
     },
     {
       "id": "l1-ibi",
@@ -357,7 +502,12 @@
         "dort"
       ],
       "hint": "Adv.",
-      "term": "ibi"
+      "term": "ibi",
+      "example": {
+        "s": "___ mercator stat.",
+        "a": "ibi",
+        "de": "Dort steht der Kaufmann."
+      }
     },
     {
       "id": "l1-hic",
@@ -368,7 +518,12 @@
         "hier"
       ],
       "hint": "Adv.",
-      "term": "hic"
+      "term": "hic",
+      "example": {
+        "s": "___ est taberna.",
+        "a": "hic",
+        "de": "Hier ist das Gasthaus."
+      }
     },
     {
       "id": "l1-non",
@@ -379,7 +534,12 @@
         "nicht"
       ],
       "hint": "Adv.",
-      "term": "non"
+      "term": "non",
+      "example": {
+        "s": "serva frumentum ___ portat.",
+        "a": "non",
+        "de": "Die Sklavin trägt das Getreide nicht."
+      }
     },
     {
       "id": "l1-et",
@@ -391,7 +551,12 @@
         "auch"
       ],
       "hint": "Konjunktion",
-      "term": "et"
+      "term": "et",
+      "example": {
+        "s": "domina ___ serva in via sunt.",
+        "a": "et",
+        "de": "Die Herrin und die Sklavin sind auf der Straße."
+      }
     },
     {
       "id": "l1-etiam",
@@ -403,7 +568,12 @@
         "sogar"
       ],
       "hint": "Adv.",
-      "term": "etiam"
+      "term": "etiam",
+      "example": {
+        "s": "___ serva laborat.",
+        "a": "etiam",
+        "de": "Auch die Sklavin arbeitet."
+      }
     },
     {
       "id": "l1-sed",
@@ -415,7 +585,12 @@
         "sondern"
       ],
       "hint": "Konjunktion",
-      "term": "sed"
+      "term": "sed",
+      "example": {
+        "s": "dominus properat, ___ servus non properat.",
+        "a": "sed",
+        "de": "Der Herr eilt, aber der Sklave eilt nicht."
+      }
     },
     {
       "id": "l1-nunc",
@@ -427,7 +602,12 @@
         "nun"
       ],
       "hint": "Adv.",
-      "term": "nunc"
+      "term": "nunc",
+      "example": {
+        "s": "___ domina laborat.",
+        "a": "nunc",
+        "de": "Jetzt arbeitet die Herrin."
+      }
     },
     {
       "id": "l1-undique",
@@ -439,7 +619,12 @@
         "von überall her"
       ],
       "hint": "Adv.",
-      "term": "undique"
+      "term": "undique",
+      "example": {
+        "s": "___ populus venit.",
+        "a": "undique",
+        "de": "Von allen Seiten kommt das Volk."
+      }
     },
     {
       "id": "l1-semper",
@@ -450,7 +635,12 @@
         "immer"
       ],
       "hint": "Adv.",
-      "term": "semper"
+      "term": "semper",
+      "example": {
+        "s": "servus ___ laborat.",
+        "a": "semper",
+        "de": "Der Sklave arbeitet immer."
+      }
     },
     {
       "id": "l2-amica",
@@ -461,7 +651,12 @@
         "die Freundin"
       ],
       "hint": "f. – weiblich",
-      "term": "amica"
+      "term": "amica",
+      "example": {
+        "s": "___ dominam salutat.",
+        "a": "amica",
+        "de": "Die Freundin grüßt die Herrin."
+      }
     },
     {
       "id": "l2-via",
@@ -473,7 +668,12 @@
         "die Straße"
       ],
       "hint": "f. – weiblich",
-      "term": "via"
+      "term": "via",
+      "example": {
+        "s": "equus in ___ stat.",
+        "a": "via",
+        "de": "Das Pferd steht auf der Straße."
+      }
     },
     {
       "id": "l2-taberna",
@@ -486,7 +686,12 @@
         "die Werkstatt"
       ],
       "hint": "f. – weiblich",
-      "term": "taberna"
+      "term": "taberna",
+      "example": {
+        "s": "mercator in ___ stat.",
+        "a": "taberna",
+        "de": "Der Kaufmann steht im Gasthaus."
+      }
     },
     {
       "id": "l2-bestia",
@@ -497,7 +702,12 @@
         "das Tier"
       ],
       "hint": "f. – weiblich",
-      "term": "bestia"
+      "term": "bestia",
+      "example": {
+        "s": "___ in via est.",
+        "a": "bestia",
+        "de": "Das Tier ist auf der Straße."
+      }
     },
     {
       "id": "l2-amicus",
@@ -508,7 +718,12 @@
         "der Freund"
       ],
       "hint": "m. – männlich",
-      "term": "amicus"
+      "term": "amicus",
+      "example": {
+        "s": "___ servum adiuvat.",
+        "a": "amicus",
+        "de": "Der Freund hilft dem Sklaven."
+      }
     },
     {
       "id": "l2-circus",
@@ -520,7 +735,12 @@
         "die Rennbahn"
       ],
       "hint": "m. – männlich",
-      "term": "circus"
+      "term": "circus",
+      "example": {
+        "s": "populus ad ___ properat.",
+        "a": "circum",
+        "de": "Das Volk eilt zum Zirkus."
+      }
     },
     {
       "id": "l2-forum",
@@ -532,7 +752,12 @@
         "der Marktplatz"
       ],
       "hint": "n. – sächlich",
-      "term": "forum"
+      "term": "forum",
+      "example": {
+        "s": "dominus in ___ venit.",
+        "a": "forum",
+        "de": "Der Herr kommt aufs Forum."
+      }
     },
     {
       "id": "l2-aedificium",
@@ -544,7 +769,12 @@
         "das Haus"
       ],
       "hint": "n. – sächlich",
-      "term": "aedificium"
+      "term": "aedificium",
+      "example": {
+        "s": "___ magnum est.",
+        "a": "aedificium",
+        "de": "Das Gebäude ist groß."
+      }
     },
     {
       "id": "l2-senator",
@@ -555,7 +785,12 @@
         "der Senator"
       ],
       "hint": "m. – Gen. senatoris",
-      "term": "senator"
+      "term": "senator",
+      "example": {
+        "s": "___ in foro stat.",
+        "a": "senator",
+        "de": "Der Senator steht auf dem Forum."
+      }
     },
     {
       "id": "l2-praetor",
@@ -567,7 +802,12 @@
         "der römische Gerichtsbeamte"
       ],
       "hint": "m. – Gen. praetoris",
-      "term": "praetor"
+      "term": "praetor",
+      "example": {
+        "s": "___ servum vocat.",
+        "a": "praetor",
+        "de": "Der Prätor ruft den Sklaven."
+      }
     },
     {
       "id": "l2-properare",
@@ -579,7 +819,12 @@
         "sich beeilen"
       ],
       "hint": "3. Pers. Sg.: properat",
-      "term": "properare"
+      "term": "properare",
+      "example": {
+        "s": "servus ad forum ___.",
+        "a": "properat",
+        "de": "Der Sklave eilt zum Forum."
+      }
     },
     {
       "id": "l2-narrare",
@@ -590,7 +835,12 @@
         "erzählen"
       ],
       "hint": "3. Pers. Sg.: narrat",
-      "term": "narrare"
+      "term": "narrare",
+      "example": {
+        "s": "senator populo ___.",
+        "a": "narrat",
+        "de": "Der Senator erzählt dem Volk."
+      }
     },
     {
       "id": "l2-adiuvare",
@@ -602,7 +852,12 @@
         "unterstützen"
       ],
       "hint": "mit Akkusativ",
-      "term": "adiuvare"
+      "term": "adiuvare",
+      "example": {
+        "s": "amicus servam ___.",
+        "a": "adiuvat",
+        "de": "Der Freund hilft der Sklavin."
+      }
     },
     {
       "id": "l2-vocare",
@@ -614,7 +869,12 @@
         "nennen"
       ],
       "hint": "3. Pers. Sg.: vocat",
-      "term": "vocare"
+      "term": "vocare",
+      "example": {
+        "s": "domina servam ___.",
+        "a": "vocat",
+        "de": "Die Herrin ruft die Sklavin."
+      }
     },
     {
       "id": "l2-exspectare",
@@ -626,7 +886,12 @@
         "erwarten"
       ],
       "hint": "3. Pers. Sg.: exspectat",
-      "term": "exspectare"
+      "term": "exspectare",
+      "example": {
+        "s": "servus dominum ___.",
+        "a": "exspectat",
+        "de": "Der Sklave wartet auf den Herrn."
+      }
     },
     {
       "id": "l2-audire",
@@ -637,7 +902,12 @@
         "hören"
       ],
       "hint": "3. Pers. Sg.: audit",
-      "term": "audire"
+      "term": "audire",
+      "example": {
+        "s": "dominus clamorem ___.",
+        "a": "audit",
+        "de": "Der Herr hört das Geschrei."
+      }
     },
     {
       "id": "l2-reperire",
@@ -649,7 +919,12 @@
         "wiederfinden"
       ],
       "hint": "3. Pers. Sg.: reperit",
-      "term": "reperire"
+      "term": "reperire",
+      "example": {
+        "s": "serva frumentum ___.",
+        "a": "reperit",
+        "de": "Die Sklavin findet das Getreide."
+      }
     },
     {
       "id": "l2-ad",
@@ -663,7 +938,12 @@
         "nach"
       ],
       "hint": "mit Akkusativ",
-      "term": "ad"
+      "term": "ad",
+      "example": {
+        "s": "servus ___ forum properat.",
+        "a": "ad",
+        "de": "Der Sklave eilt zum Forum."
+      }
     },
     {
       "id": "l2-per",
@@ -675,7 +955,12 @@
         "durch ... hindurch"
       ],
       "hint": "mit Akkusativ",
-      "term": "per"
+      "term": "per",
+      "example": {
+        "s": "servus ___ viam properat.",
+        "a": "per",
+        "de": "Der Sklave eilt durch die Straße."
+      }
     },
     {
       "id": "l2-in",
@@ -689,7 +974,12 @@
         "gegen"
       ],
       "hint": "mit Akkusativ",
-      "term": "in"
+      "term": "in",
+      "example": {
+        "s": "domina ___ tabernam intrat.",
+        "a": "in",
+        "de": "Die Herrin tritt in das Gasthaus."
+      }
     },
     {
       "id": "l2-ante",
@@ -700,7 +990,12 @@
         "vor"
       ],
       "hint": "mit Akkusativ",
-      "term": "ante"
+      "term": "ante",
+      "example": {
+        "s": "equus ___ tabernam stat.",
+        "a": "ante",
+        "de": "Das Pferd steht vor dem Gasthaus."
+      }
     },
     {
       "id": "l2-ecce",
@@ -714,7 +1009,12 @@
         "seht da!"
       ],
       "hint": "Ausruf",
-      "term": "ecce!"
+      "term": "ecce!",
+      "example": {
+        "s": "___ dominus!",
+        "a": "ecce",
+        "de": "Schau, der Herr!"
+      }
     },
     {
       "id": "l2-itaque",
@@ -725,7 +1025,12 @@
         "deshalb"
       ],
       "hint": "Konjunktion",
-      "term": "itaque"
+      "term": "itaque",
+      "example": {
+        "s": "servus properat, ___ amicum non videt.",
+        "a": "itaque",
+        "de": "Der Sklave eilt, deshalb sieht er den Freund nicht."
+      }
     },
     {
       "id": "l2-tum",
@@ -738,7 +1043,12 @@
         "damals"
       ],
       "hint": "Adv.",
-      "term": "tum"
+      "term": "tum",
+      "example": {
+        "s": "___ dominus in forum venit.",
+        "a": "tum",
+        "de": "Da kommt der Herr aufs Forum."
+      }
     },
     {
       "id": "l2-bene",
@@ -749,7 +1059,12 @@
         "gut"
       ],
       "hint": "Adv.",
-      "term": "bene"
+      "term": "bene",
+      "example": {
+        "s": "serva ___ laborat.",
+        "a": "bene",
+        "de": "Die Sklavin arbeitet gut."
+      }
     },
     {
       "id": "l2-iterum",
@@ -762,7 +1077,12 @@
         "zum zweiten Mal"
       ],
       "hint": "Adv.",
-      "term": "iterum"
+      "term": "iterum",
+      "example": {
+        "s": "servus ___ clamat.",
+        "a": "iterum",
+        "de": "Der Sklave schreit wieder."
+      }
     },
     {
       "id": "l2-subito",
@@ -773,7 +1093,12 @@
         "plötzlich"
       ],
       "hint": "Adv.",
-      "term": "subito"
+      "term": "subito",
+      "example": {
+        "s": "___ bestia in via est.",
+        "a": "subito",
+        "de": "Plötzlich ist ein Tier auf der Straße."
+      }
     },
     {
       "id": "l2-statim",
@@ -785,7 +1110,12 @@
         "auf der Stelle"
       ],
       "hint": "Adv.",
-      "term": "statim"
+      "term": "statim",
+      "example": {
+        "s": "servus ___ properat.",
+        "a": "statim",
+        "de": "Der Sklave eilt sofort."
+      }
     },
     {
       "id": "l2-iam",
@@ -798,7 +1128,12 @@
         "nun"
       ],
       "hint": "Adv.",
-      "term": "iam"
+      "term": "iam",
+      "example": {
+        "s": "servus ___ properat.",
+        "a": "iam",
+        "de": "Der Sklave eilt schon."
+      }
     },
     {
       "id": "l2-diu",
@@ -810,7 +1145,12 @@
         "lange Zeit"
       ],
       "hint": "Adv.",
-      "term": "diu"
+      "term": "diu",
+      "example": {
+        "s": "servus ___ exspectat.",
+        "a": "diu",
+        "de": "Der Sklave wartet lange."
+      }
     },
     {
       "id": "l2-quid",
@@ -821,7 +1161,12 @@
         "was?"
       ],
       "hint": "Fragewort",
-      "term": "quid?"
+      "term": "quid?",
+      "example": {
+        "s": "___ facit servus?",
+        "a": "quid",
+        "de": "Was macht der Sklave?"
+      }
     },
     {
       "id": "l2-nos",
@@ -832,7 +1177,12 @@
         "uns"
       ],
       "hint": "Akkusativ",
-      "term": "nos"
+      "term": "nos",
+      "example": {
+        "s": "dominus ___ vocat.",
+        "a": "nos",
+        "de": "Der Herr ruft uns."
+      }
     },
     {
       "id": "l3-thermae",
@@ -844,7 +1194,12 @@
         "die Badeanlage"
       ],
       "hint": "Plural",
-      "term": "thermae"
+      "term": "thermae",
+      "example": {
+        "s": "___ magnae sunt.",
+        "a": "thermae",
+        "de": "Die Thermen sind groß."
+      }
     },
     {
       "id": "l3-audacia",
@@ -856,7 +1211,12 @@
         "die Kühnheit"
       ],
       "hint": "f. – weiblich",
-      "term": "audacia"
+      "term": "audacia",
+      "example": {
+        "s": "servus magnam ___ habet.",
+        "a": "audaciam",
+        "de": "Der Sklave hat große Kühnheit."
+      }
     },
     {
       "id": "l3-verbum",
@@ -868,7 +1228,12 @@
         "die Äußerung"
       ],
       "hint": "n. – sächlich",
-      "term": "verbum"
+      "term": "verbum",
+      "example": {
+        "s": "serva ___ audit.",
+        "a": "verbum",
+        "de": "Die Sklavin hört das Wort."
+      }
     },
     {
       "id": "l3-consilium",
@@ -882,7 +1247,12 @@
         "der Rat"
       ],
       "hint": "n. – sächlich",
-      "term": "consilium"
+      "term": "consilium",
+      "example": {
+        "s": "senator bonum ___ habet.",
+        "a": "consilium",
+        "de": "Der Senator hat einen guten Plan."
+      }
     },
     {
       "id": "l3-intrare",
@@ -894,7 +1264,12 @@
         "betreten"
       ],
       "hint": "1. Pers. Sg.: intro",
-      "term": "intrare"
+      "term": "intrare",
+      "example": {
+        "s": "domina tabernam ___.",
+        "a": "intrat",
+        "de": "Die Herrin tritt ins Gasthaus."
+      }
     },
     {
       "id": "l3-parare",
@@ -907,7 +1282,12 @@
         "vorhaben"
       ],
       "hint": "1. Pers. Sg.: paro",
-      "term": "parare"
+      "term": "parare",
+      "example": {
+        "s": "servus furtum ___.",
+        "a": "parat",
+        "de": "Der Sklave plant einen Diebstahl."
+      }
     },
     {
       "id": "l3-laborare",
@@ -919,7 +1299,12 @@
         "sich anstrengen"
       ],
       "hint": "1. Pers. Sg.: laboro",
-      "term": "laborare"
+      "term": "laborare",
+      "example": {
+        "s": "serva in taberna ___.",
+        "a": "laborat",
+        "de": "Die Sklavin arbeitet im Gasthaus."
+      }
     },
     {
       "id": "l3-curare",
@@ -932,7 +1317,12 @@
         "pflegen"
       ],
       "hint": "mit Akkusativ",
-      "term": "curare"
+      "term": "curare",
+      "example": {
+        "s": "domina frumentum ___.",
+        "a": "curat",
+        "de": "Die Herrin sorgt für das Getreide."
+      }
     },
     {
       "id": "l3-necare",
@@ -943,7 +1333,12 @@
         "töten"
       ],
       "hint": "1. Pers. Sg.: neco",
-      "term": "necare"
+      "term": "necare",
+      "example": {
+        "s": "servus bestiam ___.",
+        "a": "necat",
+        "de": "Der Sklave tötet das Tier."
+      }
     },
     {
       "id": "l3-salutare",
@@ -955,7 +1350,12 @@
         "begrüßen"
       ],
       "hint": "1. Pers. Sg.: saluto",
-      "term": "salutare"
+      "term": "salutare",
+      "example": {
+        "s": "serva dominam ___.",
+        "a": "salutat",
+        "de": "Die Sklavin grüßt die Herrin."
+      }
     },
     {
       "id": "l3-portare",
@@ -967,7 +1367,12 @@
         "bringen"
       ],
       "hint": "1. Pers. Sg.: porto",
-      "term": "portare"
+      "term": "portare",
+      "example": {
+        "s": "servus frumentum ___.",
+        "a": "portat",
+        "de": "Der Sklave trägt das Getreide."
+      }
     },
     {
       "id": "l3-servare",
@@ -979,7 +1384,12 @@
         "bewahren"
       ],
       "hint": "1. Pers. Sg.: servo",
-      "term": "servare"
+      "term": "servare",
+      "example": {
+        "s": "dominus servam ___.",
+        "a": "servat",
+        "de": "Der Herr rettet die Sklavin."
+      }
     },
     {
       "id": "l3-laudare",
@@ -990,7 +1400,12 @@
         "loben"
       ],
       "hint": "1. Pers. Sg.: laudo",
-      "term": "laudare"
+      "term": "laudare",
+      "example": {
+        "s": "domina servam ___.",
+        "a": "laudat",
+        "de": "Die Herrin lobt die Sklavin."
+      }
     },
     {
       "id": "l3-sedere",
@@ -1001,7 +1416,12 @@
         "sitzen"
       ],
       "hint": "1. Pers. Sg.: sedeo",
-      "term": "sedere"
+      "term": "sedere",
+      "example": {
+        "s": "senator in foro ___.",
+        "a": "sedet",
+        "de": "Der Senator sitzt auf dem Forum."
+      }
     },
     {
       "id": "l3-parere",
@@ -1012,7 +1432,12 @@
         "gehorchen"
       ],
       "hint": "1. Pers. Sg.: pareo",
-      "term": "parere"
+      "term": "parere",
+      "example": {
+        "s": "servus domino ___.",
+        "a": "paret",
+        "de": "Der Sklave gehorcht dem Herrn."
+      }
     },
     {
       "id": "l3-monere",
@@ -1024,7 +1449,12 @@
         "ermahnen"
       ],
       "hint": "1. Pers. Sg.: moneo",
-      "term": "monere"
+      "term": "monere",
+      "example": {
+        "s": "dominus servum ___.",
+        "a": "monet",
+        "de": "Der Herr ermahnt den Sklaven."
+      }
     },
     {
       "id": "l3-audere",
@@ -1036,7 +1466,12 @@
         "sich trauen"
       ],
       "hint": "1. Pers. Sg.: audeo",
-      "term": "audere"
+      "term": "audere",
+      "example": {
+        "s": "servus furtum ___.",
+        "a": "audet",
+        "de": "Der Sklave wagt einen Diebstahl."
+      }
     },
     {
       "id": "l3-habere",
@@ -1048,7 +1483,12 @@
         "halten"
       ],
       "hint": "1. Pers. Sg.: habeo",
-      "term": "habere"
+      "term": "habere",
+      "example": {
+        "s": "domina equum ___.",
+        "a": "habet",
+        "de": "Die Herrin hat ein Pferd."
+      }
     },
     {
       "id": "l3-scire",
@@ -1060,7 +1500,12 @@
         "kennen"
       ],
       "hint": "1. Pers. Sg.: scio",
-      "term": "scire"
+      "term": "scire",
+      "example": {
+        "s": "serva viam ___.",
+        "a": "scit",
+        "de": "Die Sklavin kennt den Weg."
+      }
     },
     {
       "id": "l3-velle",
@@ -1071,7 +1516,12 @@
         "wollen"
       ],
       "hint": "volo / vult / volunt",
-      "term": "velle"
+      "term": "velle",
+      "example": {
+        "s": "servus in forum venire ___.",
+        "a": "vult",
+        "de": "Der Sklave will aufs Forum kommen."
+      }
     },
     {
       "id": "l3-salve",
@@ -1083,7 +1533,12 @@
         "seid gegrüßt!"
       ],
       "hint": "Begrüßung",
-      "term": "salve! / salvete!"
+      "term": "salve! / salvete!",
+      "example": {
+        "s": "___ , domina!",
+        "a": "salve",
+        "de": "Sei gegrüßt, Herrin!"
+      }
     },
     {
       "id": "l3-apud",
@@ -1094,7 +1549,12 @@
         "bei"
       ],
       "hint": "mit Akkusativ",
-      "term": "apud"
+      "term": "apud",
+      "example": {
+        "s": "servus ___ dominum stat.",
+        "a": "apud",
+        "de": "Der Sklave steht beim Herrn."
+      }
     },
     {
       "id": "l3-propter",
@@ -1105,7 +1565,12 @@
         "wegen"
       ],
       "hint": "mit Akkusativ",
-      "term": "propter"
+      "term": "propter",
+      "example": {
+        "s": "___ furtum dominus clamat.",
+        "a": "propter",
+        "de": "Wegen des Diebstahls schreit der Herr."
+      }
     },
     {
       "id": "l3-quin",
@@ -1141,7 +1606,12 @@
         "ach!"
       ],
       "hint": "Ausruf",
-      "term": "io!"
+      "term": "io!",
+      "example": {
+        "s": "___, victor!",
+        "a": "io",
+        "de": "Hurra, der Sieger!"
+      }
     },
     {
       "id": "l3-certe",
@@ -1153,7 +1623,12 @@
         "sicherlich"
       ],
       "hint": "Adv.",
-      "term": "certe"
+      "term": "certe",
+      "example": {
+        "s": "certe dominus ___.",
+        "a": "venit",
+        "de": "Gewiss kommt der Herr."
+      }
     },
     {
       "id": "l3-recte",
@@ -1165,7 +1640,12 @@
         "zu Recht"
       ],
       "hint": "Adv.",
-      "term": "recte"
+      "term": "recte",
+      "example": {
+        "s": "serva ___ dicit.",
+        "a": "recte",
+        "de": "Die Sklavin sagt es richtig."
+      }
     },
     {
       "id": "l3-aliter",
@@ -1177,7 +1657,12 @@
         "sonst"
       ],
       "hint": "Adv.",
-      "term": "aliter"
+      "term": "aliter",
+      "example": {
+        "s": "servus ___ cogitat.",
+        "a": "aliter",
+        "de": "Der Sklave denkt anders."
+      }
     },
     {
       "id": "l3-paulo",
@@ -1189,7 +1674,12 @@
         "um ein wenig"
       ],
       "hint": "Adv.",
-      "term": "paulo"
+      "term": "paulo",
+      "example": {
+        "s": "___ post dominus venit.",
+        "a": "paulo",
+        "de": "Ein wenig später kommt der Herr."
+      }
     },
     {
       "id": "l3-post",
@@ -1201,7 +1691,12 @@
         "später"
       ],
       "hint": "Adv.",
-      "term": "post"
+      "term": "post",
+      "example": {
+        "s": "servus portat, ___ dominus venit.",
+        "a": "post",
+        "de": "Der Sklave trägt, dann kommt der Herr."
+      }
     },
     {
       "id": "l3-paulo-post",
@@ -1213,7 +1708,12 @@
         "kurz darauf"
       ],
       "hint": "Adv.",
-      "term": "paulo post"
+      "term": "paulo post",
+      "example": {
+        "s": "servus stat, ___ dominus venit.",
+        "a": "paulo post",
+        "de": "Der Sklave steht, kurz darauf kommt der Herr."
+      }
     },
     {
       "id": "l4-tamen",
@@ -1225,7 +1725,12 @@
         "trotzdem"
       ],
       "hint": "Konjunktion",
-      "term": "tamen"
+      "term": "tamen",
+      "example": {
+        "s": "servus properat, dominus ___ non venit.",
+        "a": "tamen",
+        "de": "Der Sklave eilt, dennoch kommt der Herr nicht."
+      }
     },
     {
       "id": "l4-autem",
@@ -1237,7 +1742,12 @@
         "andererseits"
       ],
       "hint": "nachgestellt",
-      "term": "autem"
+      "term": "autem",
+      "example": {
+        "s": "dominus ___ non venit.",
+        "a": "autem",
+        "de": "Der Herr aber kommt nicht."
+      }
     },
     {
       "id": "l4-non-iam",
@@ -1248,7 +1758,12 @@
         "nicht mehr"
       ],
       "hint": "Adv.",
-      "term": "non iam"
+      "term": "non iam",
+      "example": {
+        "s": "servus ___ laborat.",
+        "a": "non iam",
+        "de": "Der Sklave arbeitet nicht mehr."
+      }
     },
     {
       "id": "l4-ego",
@@ -1259,7 +1774,12 @@
         "ich"
       ],
       "hint": "Personalpronomen",
-      "term": "ego"
+      "term": "ego",
+      "example": {
+        "s": "___ dominus sum.",
+        "a": "ego",
+        "de": "Ich bin der Herr."
+      }
     },
     {
       "id": "l4-tu",
@@ -1270,7 +1790,12 @@
         "du"
       ],
       "hint": "Personalpronomen",
-      "term": "tu"
+      "term": "tu",
+      "example": {
+        "s": "___ servus es.",
+        "a": "tu",
+        "de": "Du bist der Sklave."
+      }
     },
     {
       "id": "l4-me",
@@ -1281,7 +1806,12 @@
         "mich"
       ],
       "hint": "Akkusativ",
-      "term": "me"
+      "term": "me",
+      "example": {
+        "s": "domina ___ videt.",
+        "a": "me",
+        "de": "Die Herrin sieht mich."
+      }
     },
     {
       "id": "l4-te",
@@ -1292,7 +1822,12 @@
         "dich"
       ],
       "hint": "Akkusativ",
-      "term": "te"
+      "term": "te",
+      "example": {
+        "s": "dominus ___ laudat.",
+        "a": "te",
+        "de": "Der Herr lobt dich."
+      }
     }
   ],
   "id": "latin",

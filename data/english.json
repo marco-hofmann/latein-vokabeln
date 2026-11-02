@@ -18,7 +18,12 @@
       "german": [
         "sein"
       ],
-      "hint": "was / been"
+      "hint": "was / been",
+      "example": {
+        "s": "Yesterday he ___ at home.",
+        "a": "was",
+        "de": "Gestern war er zu Hause."
+      }
     },
     {
       "id": "en-02",
@@ -29,7 +34,12 @@
       "german": [
         "haben"
       ],
-      "hint": "had / had"
+      "hint": "had / had",
+      "example": {
+        "s": "Last year we ___ a dog.",
+        "a": "had",
+        "de": "Letztes Jahr hatten wir einen Hund."
+      }
     },
     {
       "id": "en-03",
@@ -40,7 +50,12 @@
       "german": [
         "gehen"
       ],
-      "hint": "went / gone"
+      "hint": "went / gone",
+      "example": {
+        "s": "She ___ to school yesterday.",
+        "a": "went",
+        "de": "Sie ging gestern zur Schule."
+      }
     },
     {
       "id": "en-04",
@@ -52,7 +67,12 @@
         "machen",
         "tun"
       ],
-      "hint": "did / done"
+      "hint": "did / done",
+      "example": {
+        "s": "He ___ his homework.",
+        "a": "did",
+        "de": "Er machte seine Hausaufgaben."
+      }
     },
     {
       "id": "en-05",
@@ -63,7 +83,12 @@
       "german": [
         "sagen"
       ],
-      "hint": "said / said"
+      "hint": "said / said",
+      "example": {
+        "s": "She ___ hello.",
+        "a": "said",
+        "de": "Sie sagte Hallo."
+      }
     },
     {
       "id": "en-06",
@@ -74,7 +99,12 @@
       "german": [
         "sehen"
       ],
-      "hint": "saw / seen"
+      "hint": "saw / seen",
+      "example": {
+        "s": "I ___ him yesterday.",
+        "a": "saw",
+        "de": "Ich sah ihn gestern."
+      }
     },
     {
       "id": "en-07",
@@ -85,7 +115,12 @@
       "german": [
         "kommen"
       ],
-      "hint": "came / come"
+      "hint": "came / come",
+      "example": {
+        "s": "They ___ late.",
+        "a": "came",
+        "de": "Sie kamen spät."
+      }
     },
     {
       "id": "en-08",
@@ -96,7 +131,12 @@
       "german": [
         "nehmen"
       ],
-      "hint": "took / taken"
+      "hint": "took / taken",
+      "example": {
+        "s": "He ___ the book.",
+        "a": "took",
+        "de": "Er nahm das Buch."
+      }
     },
     {
       "id": "en-09",
@@ -107,7 +147,12 @@
       "german": [
         "wissen"
       ],
-      "hint": "knew / known"
+      "hint": "knew / known",
+      "example": {
+        "s": "I ___ the answer.",
+        "a": "knew",
+        "de": "Ich wusste die Antwort."
+      }
     },
     {
       "id": "en-10",
@@ -118,7 +163,12 @@
       "german": [
         "denken"
       ],
-      "hint": "thought / thought"
+      "hint": "thought / thought",
+      "example": {
+        "s": "She ___ about it.",
+        "a": "thought",
+        "de": "Sie dachte darüber nach."
+      }
     },
     {
       "id": "en-11",
@@ -129,7 +179,12 @@
       "german": [
         "geben"
       ],
-      "hint": "gave / given"
+      "hint": "gave / given",
+      "example": {
+        "s": "He ___ me a gift.",
+        "a": "gave",
+        "de": "Er gab mir ein Geschenk."
+      }
     },
     {
       "id": "en-12",
@@ -140,7 +195,12 @@
       "german": [
         "finden"
       ],
-      "hint": "found / found"
+      "hint": "found / found",
+      "example": {
+        "s": "We ___ the key.",
+        "a": "found",
+        "de": "Wir fanden den Schlüssel."
+      }
     },
     {
       "id": "en-13",
@@ -151,7 +211,12 @@
       "german": [
         "erzählen"
       ],
-      "hint": "told / told"
+      "hint": "told / told",
+      "example": {
+        "s": "She ___ me a story.",
+        "a": "told",
+        "de": "Sie erzählte mir eine Geschichte."
+      }
     },
     {
       "id": "en-14",
@@ -162,7 +227,12 @@
       "german": [
         "werden"
       ],
-      "hint": "became / become"
+      "hint": "became / become",
+      "example": {
+        "s": "He ___ a teacher.",
+        "a": "became",
+        "de": "Er wurde Lehrer."
+      }
     },
     {
       "id": "en-15",
@@ -173,7 +243,12 @@
       "german": [
         "verlassen"
       ],
-      "hint": "left / left"
+      "hint": "left / left",
+      "example": {
+        "s": "They ___ early.",
+        "a": "left",
+        "de": "Sie gingen früh."
+      }
     },
     {
       "id": "en-16",
@@ -184,7 +259,12 @@
       "german": [
         "fühlen"
       ],
-      "hint": "felt / felt"
+      "hint": "felt / felt",
+      "example": {
+        "s": "I ___ tired.",
+        "a": "felt",
+        "de": "Ich fühlte mich müde."
+      }
     },
     {
       "id": "en-17",
@@ -195,7 +275,12 @@
       "german": [
         "bringen"
       ],
-      "hint": "brought / brought"
+      "hint": "brought / brought",
+      "example": {
+        "s": "She ___ the cake.",
+        "a": "brought",
+        "de": "Sie brachte den Kuchen."
+      }
     },
     {
       "id": "en-18",
@@ -206,7 +291,12 @@
       "german": [
         "kaufen"
       ],
-      "hint": "bought / bought"
+      "hint": "bought / bought",
+      "example": {
+        "s": "He ___ a car.",
+        "a": "bought",
+        "de": "Er kaufte ein Auto."
+      }
     },
     {
       "id": "en-19",
@@ -217,7 +307,12 @@
       "german": [
         "sprechen"
       ],
-      "hint": "spoke / spoken"
+      "hint": "spoke / spoken",
+      "example": {
+        "s": "She ___ to me.",
+        "a": "spoke",
+        "de": "Sie sprach mit mir."
+      }
     },
     {
       "id": "en-20",
@@ -228,7 +323,12 @@
       "german": [
         "schreiben"
       ],
-      "hint": "wrote / written"
+      "hint": "wrote / written",
+      "example": {
+        "s": "He ___ a letter.",
+        "a": "wrote",
+        "de": "Er schrieb einen Brief."
+      }
     }
   ]
 }

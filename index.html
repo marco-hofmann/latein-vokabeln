@@ -103,6 +103,10 @@
   .prompt.de{font-size:25px; line-height:1.3}
   .answer{font-size:23px; line-height:1.35; color:var(--accent)}
   .answer.de{color:var(--accent)}
+  .prompt.cloze{font-size:22px; line-height:1.5; font-weight:600}
+  .prompt .gap{display:inline-block; min-width:2.6em; height:.85em; vertical-align:baseline;
+    margin:0 .1em; border-bottom:2px solid var(--accent)}
+  .answer.cloze{font-size:17px; line-height:1.45; color:var(--text); text-align:left}
   .hintline{font-size:13px; color:var(--muted)}
   .divider{width:50px; height:1px; background:var(--line); margin:4px 0}
   .reveal{animation:pop .22s ease-out}
@@ -261,6 +265,7 @@
     .big{font-size:30px}
     .prompt{font-size:28px}
     .prompt.de{font-size:22px}
+    .prompt.cloze{font-size:19px}
     .answer{font-size:20px}
     .flash{min-height:220px; padding:20px 14px}
     .mc button{font-size:14px; min-height:54px; padding:12px 8px}
@@ -318,9 +323,13 @@
       <button class="btn ghost small" id="markedBtn">Markiert (0)</button>
     </div>
     <button class="btn ghost small" id="examBtn">Prüfung (20)</button>
+    <button class="btn ghost small hidden" id="resumeBtn"></button>
 
     <div class="panel">
-      <div class="label" style="margin-top:0">Lektionen</div>
+      <div class="label" style="margin-top:0">Prüfung</div>
+      <div class="chips" id="examSizeChips"></div>
+      <div class="chips" id="examTimeChips" style="margin-top:7px"></div>
+      <div class="label">Lektionen</div>
       <div class="chips" id="lessonChips"></div>
       <div class="label">Wortarten</div>
       <div class="chips" id="typeChips"></div>
@@ -482,13 +491,13 @@
 const STORE = "latin-vokabeln-v2";
 const BOX_DAYS = [0, 1, 2, 5, 10, 21];
 const MC_OPTIONS = 4;
-const EXAM_SIZE = 20;
-
-let VOCAB = [], LESSONS = [], state = {}, cfg = {
+const CFG_DEFAULTS = {
   lessons: [], types: [], mode: "typing", dir: "la-de", size: 20,
-  audio: false, goal: 20
+  audio: false, goal: 20, examSize: 20, examTime: 0
 };
-let session = null, undoStack = [];
+
+let VOCAB = [], LESSONS = [], state = {}, cfg = Object.assign({}, CFG_DEFAULTS);
+let session = null, undoStack = [], examTick = null;
 
 const el = id => document.getElementById(id);
 const today = () => new Date().toISOString().slice(0, 10);
@@ -546,11 +555,100 @@ function save(){
   localStorage.setItem(CFG_KEY(), JSON.stringify(cfg));
 }
 function loadCfg(){
-  cfg = { lessons: [], types: [], mode: "typing", dir: "la-de", size: 20, audio: false, goal: 20 };
+  cfg = Object.assign({}, CFG_DEFAULTS);
   try{
     const c = JSON.parse(localStorage.getItem(CFG_KEY()) || "null");
     if(c) cfg = Object.assign(cfg, c);
   }catch(e){}
+}
+
+function SESSION_KEY(){ return `latin-vokabeln:subj:${subjectId}:session`; }
+
+/* A running round is snapshotted on every card so closing the tab, switching to another app or
+   reloading does not throw the remaining queue away. Finished rounds clear the snapshot. */
+function saveSession(){
+  if(!session || session.done) return;
+  try{
+    localStorage.setItem(SESSION_KEY(), JSON.stringify({
+      v: 1, ts: Date.now(), kind: session.kind || "normal",
+      ids: session.queue.map(w => w.id), index: session.index,
+      right: session.right, wrong: session.wrong,
+      repeats: session.repeats, exam: !!session.exam,
+      mistakes: (session.mistakes || []).map(w => w.id),
+      answers: session.answers || [],
+      started: session.started || Date.now(),
+      deadline: session.deadline || 0
+    }));
+  }catch(e){}
+}
+function clearSession(){
+  try{ localStorage.removeItem(SESSION_KEY()); }catch(e){}
+}
+function savedSession(){
+  try{
+    const s = JSON.parse(localStorage.getItem(SESSION_KEY()) || "null");
+    if(!s || !Array.isArray(s.ids) || !s.ids.length) return null;
+    if(s.index >= s.ids.length) return null;                 // nothing left to do
+    if(Date.now() - (s.ts || 0) > 24 * 3600 * 1000) return null;  // stale after a day
+    if(s.exam && s.deadline && s.deadline < Date.now()) return null;
+    return s;
+  }catch(e){ return null; }
+}
+function restoreSession(){
+  const s = savedSession();
+  if(!s) return toast("Keine offene Runde");
+  const queue = s.ids.map(id => VOCAB.find(w => w.id === id)).filter(Boolean);
+  if(!queue.length) return toast("Runde nicht mehr verfügbar");
+  session = {
+    queue, index: Math.min(s.index, queue.length - 1),
+    right: s.right || 0, wrong: s.wrong || 0,
+    revealed: false, answered: false, current: null,
+    repeats: s.repeats || {}, exam: !!s.exam,
+    mistakes: (s.mistakes || []).map(id => VOCAB.find(w => w.id === id)).filter(Boolean),
+    answers: s.answers || [], kind: s.kind || "normal",
+    started: s.started || Date.now(), deadline: s.deadline || 0
+  };
+  undoStack = [];
+  show("session");
+  if(session.exam && session.deadline && session.deadline > Date.now()) startExamClock(session.deadline);
+  nextCard();
+}
+
+/* ================= exam clock ================= */
+function clockLabel(deadline){
+  const left = Math.max(0, deadline - Date.now());
+  const m = Math.floor(left / 60000), s = Math.floor(left % 60000 / 1000);
+  return m + ":" + String(s).padStart(2, "0");
+}
+function durLabel(ms){
+  const total = Math.max(0, Math.round(ms / 1000));
+  if(total < 60) return total + " s";
+  const m = Math.floor(total / 60), s = total % 60;
+  return m + (s ? ":" + String(s).padStart(2, "0") : "") + " Min";
+}
+function startExamClock(deadline){
+  stopExamClock();
+  if(!session || !session.exam) return;
+  session.deadline = deadline || (Date.now() + cfg.examTime * 60000);
+  const tick = () => {
+    if(!session || !session.exam) return stopExamClock();
+    el("cardTag").textContent = "Prüfung · " + clockLabel(session.deadline);
+    if(session.deadline - Date.now() <= 0){ stopExamClock(); examTimeout(); }
+  };
+  tick();
+  examTick = setInterval(tick, 1000);
+}
+function stopExamClock(){ if(examTick){ clearInterval(examTick); examTick = null; } }
+function examTimeout(){
+  if(!session || !session.exam) return;
+  session.timedOut = true;
+  session.queue.slice(session.index).forEach(w => {
+    session.answers.push({id: w.id, ok: false});
+    session.mistakes.push(w);
+    session.wrong++;
+  });
+  session.index = session.queue.length;
+  finish();
 }
 
 function card(id){
@@ -602,6 +700,19 @@ function answerFor(word, dir){
 }
 function promptFor(word, dir){
   return dir === "de-la" ? word.german[0] : front(word);
+}
+
+/* ================= cloze (Lücke) =================
+   A word may carry an example sentence: {s:"serva ___ portat.", a:"frumentum", de:"…"}.
+   The gap holds the inflected form, so the drill asks for production, not recognition.
+   Words without an example simply stay out of the cloze pool. */
+function hasCloze(w){ return !!(w && w.example && w.example.s && w.example.a); }
+function clozeFilled(w){ return w.example.s.replace("___", w.example.a); }
+function clozeMatches(input, w){
+  const typed = latinKey(input);
+  if(!typed) return false;
+  const targets = [latinKey(w.example.a), latinKey(front(w)), latinKey(front(w).split("/")[0])];
+  return targets.some(t => t && (typed === t || (t.startsWith(typed) && typed.length >= 4 && t.length - typed.length <= 2)));
 }
 
 /* ================= audio ================= */
@@ -694,7 +805,8 @@ function renderChips(){
   });
 
   el("modeChips").innerHTML = "";
-  [["typing","Tippen"],["cards","Karten"],["mc","Multiple Choice"]].forEach(([v,label]) => {
+  [[ "typing","Tippen"],["cards","Karten"],["mc","Multiple Choice"],
+   ["cloze", `Lücke (${pool().filter(hasCloze).length})`]].forEach(([v,label]) => {
     el("modeChips").appendChild(makeChip(label, cfg.mode === v, () => {
       cfg.mode = v; save(); renderChips(); renderLobby();
     }));
@@ -717,6 +829,19 @@ function renderChips(){
   [10, 20, 40, 60].forEach(g => {
     el("goalChips").appendChild(makeChip(String(g), cfg.goal === g, () => {
       cfg.goal = g; save(); renderChips(); renderLobby();
+    }));
+  });
+
+  el("examSizeChips").innerHTML = "";
+  [10, 20, 40].forEach(n => {
+    el("examSizeChips").appendChild(makeChip(n + " Karten", cfg.examSize === n, () => {
+      cfg.examSize = n; save(); renderChips(); renderLobby();
+    }));
+  });
+  el("examTimeChips").innerHTML = "";
+  [[0, "ohne Zeit"], [10, "10 Min"], [20, "20 Min"]].forEach(([min, label]) => {
+    el("examTimeChips").appendChild(makeChip(label, cfg.examTime === min, () => {
+      cfg.examTime = min; save(); renderChips(); renderLobby();
     }));
   });
 }
@@ -745,10 +870,16 @@ function renderLobby(){
   el("streakNum").textContent = streak();
 
   el("startBtn").textContent = planned ? "Lernen starten" : "Alles wiederholen";
+  el("examBtn").textContent = `Prüfung (${cfg.examSize})`;
   el("focusBtn").disabled = weakList().length === 0;
   const marked = markedList().length;
   el("markedBtn").textContent = `Markiert (${marked})`;
   el("markedBtn").disabled = marked === 0;
+
+  // a round that was interrupted (tab closed, phone locked, reload) can be picked up again
+  const open = savedSession();
+  el("resumeBtn").classList.toggle("hidden", !open);
+  if(open) el("resumeBtn").textContent = `Runde fortsetzen · ${open.ids.length - open.index} offen`;
 }
 
 function streak(){
@@ -773,33 +904,40 @@ function streak(){
 /* ================= session ================= */
 function startSession(kind){
   let queue = [], exam = false;
+  // in cloze mode only words with an example sentence can be asked
+  const narrow = list => cfg.mode === "cloze" ? list.filter(hasCloze) : list;
 
   if(kind === "focus"){
-    queue = weakList().slice(0, cfg.size);
-    if(!queue.length) return toast("Keine Wackelkandidaten — stark");
+    queue = narrow(weakList()).slice(0, cfg.size);
+    if(!queue.length) return toast(cfg.mode === "cloze" ? "Keine Wackelkandidaten mit Satz" : "Keine Wackelkandidaten — stark");
   } else if(kind === "marked"){
-    queue = markedList();
-    if(!queue.length) return toast("Nichts markiert");
+    queue = narrow(markedList());
+    if(!queue.length) return toast(cfg.mode === "cloze" ? "Nichts Markiertes mit Satz" : "Nichts markiert");
   } else if(kind === "exam"){
-    queue = shuffle(pool()).slice(0, EXAM_SIZE);
+    queue = shuffle(narrow(pool())).slice(0, cfg.examSize);
     exam = true;
+    if(!queue.length) return toast("Keine Wörter für eine Prüfung");
   } else {
-    const due = dueList();
+    const due = narrow(dueList());
     queue = due.slice(0, cfg.size);
-    if(queue.length < cfg.size) queue = queue.concat(newList().slice(0, cfg.size - due.length));
-    if(!queue.length) queue = shuffle(pool()).slice(0, cfg.size);
+    if(queue.length < cfg.size) queue = queue.concat(narrow(newList()).slice(0, cfg.size - due.length));
+    if(!queue.length) queue = shuffle(narrow(pool())).slice(0, cfg.size);
+    if(!queue.length) return toast(cfg.mode === "cloze" ? "Für diese Auswahl gibt es keine Beispielsätze" : "Keine Wörter in dieser Auswahl");
   }
 
   session = {
     queue, index: 0, right: 0, wrong: 0, revealed: false, answered: false,
-    current: null, repeats: {}, exam, mistakes: [], answers: []
+    current: null, repeats: {}, exam, mistakes: [], answers: [],
+    kind, started: Date.now(), deadline: 0, timedOut: false
   };
   undoStack = [];
   show("session");
+  if(exam && cfg.examTime) startExamClock();
   nextCard();
 }
 
 function nextCard(){
+  if(!session || session.done) return;
   session.revealed = false;
   session.answered = false;
   if(session.index >= session.queue.length) return finish();
@@ -807,15 +945,28 @@ function nextCard(){
   const w = session.queue[session.index];
   session.current = w;
   const c = card(w.id);
-  if(!session.exam) c.seen = (c.seen || 0) + 1;
+  // re-showing the same card after an undo must not count as another sighting
+  if(!session.exam && session.restoreId !== w.id) c.seen = (c.seen || 0) + 1;
+  session.restoreId = null;
 
   const deToLa = cfg.dir === "de-la";
-  el("cardTag").textContent = (session.exam ? "Prüfung" : (deToLa ? "Deutsch → Latein" : "Latein → Deutsch"));
-  el("prompt").textContent = promptFor(w, cfg.dir);
-  el("prompt").className = "prompt" + (deToLa ? " de" : "");
-  el("answer").textContent = answerFor(w, cfg.dir);
-  el("answer").className = "answer" + (deToLa ? "" : " de");
-  el("hint").textContent = deToLa ? (w.form || "") : (w.hint || "");
+  const cloze = cfg.mode === "cloze" && hasCloze(w);
+  session.cloze = cloze;
+  el("cardTag").textContent = session.exam
+    ? (session.deadline ? "Prüfung · " + clockLabel(session.deadline) : "Prüfung")
+    : (cloze ? "Lücke" : (deToLa ? "Deutsch → Latein" : "Latein → Deutsch"));
+  el("prompt").className = "prompt" + (cloze ? " cloze" : (deToLa ? " de" : ""));
+  if(cloze){
+    // the gap is drawn, not underscore-typed, so the eye lands on the hole in the sentence
+    el("prompt").innerHTML = esc(w.example.s).replace("___", '<span class="gap"></span>');
+  } else {
+    el("prompt").textContent = promptFor(w, cfg.dir);
+  }
+  el("answer").textContent = cloze ? w.example.a : answerFor(w, cfg.dir);
+  el("answer").className = "answer" + (cloze ? "" : (deToLa ? "" : " de"));
+  el("hint").textContent = cloze
+    ? [clozeFilled(w), w.example.de].filter(Boolean).join(" · ")
+    : (deToLa ? (w.form || "") : (w.hint || ""));
 
   el("answerBox").classList.add("hidden");
   el("answerBox").classList.remove("reveal");
@@ -826,7 +977,7 @@ function nextCard(){
   el("bar").style.width = (100 * session.index / session.queue.length) + "%";
   el("feedback").textContent = "";
 
-  const typing = !session.exam && cfg.mode === "typing";
+  const typing = !session.exam && (cfg.mode === "typing" || cfg.mode === "cloze");
   const mc = !session.exam && cfg.mode === "mc";
   el("inputBox").classList.toggle("hidden", !typing && !session.exam);
   el("mcBox").classList.toggle("hidden", !mc);
@@ -835,13 +986,13 @@ function nextCard(){
   if(session.exam){
     el("typeInput").value = "";
     el("typeInput").disabled = false;
-    el("typeInput").placeholder = deToLa ? "Latein…" : "Deutsch…";
+    el("typeInput").placeholder = cloze ? "Fehlendes Wort…" : (deToLa ? "Latein…" : "Deutsch…");
     el("examActions").classList.remove("hidden");
     setTimeout(() => el("typeInput").focus(), 60);
   } else if(typing){
     el("typeInput").value = "";
     el("typeInput").disabled = false;
-    el("typeInput").placeholder = "Antwort…";
+    el("typeInput").placeholder = cloze ? "Fehlendes Wort…" : "Antwort…";
     setTimeout(() => el("typeInput").focus(), 60);
   } else if(mc){
     buildChoices(w);
@@ -852,7 +1003,8 @@ function nextCard(){
   el("kbdHint").textContent = session.exam
     ? "Enter = weiter"
     : (cfg.mode === "cards" ? "Leertaste = umdrehen · 1 / 2 = nochmal / gewusst · m = merken"
-                            : "Tippen und Enter");
+                            : (cloze ? "Fehlendes Wort tippen · Enter" : "Tippen und Enter"));
+  saveSession();
 }
 
 function buildChoices(w){
@@ -892,8 +1044,9 @@ function submitTyped(){
   const w = session.current;
   if(session.exam) return submitExam();
 
-  const typingGerman = cfg.dir === "la-de";
-  const ok = typingGerman ? germanMatches(el("typeInput").value, w) : latinMatches(el("typeInput").value, w);
+  const typingGerman = cfg.dir === "la-de" && !session.cloze;
+  const ok = session.cloze ? clozeMatches(el("typeInput").value, w)
+    : (typingGerman ? germanMatches(el("typeInput").value, w) : latinMatches(el("typeInput").value, w));
 
   session.revealed = true;
   el("answerBox").classList.remove("hidden");
@@ -902,14 +1055,15 @@ function submitTyped(){
   el("typeInput").style.display = "none";
   el("feedback").className = "feedback " + (ok ? "ok" : "no");
   el("feedback").textContent = ok ? "richtig"
-    : "richtig wäre: " + (typingGerman ? w.german.join(", ") : front(w));
+    : "richtig wäre: " + (session.cloze ? w.example.a : (typingGerman ? w.german.join(", ") : front(w)));
   applyGrade(ok, true);
 }
 
 function submitExam(){
   const w = session.current;
-  const typingGerman = cfg.dir === "la-de";
-  const ok = typingGerman ? germanMatches(el("typeInput").value, w) : latinMatches(el("typeInput").value, w);
+  const typingGerman = cfg.dir === "la-de" && !session.cloze;
+  const ok = session.cloze ? clozeMatches(el("typeInput").value, w)
+    : (typingGerman ? germanMatches(el("typeInput").value, w) : latinMatches(el("typeInput").value, w));
   session.answers.push({id: w.id, ok});
   if(!ok) session.mistakes.push(w);
   if(ok) session.right++; else session.wrong++;
@@ -951,7 +1105,7 @@ function applyGrade(ok, auto){
   logAnswer(ok);
   save();
 
-  const advance = () => { session.index++; nextCard(); };
+  const advance = () => { if(!session || session.done) return; session.index++; nextCard(); };
   if(auto) setTimeout(advance, ok ? 720 : 1600);
   else advance();
 }
@@ -959,7 +1113,9 @@ function applyGrade(ok, auto){
 function undo(){
   const last = undoStack.pop();
   if(!last) return toast("Nichts rückgängig zu machen");
+  if(!session || session.done) return;
   state.cards[last.id] = last.before;
+  session.restoreId = last.id;
   session.index = Math.max(0, session.index - 1);
   session.right = Math.max(0, session.right - 1);
   save();
@@ -969,6 +1125,10 @@ function undo(){
 
 /* ================= done ================= */
 function finish(){
+  if(!session || session.done) return;
+  session.done = true;
+  stopExamClock();
+  clearSession();
   el("bar").style.width = "100%";
   const total = session.right + session.wrong;
 
@@ -985,7 +1145,10 @@ function finish(){
   }
 
   el("doneScore").textContent = total;
-  el("doneCaption").textContent = session.exam ? "Prüfung abgeschlossen" : "Karten in dieser Runde";
+  el("doneCaption").textContent = session.exam
+    ? (session.timedOut ? "Zeit abgelaufen" : "Prüfung abgeschlossen") +
+      (session.started ? ` · ${durLabel(Date.now() - session.started)}` : "")
+    : "Karten in dieser Runde";
   el("doneRight").textContent = session.right;
   el("doneWrong").textContent = session.wrong;
   el("doneAcc").textContent = total ? Math.round(100 * session.right / total) + "%" : "–";
@@ -1192,12 +1355,14 @@ el("markedStudy").onclick = () => startSession("marked");
 el("starBtn").onclick = () => { if(session && session.current) toggleMark(session.current); };
 el("againRound").onclick = () => startSession("normal");
 el("toLobby").onclick = () => { renderLobby(); show("lobby"); };
+el("resumeBtn").onclick = () => restoreSession();
 el("retryMistakes").onclick = () => {
   const ids = session.mistakeIds || [];
   const queue = ids.map(id => VOCAB.find(w => w.id === id)).filter(Boolean);
   if(!queue.length) return;
   session = { queue, index:0, right:0, wrong:0, revealed:false, answered:false,
-              current:null, repeats:{}, exam:false, mistakes:[], answers:[] };
+              current:null, repeats:{}, exam:false, mistakes:[], answers:[],
+              kind:"normal", started: Date.now(), deadline: 0, timedOut: false };
   undoStack = [];
   show("session"); nextCard();
 };
@@ -1375,6 +1540,15 @@ async function boot(){
   let id = localStorage.getItem(SUBJ_KEY);
   if(!id || !SUBJECTS.some(x => x.id === id)) id = SUBJECTS[0].id;
   await loadSubject(id);
+}
+
+/* ================= offline (PWA) =================
+   sw.js precaches the shell and the decks, so an installed app opens and drills with no network.
+   Deploys: bump CACHE_VERSION in sw.js when the shell changes, or the phone keeps the old page. */
+if("serviceWorker" in navigator){
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(() => {});
+  });
 }
 
 boot();

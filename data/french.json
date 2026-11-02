@@ -18,7 +18,12 @@
       "german": [
         "sein"
       ],
-      "hint": "je suis"
+      "hint": "je suis",
+      "example": {
+        "s": "Je ___ étudiant.",
+        "a": "suis",
+        "de": "Ich bin Student."
+      }
     },
     {
       "id": "fr-02",
@@ -29,7 +34,12 @@
       "german": [
         "haben"
       ],
-      "hint": "j'ai"
+      "hint": "j'ai",
+      "example": {
+        "s": "J'___ un livre.",
+        "a": "ai",
+        "de": "Ich habe ein Buch."
+      }
     },
     {
       "id": "fr-03",
@@ -41,7 +51,12 @@
         "gehen",
         "fahren"
       ],
-      "hint": "je vais"
+      "hint": "je vais",
+      "example": {
+        "s": "Je ___ à l'école.",
+        "a": "vais",
+        "de": "Ich gehe zur Schule."
+      }
     },
     {
       "id": "fr-04",
@@ -53,7 +68,12 @@
         "machen",
         "tun"
       ],
-      "hint": "je fais"
+      "hint": "je fais",
+      "example": {
+        "s": "Je ___ mes devoirs.",
+        "a": "fais",
+        "de": "Ich mache meine Hausaufgaben."
+      }
     },
     {
       "id": "fr-05",
@@ -64,7 +84,12 @@
       "german": [
         "sagen"
       ],
-      "hint": "je dis"
+      "hint": "je dis",
+      "example": {
+        "s": "Je ___ bonjour.",
+        "a": "dis",
+        "de": "Ich sage guten Tag."
+      }
     },
     {
       "id": "fr-06",
@@ -75,7 +100,12 @@
       "german": [
         "können"
       ],
-      "hint": "je peux"
+      "hint": "je peux",
+      "example": {
+        "s": "Je ___ venir.",
+        "a": "peux",
+        "de": "Ich kann kommen."
+      }
     },
     {
       "id": "fr-07",
@@ -86,7 +116,12 @@
       "german": [
         "wollen"
       ],
-      "hint": "je veux"
+      "hint": "je veux",
+      "example": {
+        "s": "Je ___ un café.",
+        "a": "veux",
+        "de": "Ich will einen Kaffee."
+      }
     },
     {
       "id": "fr-08",
@@ -97,7 +132,12 @@
       "german": [
         "wissen"
       ],
-      "hint": "je sais"
+      "hint": "je sais",
+      "example": {
+        "s": "Je ___ la réponse.",
+        "a": "sais",
+        "de": "Ich kenne die Antwort."
+      }
     },
     {
       "id": "fr-09",
@@ -108,7 +148,12 @@
       "german": [
         "sehen"
       ],
-      "hint": "je vois"
+      "hint": "je vois",
+      "example": {
+        "s": "Je ___ la maison.",
+        "a": "vois",
+        "de": "Ich sehe das Haus."
+      }
     },
     {
       "id": "fr-10",
@@ -119,7 +164,12 @@
       "german": [
         "kommen"
       ],
-      "hint": "je viens"
+      "hint": "je viens",
+      "example": {
+        "s": "Je ___ de l'école.",
+        "a": "viens",
+        "de": "Ich komme von der Schule."
+      }
     },
     {
       "id": "fr-11",
@@ -130,7 +180,12 @@
       "german": [
         "nehmen"
       ],
-      "hint": "je prends"
+      "hint": "je prends",
+      "example": {
+        "s": "Je ___ le livre.",
+        "a": "prends",
+        "de": "Ich nehme das Buch."
+      }
     },
     {
       "id": "fr-12",
@@ -141,7 +196,12 @@
       "german": [
         "sprechen"
       ],
-      "hint": "je parle"
+      "hint": "je parle",
+      "example": {
+        "s": "Je ___ français.",
+        "a": "parle",
+        "de": "Ich spreche Französisch."
+      }
     },
     {
       "id": "fr-13",
@@ -152,7 +212,12 @@
       "german": [
         "das Haus"
       ],
-      "hint": ""
+      "hint": "",
+      "example": {
+        "s": "La ___ est grande.",
+        "a": "maison",
+        "de": "Das Haus ist groß."
+      }
     },
     {
       "id": "fr-14",
@@ -163,7 +228,12 @@
       "german": [
         "die Schule"
       ],
-      "hint": ""
+      "hint": "",
+      "example": {
+        "s": "Je vais à l'___.",
+        "a": "école",
+        "de": "Ich gehe zur Schule."
+      }
     },
     {
       "id": "fr-15",
@@ -174,7 +244,12 @@
       "german": [
         "das Buch"
       ],
-      "hint": ""
+      "hint": "",
+      "example": {
+        "s": "Le ___ est sur la table.",
+        "a": "livre",
+        "de": "Das Buch liegt auf dem Tisch."
+      }
     },
     {
       "id": "fr-16",
@@ -185,7 +260,12 @@
       "german": [
         "der Freund"
       ],
-      "hint": ""
+      "hint": "",
+      "example": {
+        "s": "Mon ___ arrive.",
+        "a": "ami",
+        "de": "Mein Freund kommt."
+      }
     },
     {
       "id": "fr-17",
@@ -196,7 +276,12 @@
       "german": [
         "die Freundin"
       ],
-      "hint": ""
+      "hint": "",
+      "example": {
+        "s": "L'___ de Marie arrive.",
+        "a": "amie",
+        "de": "Die Freundin von Marie kommt."
+      }
     },
     {
       "id": "fr-18",
@@ -207,7 +292,12 @@
       "german": [
         "der Tag"
       ],
-      "hint": ""
+      "hint": "",
+      "example": {
+        "s": "Le ___ est beau.",
+        "a": "jour",
+        "de": "Der Tag ist schön."
+      }
     },
     {
       "id": "fr-19",
@@ -219,7 +309,12 @@
         "die Zeit",
         "das Wetter"
       ],
-      "hint": ""
+      "hint": "",
+      "example": {
+        "s": "Je n'ai pas le ___.",
+        "a": "temps",
+        "de": "Ich habe keine Zeit."
+      }
     },
     {
       "id": "fr-20",
@@ -230,7 +325,12 @@
       "german": [
         "das Wasser"
       ],
-      "hint": ""
+      "hint": "",
+      "example": {
+        "s": "Je bois de l'___.",
+        "a": "eau",
+        "de": "Ich trinke Wasser."
+      }
     }
   ]
 }
