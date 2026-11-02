@@ -138,6 +138,8 @@
   .mc button.right{background:rgba(110,231,168,.16); border-color:var(--accent); color:#dffbea}
   .mc button.wrong{background:rgba(244,112,127,.14); border-color:var(--bad); color:#ffd9de}
   .mc button:disabled{cursor:default}
+  /* an odd number of options (three, like the English verb forms) leaves the last one full width */
+  .mc button:last-child:nth-child(odd){grid-column:1 / -1}
 
   .undo{background:none; border:none; color:var(--muted); font-size:12px; cursor:pointer;
         text-decoration:underline; padding:4px}
