@@ -4,19 +4,22 @@
       "id": "latin",
       "name": "Latein",
       "file": "latin.json",
-      "accent": "#6ee7a8"
+      "accent": "#6ee7a8",
+      "speech": "it-IT"
     },
     {
       "id": "french",
       "name": "Französisch",
       "file": "french.json",
-      "accent": "#7fb6f5"
+      "accent": "#7fb6f5",
+      "speech": "fr-FR"
     },
     {
       "id": "english",
       "name": "English",
       "file": "english.json",
-      "accent": "#f5b942"
+      "accent": "#f5b942",
+      "speech": "en-GB"
     }
   ]
 }

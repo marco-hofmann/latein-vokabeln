@@ -385,6 +385,7 @@
     <div class="panel" style="text-align:center">
       <div class="big" id="doneScore">–</div>
       <div class="sub" id="doneCaption">Karten in dieser Runde</div>
+      <div class="sub hidden" id="doneGrade" style="margin-top:8px;font-size:15px;font-weight:650"></div>
       <div class="row" style="margin-top:16px">
         <div class="stat"><b id="doneRight">0</b><small>gewusst</small></div>
         <div class="stat"><b id="doneWrong">0</b><small>nochmal</small></div>
@@ -437,6 +438,19 @@
       <div class="label" style="margin-top:0">Genauigkeit im Verlauf</div>
       <div class="accwrap" id="accChart"></div>
       <div class="cap"><span id="accAvg">–</span><span id="accLast">–</span></div>
+    </div>
+
+    <div class="panel">
+      <div class="label" style="margin-top:0">Prüfungen</div>
+      <div class="accwrap" id="examChart"></div>
+      <div class="cap"><span id="examCap">–</span><span id="examBest"></span></div>
+      <div class="scroll" style="margin-top:10px">
+        <table>
+          <thead><tr><th>Datum</th><th>Karten</th><th style="text-align:right">Quote</th>
+            <th style="text-align:right">Note</th></tr></thead>
+          <tbody id="examBody"></tbody>
+        </table>
+      </div>
     </div>
 
     <div class="panel">
@@ -510,7 +524,7 @@ function freshState(){ return {cards:{}, days:{}}; }
    same way a cookie would. Each device keeps its own progress; nothing is sent anywhere. */
 const SUBJ_KEY = "latin-vokabeln:subject";
 const THEME_KEY = "latin-vokabeln:theme";
-let SUBJECTS = [], deck = null, subjectId = null;
+let SUBJECTS = [], deck = null, subjectId = null, subjectMeta = null;
 
 function STATE_KEY(){ return `latin-vokabeln:subj:${subjectId}:state`; }
 function CFG_KEY(){ return `latin-vokabeln:subj:${subjectId}:cfg`; }
@@ -612,6 +626,36 @@ function restoreSession(){
   show("session");
   if(session.exam && session.deadline && session.deadline > Date.now()) startExamClock(session.deadline);
   nextCard();
+}
+
+/* ================= exam log =================
+   Swiss grading: note = 1 + 5·(richtig / total), also 0 % = 1,0 und 100 % = 6,0, gerundet auf
+   halbe Noten. 4,0 ist die Genügend-Grenze. Die Noten bleiben im Verlauf sichtbar, sonst ist
+   jede Prüfung nach dem Schliessen des Tabs weg. */
+function EXAM_KEY(){ return `latin-vokabeln:subj:${subjectId}:exams`; }
+function loadExams(){
+  try{
+    const a = JSON.parse(localStorage.getItem(EXAM_KEY()) || "[]");
+    return Array.isArray(a) ? a : [];
+  }catch(e){ return []; }
+}
+function saveExams(list){
+  try{ localStorage.setItem(EXAM_KEY(), JSON.stringify(list.slice(-40))); }catch(e){}
+}
+function addExam(entry){
+  const list = loadExams();
+  list.push(entry);
+  saveExams(list);
+}
+function swissGrade(right, total){
+  if(!total) return 1;
+  const g = 1 + 5 * (right / total);
+  return Math.max(1, Math.min(6, Math.round(g * 2) / 2));
+}
+const nf = g => g.toFixed(1).replace(".", ",");
+function dateLabel(ts){
+  const d = new Date(ts), p = n => String(n).padStart(2, "0");
+  return `${p(d.getDate())}.${p(d.getMonth() + 1)}. ${p(d.getHours())}:${p(d.getMinutes())}`;
 }
 
 /* ================= exam clock ================= */
@@ -716,12 +760,15 @@ function clozeMatches(input, w){
 }
 
 /* ================= audio ================= */
+/* Each subject carries its own voice language: Latin has no browser voice, Italian is the
+   closest relative, while French and English must not be read with it. */
 function speak(text){
   if(!cfg.audio || !window.speechSynthesis) return;
   try{
     speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text.replace(/[?!]/g,""));
-    u.lang = "it-IT"; u.rate = 0.9;
+    const u = new SpeechSynthesisUtterance(text.replace(/[?!]/g, ""));
+    u.lang = (subjectMeta && subjectMeta.speech) || "it-IT";
+    u.rate = 0.9;
     speechSynthesis.speak(u);
   }catch(e){}
 }
@@ -999,7 +1046,8 @@ function nextCard(){
   }
 
   updateStar();
-  if(cfg.audio && !deToLa) speak(front(w));
+  // never speak the answer in cloze mode — the missing word is the whole exercise
+  if(cfg.audio && !deToLa && !cloze) speak(front(w));
   el("kbdHint").textContent = session.exam
     ? "Enter = weiter"
     : (cfg.mode === "cards" ? "Leertaste = umdrehen · 1 / 2 = nochmal / gewusst · m = merken"
@@ -1153,6 +1201,19 @@ function finish(){
   el("doneWrong").textContent = session.wrong;
   el("doneAcc").textContent = total ? Math.round(100 * session.right / total) + "%" : "–";
 
+  if(session.exam && total){
+    const grade = swissGrade(session.right, total);
+    addExam({
+      ts: Date.now(), total, right: session.right, wrong: session.wrong, grade,
+      ms: session.started ? Date.now() - session.started : 0, timedOut: !!session.timedOut
+    });
+    el("doneGrade").textContent = "Note " + nf(grade) + (session.timedOut ? " · Zeit abgelaufen" : "");
+    el("doneGrade").classList.remove("hidden");
+  } else {
+    el("doneGrade").textContent = "";
+    el("doneGrade").classList.add("hidden");
+  }
+
   const candidates = session.mistakes.length ? session.mistakes : [];
   const uniq = [];
   const seenIds = new Set();
@@ -1273,6 +1334,9 @@ function renderStats(){
     el("accLast").textContent = `zuletzt ${Math.round(100 * last.r / last.n)}%`;
   }
 
+  /* ---- exams ---- */
+  renderExams();
+
   /* ---- stacked bars ---- */
   const stackRows = (container, groups) => {
     container.innerHTML = groups.map(([label, words]) => {
@@ -1326,6 +1390,47 @@ function renderStats(){
     const bx = c && c.seen ? c.box : "–";
     return `<tr><td>${esc(front(w))}</td><td style="color:var(--muted)">${esc(w.german[0])}</td>
             <td class="num">${bx}</td></tr>`;
+  }).join("");
+}
+
+function renderExams(){
+  const exams = loadExams();
+  const chart = el("examChart"), body = el("examBody");
+  if(!exams.length){
+    chart.innerHTML = `<div style="color:var(--muted);font-size:12.5px;padding:12px 0">
+      noch keine Prüfung geschrieben — „Prüfung" in der Lobby startet eine</div>`;
+    body.innerHTML = `<tr><td colspan="4" style="color:var(--muted)">—</td></tr>`;
+    el("examCap").textContent = "";
+    el("examBest").textContent = "";
+    return;
+  }
+
+  const last = exams.slice(-12);
+  const W = 300, H = 86, pad = 8;
+  const x = i => last.length === 1 ? W / 2 : pad + (i / (last.length - 1)) * (W - 2 * pad);
+  const y = g => H - pad - ((g - 1) / 5) * (H - 2 * pad);
+  const pts = last.map((e, i) => [x(i), y(e.grade)]);
+  const line = pts.map(p => p.map(v => v.toFixed(1)).join(",")).join(" ");
+  chart.innerHTML = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
+      <line x1="0" y1="${y(4).toFixed(1)}" x2="${W}" y2="${y(4).toFixed(1)}"
+            stroke="#3b4452" stroke-width="1" stroke-dasharray="4 4" vector-effect="non-scaling-stroke"/>
+      ${pts.length > 1 ? `<polyline points="${line}" fill="none" stroke="#7fb6f5" stroke-width="2"
+            stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>` : ""}
+      ${pts.map((p, i) => `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3.4"
+            fill="${last[i].grade >= 4 ? "#6ee7a8" : "#f4707f"}"/>`).join("")}
+    </svg>`;
+
+  const avg = exams.reduce((a, e) => a + e.grade, 0) / exams.length;
+  const best = Math.max(...exams.map(e => e.grade));
+  el("examCap").textContent = `${exams.length} ${exams.length === 1 ? "Prüfung" : "Prüfungen"} · Ø ${nf(avg)}`;
+  el("examBest").textContent = `beste ${nf(best)} · Linie = 4,0`;
+
+  body.innerHTML = exams.slice().reverse().slice(0, 20).map(e => {
+    const pct = Math.round(100 * e.right / (e.total || 1));
+    return `<tr><td>${dateLabel(e.ts)}${e.timedOut ? " · Zeit" : ""}</td>
+      <td>${e.total}</td>
+      <td class="num">${pct}%</td>
+      <td class="num" style="color:${e.grade >= 4 ? "var(--accent)" : "var(--bad)"}">${nf(e.grade)}</td></tr>`;
   }).join("");
 }
 
@@ -1383,7 +1488,8 @@ el("undoBtn").onclick = undo;
 el("quitBtn").onclick = () => { if(confirm("Runde beenden?")) finish(); };
 
 el("exportBtn").onclick = () => {
-  const blob = new Blob([JSON.stringify({v:2, cards: state.cards, days: state.days, cfg}, null, 2)],
+  const blob = new Blob([JSON.stringify({v:2, cards: state.cards, days: state.days, cfg,
+                                         exams: loadExams()}, null, 2)],
                         {type:"application/json"});
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
@@ -1402,6 +1508,7 @@ el("importFile").onchange = ev => {
       const d = JSON.parse(reader.result);
       if(d.cards){ state.cards = d.cards; state.days = d.days || {}; }
       if(d.cfg) cfg = Object.assign(cfg, d.cfg);
+      if(Array.isArray(d.exams)) saveExams(d.exams);
       save(); renderChips(); renderLobby(); renderStats();
       toast("Import OK");
     }catch(e){ toast("Datei nicht lesbar"); }
@@ -1409,8 +1516,8 @@ el("importFile").onchange = ev => {
   reader.readAsText(f);
 };
 el("resetBtn").onclick = () => {
-  if(confirm("Fortschritt für alle Wörter löschen?")){
-    state = freshState(); save(); renderLobby(); renderStats();
+  if(confirm("Fortschritt und Prüfungs-Log für alle Wörter löschen?")){
+    state = freshState(); save(); saveExams([]); renderLobby(); renderStats();
   }
 };
 
@@ -1513,6 +1620,7 @@ async function loadSubject(id){
   subjectId = id;
   localStorage.setItem(SUBJ_KEY, id);
   const meta = SUBJECTS.find(x => x.id === id) || SUBJECTS[0];
+  subjectMeta = meta;
   deck = await (await fetch("data/" + meta.file)).json();
 
   VOCAB = (deck.words || []).concat(loadCustom());
