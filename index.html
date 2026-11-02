@@ -368,6 +368,16 @@
       <div class="chips" id="optChips"></div>
       <div class="label">Tagesziel</div>
       <div class="chips" id="goalChips"></div>
+
+      <div class="label">Sync</div>
+      <div class="chips" id="syncChips"></div>
+      <div class="pnew" style="margin-top:8px">
+        <input type="text" id="syncCodeInput" placeholder="Code (vom anderen Gerät)" maxlength="24"
+               autocapitalize="characters" autocomplete="off" spellcheck="false">
+        <button class="btn small" id="syncConnectBtn" style="width:auto;padding:0 14px">Verbinden</button>
+      </div>
+      <div class="cap" id="syncStatus" style="margin-top:9px"></div>
+      <div class="cap hidden" id="syncCodeBox" style="margin-top:9px;font-weight:600"></div>
     </details>
   </section>
 
@@ -726,6 +736,170 @@ function restoreSession(){
   show("session");
   if(session.exam && session.deadline && session.deadline > Date.now()) startExamClock(session.deadline);
   nextCard();
+}
+
+/* ================= sync =================
+   Two devices, one progress. One device shows a short code, the other types it in. Everything
+   is encrypted on the device (AES-GCM, key derived from the code with PBKDF2), so the server only
+   ever stores ciphertext and never sees a word, a card or the code. One blob per subject (and
+   per grammar language); when both devices touched the same card, the newer one wins. */
+const SYNC_API_KEY = "latin-vokabeln:sync:api";
+const SYNC_CODE_KEY = "latin-vokabeln:sync:code";
+const SYNC_API_DEFAULT = "https://buffln-sync.workers.dev";
+const SYNC_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";   /* no I, O, 0, 1 */
+
+function syncApi(){ return localStorage.getItem(SYNC_API_KEY) || SYNC_API_DEFAULT; }
+function syncCode(){ return (localStorage.getItem(SYNC_CODE_KEY) || "").trim().toUpperCase(); }
+function syncSetCode(c){ localStorage.setItem(SYNC_CODE_KEY, (c || "").trim().toUpperCase()); }
+
+function syncMakeCode(){
+  const buf = new Uint8Array(12);
+  crypto.getRandomValues(buf);
+  let s = "";
+  for(const b of buf) s += SYNC_ALPHABET[b % SYNC_ALPHABET.length];
+  return s.slice(0, 10);
+}
+async function sha256hex(text){
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
+}
+async function syncKey(code){
+  const enc = new TextEncoder();
+  const base = await crypto.subtle.importKey("raw", enc.encode(code), "PBKDF2", false, ["deriveKey"]);
+  return crypto.subtle.deriveKey(
+    {name:"PBKDF2", salt: enc.encode("buffln-sync-v1"), iterations: 150000, hash:"SHA-256"},
+    base, {name:"AES-GCM", length:256}, false, ["encrypt","decrypt"]);
+}
+function b64(buf){
+  const bytes = new Uint8Array(buf);
+  let s = "";
+  for(let i = 0; i < bytes.length; i += 0x8000) s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return btoa(s);
+}
+function unb64(str){
+  const bin = atob(str);
+  const bytes = new Uint8Array(bin.length);
+  for(let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return bytes;
+}
+async function syncEncrypt(key, obj){
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const ct = await crypto.subtle.encrypt({name:"AES-GCM", iv}, key, new TextEncoder().encode(JSON.stringify(obj)));
+  return b64(iv) + "." + b64(ct);
+}
+async function syncDecrypt(key, blob){
+  const parts = blob.split(".");
+  const plain = await crypto.subtle.decrypt({name:"AES-GCM", iv: unb64(parts[0])}, key, unb64(parts[1]));
+  return JSON.parse(new TextDecoder().decode(plain));
+}
+
+function syncPayload(){
+  return {
+    v: 1,
+    t: Date.now(),
+    cards: state.cards || {},
+    days: state.days || {},
+    cfg: cfg,
+    exams: loadExams(),
+  };
+}
+function syncMerge(remote, local){
+  const out = {v:1, t: Math.max(remote.t || 0, local.t || 0), cards:{}, days:{}, cfg: local.cfg, exams:[]};
+  const ids = new Set([...Object.keys(local.cards || {}), ...Object.keys(remote.cards || {})]);
+  ids.forEach(id => {
+    const a = local.cards[id], b = remote.cards[id];
+    if(!a) out.cards[id] = b;
+    else if(!b) out.cards[id] = a;
+    else out.cards[id] = ((b.t || 0) > (a.t || 0)) ? b : a;
+  });
+  const dates = new Set([...Object.keys(local.days || {}), ...Object.keys(remote.days || {})]);
+  dates.forEach(d => {
+    const a = local.days[d], b = remote.days[d];
+    const ca = a ? (a.r || 0) + (a.w || 0) : 0;
+    const cb = b ? (b.r || 0) + (b.w || 0) : 0;
+    out.days[d] = cb > ca ? b : (a || b);
+  });
+  out.cfg = (remote.t || 0) > (local.t || 0) ? remote.cfg : local.cfg;
+  const seen = new Set();
+  [...(local.exams || []), ...(remote.exams || [])].forEach(e => {
+    const k = (e.ts || 0) + "|" + (e.grade || "") + "|" + (e.total || "");
+    if(!seen.has(k)){ seen.add(k); out.exams.push(e); }
+  });
+  out.exams.sort((x, y) => (x.ts || 0) - (y.ts || 0));
+  return out;
+}
+async function syncPushScope(name, payload, id, key){
+  const blob = await syncEncrypt(key, payload);
+  const r = await fetch(syncApi() + "/v1/push", {
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({id, scope:name, blob, ts: payload.t}),
+  });
+  if(!r.ok) throw new Error("Upload fehlgeschlagen (" + r.status + ")");
+  return r.json();
+}
+async function syncPullScope(name, id, key){
+  const r = await fetch(syncApi() + "/v1/pull?id=" + encodeURIComponent(id) + "&scope=" + encodeURIComponent(name));
+  if(!r.ok) return null;
+  const j = await r.json();
+  if(!j.ok || !j.blob) return null;
+  try{ return await syncDecrypt(key, j.blob); }catch(e){ return null; }
+}
+/* Syncs the subject that is open right now; other subjects follow on their own. */
+async function syncNow(quiet){
+  const code = syncCode();
+  if(!code){
+    if(!quiet) toast("Kein Sync-Code — zuerst einen Code erstellen");
+    return false;
+  }
+  const status = el("syncStatus");
+  if(status) status.textContent = "Verbinde …";
+  try{
+    const id = await sha256hex("buffln-sync:" + code);
+    const key = await syncKey(code);
+    const name = scope();
+    const local = syncPayload();
+    const remote = await syncPullScope(name, id, key);
+    let merged = local;
+    if(remote){
+      merged = syncMerge(remote, local);
+      state.cards = merged.cards;
+      state.days = merged.days;
+      cfg = Object.assign({}, cfg, merged.cfg);
+      saveExams(merged.exams);
+      save();
+    }
+    merged.t = Date.now();
+    await syncPushScope(name, merged, id, key);
+    if(status) status.textContent = "Synchronisiert · " + new Date().toLocaleTimeString("de-CH", {hour:"2-digit", minute:"2-digit"});
+    return true;
+  }catch(e){
+    if(status) status.textContent = "Sync fehlgeschlagen: " + (e && e.message ? e.message : e);
+    if(!quiet) toast("Sync fehlgeschlagen");
+    return false;
+  }
+}
+function renderSync(){
+  const box = el("syncChips");
+  if(!box) return;
+  box.innerHTML = "";
+  const code = syncCode();
+  box.appendChild(makeChip(code ? "Code: " + code : "Kein Code", !!code, () => {}, {disabled: true, reason: code ? "Dieser Code verbindet die Geräte" : "Erst einen Code erstellen"}));
+  box.appendChild(makeChip("Code erstellen", false, async () => {
+    const c = syncMakeCode();
+    syncSetCode(c);
+    const shown = el("syncCodeBox");
+    if(shown){ shown.textContent = "Dein Code: " + c; shown.classList.remove("hidden"); }
+    renderSync();
+    const ok = await syncNow();
+    if(ok) toast("Code erstellt — auf dem anderen Gerät eingeben");
+  }));
+  box.appendChild(makeChip("Jetzt synchronisieren", false, async () => {
+    const ok = await syncNow();
+    if(ok) toast("Synchronisiert");
+  }));
+  const status = el("syncStatus");
+  if(status && !status.textContent) status.textContent = code ? "" : "Zwei Geräte, ein Stand: Code auf dem einen erstellen, auf dem anderen eingeben.";
 }
 
 /* ================= exam log =================
@@ -1114,6 +1288,8 @@ function renderChips(){
       cfg.goal = g; save(); renderChips(); renderLobby();
     }));
   });
+
+  renderSync();
 }
 
 /* ================= lobby ================= */
@@ -1511,6 +1687,7 @@ function applyGrade(ok, auto){
     }
   }
   c.due = Date.now() + BOX_DAYS[c.box] * 86400000;
+  c.t = Date.now();          // sync: when this card was last touched
   logAnswer(ok);
   save();
 
@@ -1548,6 +1725,7 @@ function finish(){
       if(a.ok){ c.box = Math.min(BOX_DAYS.length - 1, (c.box || 0) + 1); c.right++; }
       else { c.box = 0; c.wrong++; }
       c.due = Date.now() + BOX_DAYS[c.box] * 86400000;
+      c.t = Date.now();
       logAnswer(a.ok);
     });
     save();
