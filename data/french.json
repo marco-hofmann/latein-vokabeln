@@ -22,7 +22,8 @@
       "example": {
         "s": "Je ___ étudiant.",
         "a": "suis",
-        "de": "Ich bin Student."
+        "de": "Ich bin Student.",
+        "dg": "Ich ___ Student."
       }
     },
     {
@@ -38,7 +39,8 @@
       "example": {
         "s": "J'___ un livre.",
         "a": "ai",
-        "de": "Ich habe ein Buch."
+        "de": "Ich habe ein Buch.",
+        "dg": "Ich ___ ein Buch."
       }
     },
     {
@@ -55,7 +57,8 @@
       "example": {
         "s": "Je ___ à l'école.",
         "a": "vais",
-        "de": "Ich gehe zur Schule."
+        "de": "Ich gehe zur Schule.",
+        "dg": "Ich ___ zur Schule."
       }
     },
     {
@@ -72,7 +75,8 @@
       "example": {
         "s": "Je ___ mes devoirs.",
         "a": "fais",
-        "de": "Ich mache meine Hausaufgaben."
+        "de": "Ich mache meine Hausaufgaben.",
+        "dg": "Ich ___ meine Hausaufgaben."
       }
     },
     {
@@ -88,7 +92,8 @@
       "example": {
         "s": "Je ___ bonjour.",
         "a": "dis",
-        "de": "Ich sage guten Tag."
+        "de": "Ich sage guten Tag.",
+        "dg": "Ich ___ guten Tag."
       }
     },
     {
@@ -104,7 +109,8 @@
       "example": {
         "s": "Je ___ venir.",
         "a": "peux",
-        "de": "Ich kann kommen."
+        "de": "Ich kann kommen.",
+        "dg": "Ich ___ kommen."
       }
     },
     {
@@ -120,7 +126,8 @@
       "example": {
         "s": "Je ___ un café.",
         "a": "veux",
-        "de": "Ich will einen Kaffee."
+        "de": "Ich will einen Kaffee.",
+        "dg": "Ich ___ einen Kaffee."
       }
     },
     {
@@ -136,7 +143,8 @@
       "example": {
         "s": "Je ___ la réponse.",
         "a": "sais",
-        "de": "Ich kenne die Antwort."
+        "de": "Ich kenne die Antwort.",
+        "dg": "Ich ___ die Antwort."
       }
     },
     {
@@ -152,7 +160,8 @@
       "example": {
         "s": "Je ___ la maison.",
         "a": "vois",
-        "de": "Ich sehe das Haus."
+        "de": "Ich sehe das Haus.",
+        "dg": "Ich ___ das Haus."
       }
     },
     {
@@ -168,7 +177,8 @@
       "example": {
         "s": "Je ___ de l'école.",
         "a": "viens",
-        "de": "Ich komme von der Schule."
+        "de": "Ich komme von der Schule.",
+        "dg": "Ich ___ von der Schule."
       }
     },
     {
@@ -184,7 +194,8 @@
       "example": {
         "s": "Je ___ le livre.",
         "a": "prends",
-        "de": "Ich nehme das Buch."
+        "de": "Ich nehme das Buch.",
+        "dg": "Ich ___ das Buch."
       }
     },
     {
@@ -200,7 +211,8 @@
       "example": {
         "s": "Je ___ français.",
         "a": "parle",
-        "de": "Ich spreche Französisch."
+        "de": "Ich spreche Französisch.",
+        "dg": "Ich ___ Französisch."
       }
     },
     {
@@ -216,7 +228,8 @@
       "example": {
         "s": "La ___ est grande.",
         "a": "maison",
-        "de": "Das Haus ist groß."
+        "de": "Das Haus ist groß.",
+        "dg": "Das ___ ist groß."
       }
     },
     {
@@ -232,7 +245,8 @@
       "example": {
         "s": "Je vais à l'___.",
         "a": "école",
-        "de": "Ich gehe zur Schule."
+        "de": "Ich gehe zur Schule.",
+        "dg": "Ich gehe zur ___."
       }
     },
     {
@@ -248,7 +262,8 @@
       "example": {
         "s": "Le ___ est sur la table.",
         "a": "livre",
-        "de": "Das Buch liegt auf dem Tisch."
+        "de": "Das Buch liegt auf dem Tisch.",
+        "dg": "Das ___ liegt auf dem Tisch."
       }
     },
     {
@@ -264,7 +279,8 @@
       "example": {
         "s": "Mon ___ arrive.",
         "a": "ami",
-        "de": "Mein Freund kommt."
+        "de": "Mein Freund kommt.",
+        "dg": "Mein ___ kommt."
       }
     },
     {
@@ -280,7 +296,8 @@
       "example": {
         "s": "L'___ de Marie arrive.",
         "a": "amie",
-        "de": "Die Freundin von Marie kommt."
+        "de": "Die Freundin von Marie kommt.",
+        "dg": "Die ___ von Marie kommt."
       }
     },
     {
@@ -296,7 +313,8 @@
       "example": {
         "s": "Le ___ est beau.",
         "a": "jour",
-        "de": "Der Tag ist schön."
+        "de": "Der Tag ist schön.",
+        "dg": "Der ___ ist schön."
       }
     },
     {
@@ -313,7 +331,8 @@
       "example": {
         "s": "Je n'ai pas le ___.",
         "a": "temps",
-        "de": "Ich habe keine Zeit."
+        "de": "Ich habe keine Zeit.",
+        "dg": "Ich habe keine ___."
       }
     },
     {
@@ -329,7 +348,8 @@
       "example": {
         "s": "Je bois de l'___.",
         "a": "eau",
-        "de": "Ich trinke Wasser."
+        "de": "Ich trinke Wasser.",
+        "dg": "Ich trinke ___."
       }
     }
   ]

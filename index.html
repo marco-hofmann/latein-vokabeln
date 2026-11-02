@@ -369,6 +369,7 @@
       <div class="tag" id="cardTag">Latein → Deutsch</div>
       <div class="prompt" id="prompt"></div>
       <div class="cloze-de hidden" id="clozeDe"></div>
+      <button class="undo hidden" id="clozeReveal">Wort zeigen</button>
       <div id="answerBox" class="hidden">
         <div class="divider"></div>
         <div class="answer" id="answer"></div>
@@ -770,6 +771,14 @@ function promptFor(word, dir){
    Words without an example simply stay out of the cloze pool. */
 function hasCloze(w){ return !!(w && w.example && w.example.s && w.example.a); }
 function clozeFilled(w){ return w.example.s.replace("___", w.example.a); }
+
+/* The German line comes with its own gap from the data (`example.dg`), never derived at runtime:
+   a heuristic blanks the wrong word ("Die Sklavin ruft laut." → "laut" instead of the verb). */
+function blankGermanSentence(w){
+  const ex = w && w.example;
+  if(!ex) return "";
+  return ex.dg || ex.de || "";
+}
 function clozeMatches(input, w){
   const typed = latinKey(input);
   if(!typed) return false;
@@ -1051,9 +1060,14 @@ function nextCard(){
   }
   el("answer").textContent = cloze ? w.example.a : answerFor(w, cfg.dir);
   el("answer").className = "answer" + (cloze ? "" : (deToLa ? "" : " de"));
-  // the German sentence is part of the exercise, not a reward after it
+  // the German sentence is part of the exercise, but its matching word stays blanked
+  session.deShown = false;
+  const deBlank = cloze ? blankGermanSentence(w) : "";
   el("clozeDe").classList.toggle("hidden", !cloze);
-  el("clozeDe").textContent = cloze ? (w.example.de || "") : "";
+  el("clozeDe").textContent = deBlank;
+  const canReveal = !!(cloze && deBlank.includes("___"));
+  el("clozeReveal").classList.toggle("hidden", !canReveal);
+  el("clozeReveal").textContent = "Wort zeigen";
   el("hint").textContent = cloze
     ? clozeFilled(w)
     : (deToLa ? (w.form || "") : (w.hint || ""));
@@ -1098,6 +1112,20 @@ function nextCard(){
         : (cfg.mode === "cards" ? "Leertaste = umdrehen · 1 / 2 = nochmal / gewusst · m = merken"
                                 : (cloze ? "Fehlendes Wort tippen · Enter" : "Tippen und Enter")));
   saveSession();
+}
+
+function showGermanFull(){
+  if(!session || !session.cloze || !session.current) return;
+  el("clozeDe").textContent = session.current.example.de || "";
+  el("clozeReveal").classList.add("hidden");
+}
+function toggleGermanWord(){
+  if(!session || !session.cloze || !session.current) return;
+  session.deShown = !session.deShown;
+  el("clozeDe").textContent = session.deShown
+    ? (session.current.example.de || "")
+    : blankGermanSentence(session.current);
+  el("clozeReveal").textContent = session.deShown ? "Wort verbergen" : "Wort zeigen";
 }
 
 function buildChoices(w){
@@ -1170,6 +1198,7 @@ function answerClozeMC(button, chosen, correct){
   el("feedback").className = "feedback " + (ok ? "ok" : "no");
   el("feedback").textContent = ok ? "richtig" : "richtig wäre: " + correct;
   session.revealed = true;
+  showGermanFull();
   if(session.exam) return examRecord(ok);
   applyGrade(ok, true);
 }
@@ -1213,6 +1242,7 @@ function submitTyped(){
   el("feedback").className = "feedback " + (ok ? "ok" : "no");
   el("feedback").textContent = ok ? "richtig"
     : "richtig wäre: " + (session.cloze ? w.example.a : (typingGerman ? w.german.join(", ") : front(w)));
+  showGermanFull();
   applyGrade(ok, true);
 }
 
@@ -1232,6 +1262,7 @@ function reveal(){
   el("revealActions").classList.add("hidden");
   el("gradeActions").classList.remove("hidden");
   if(cfg.audio && cfg.dir === "la-de") speak(front(session.current));
+  showGermanFull();
 }
 
 function applyGrade(ok, auto){
@@ -1563,6 +1594,7 @@ el("examBtn").onclick = () => startSession("exam");
 el("markedBtn").onclick = () => startSession("marked");
 el("markedStudy").onclick = () => startSession("marked");
 el("starBtn").onclick = () => { if(session && session.current) toggleMark(session.current); };
+el("clozeReveal").onclick = toggleGermanWord;
 el("againRound").onclick = () => startSession("normal");
 el("toLobby").onclick = () => { renderLobby(); show("lobby"); };
 el("resumeBtn").onclick = () => restoreSession();

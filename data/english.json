@@ -22,7 +22,8 @@
       "example": {
         "s": "Yesterday he ___ at home.",
         "a": "was",
-        "de": "Gestern war er zu Hause."
+        "de": "Gestern war er zu Hause.",
+        "dg": "Gestern ___ er zu Hause."
       }
     },
     {
@@ -38,7 +39,8 @@
       "example": {
         "s": "Last year we ___ a dog.",
         "a": "had",
-        "de": "Letztes Jahr hatten wir einen Hund."
+        "de": "Letztes Jahr hatten wir einen Hund.",
+        "dg": "Letztes Jahr ___ wir einen Hund."
       }
     },
     {
@@ -54,7 +56,8 @@
       "example": {
         "s": "She ___ to school yesterday.",
         "a": "went",
-        "de": "Sie ging gestern zur Schule."
+        "de": "Sie ging gestern zur Schule.",
+        "dg": "Sie ___ gestern zur Schule."
       }
     },
     {
@@ -71,7 +74,8 @@
       "example": {
         "s": "He ___ his homework.",
         "a": "did",
-        "de": "Er machte seine Hausaufgaben."
+        "de": "Er machte seine Hausaufgaben.",
+        "dg": "Er ___ seine Hausaufgaben."
       }
     },
     {
@@ -87,7 +91,8 @@
       "example": {
         "s": "She ___ hello.",
         "a": "said",
-        "de": "Sie sagte Hallo."
+        "de": "Sie sagte Hallo.",
+        "dg": "Sie ___ Hallo."
       }
     },
     {
@@ -103,7 +108,8 @@
       "example": {
         "s": "I ___ him yesterday.",
         "a": "saw",
-        "de": "Ich sah ihn gestern."
+        "de": "Ich sah ihn gestern.",
+        "dg": "Ich ___ ihn gestern."
       }
     },
     {
@@ -119,7 +125,8 @@
       "example": {
         "s": "They ___ late.",
         "a": "came",
-        "de": "Sie kamen spät."
+        "de": "Sie kamen spät.",
+        "dg": "Sie ___ spät."
       }
     },
     {
@@ -135,7 +142,8 @@
       "example": {
         "s": "He ___ the book.",
         "a": "took",
-        "de": "Er nahm das Buch."
+        "de": "Er nahm das Buch.",
+        "dg": "Er ___ das Buch."
       }
     },
     {
@@ -151,7 +159,8 @@
       "example": {
         "s": "I ___ the answer.",
         "a": "knew",
-        "de": "Ich wusste die Antwort."
+        "de": "Ich wusste die Antwort.",
+        "dg": "Ich ___ die Antwort."
       }
     },
     {
@@ -167,7 +176,8 @@
       "example": {
         "s": "She ___ about it.",
         "a": "thought",
-        "de": "Sie dachte darüber nach."
+        "de": "Sie dachte darüber nach.",
+        "dg": "Sie ___ darüber nach."
       }
     },
     {
@@ -183,7 +193,8 @@
       "example": {
         "s": "He ___ me a gift.",
         "a": "gave",
-        "de": "Er gab mir ein Geschenk."
+        "de": "Er gab mir ein Geschenk.",
+        "dg": "Er ___ mir ein Geschenk."
       }
     },
     {
@@ -199,7 +210,8 @@
       "example": {
         "s": "We ___ the key.",
         "a": "found",
-        "de": "Wir fanden den Schlüssel."
+        "de": "Wir fanden den Schlüssel.",
+        "dg": "Wir ___ den Schlüssel."
       }
     },
     {
@@ -215,7 +227,8 @@
       "example": {
         "s": "She ___ me a story.",
         "a": "told",
-        "de": "Sie erzählte mir eine Geschichte."
+        "de": "Sie erzählte mir eine Geschichte.",
+        "dg": "Sie ___ mir eine Geschichte."
       }
     },
     {
@@ -231,7 +244,8 @@
       "example": {
         "s": "He ___ a teacher.",
         "a": "became",
-        "de": "Er wurde Lehrer."
+        "de": "Er wurde Lehrer.",
+        "dg": "Er ___ Lehrer."
       }
     },
     {
@@ -247,7 +261,8 @@
       "example": {
         "s": "They ___ early.",
         "a": "left",
-        "de": "Sie gingen früh."
+        "de": "Sie gingen früh.",
+        "dg": "Sie ___ früh."
       }
     },
     {
@@ -263,7 +278,8 @@
       "example": {
         "s": "I ___ tired.",
         "a": "felt",
-        "de": "Ich fühlte mich müde."
+        "de": "Ich fühlte mich müde.",
+        "dg": "Ich ___ mich müde."
       }
     },
     {
@@ -279,7 +295,8 @@
       "example": {
         "s": "She ___ the cake.",
         "a": "brought",
-        "de": "Sie brachte den Kuchen."
+        "de": "Sie brachte den Kuchen.",
+        "dg": "Sie ___ den Kuchen."
       }
     },
     {
@@ -295,7 +312,8 @@
       "example": {
         "s": "He ___ a car.",
         "a": "bought",
-        "de": "Er kaufte ein Auto."
+        "de": "Er kaufte ein Auto.",
+        "dg": "Er ___ ein Auto."
       }
     },
     {
@@ -311,7 +329,8 @@
       "example": {
         "s": "She ___ to me.",
         "a": "spoke",
-        "de": "Sie sprach mit mir."
+        "de": "Sie sprach mit mir.",
+        "dg": "Sie ___ mit mir."
       }
     },
     {
@@ -327,7 +346,8 @@
       "example": {
         "s": "He ___ a letter.",
         "a": "wrote",
-        "de": "Er schrieb einen Brief."
+        "de": "Er schrieb einen Brief.",
+        "dg": "Er ___ einen Brief."
       }
     }
   ]

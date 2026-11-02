@@ -28,7 +28,8 @@
       "example": {
         "s": "___ servam vocat.",
         "a": "domina",
-        "de": "Die Herrin ruft die Sklavin."
+        "de": "Die Herrin ruft die Sklavin.",
+        "dg": "Die ___ ruft die Sklavin."
       }
     },
     {
@@ -44,7 +45,8 @@
       "example": {
         "s": "___ frumentum portat.",
         "a": "serva",
-        "de": "Die Sklavin trägt das Getreide."
+        "de": "Die Sklavin trägt das Getreide.",
+        "dg": "Die ___ trägt das Getreide."
       }
     },
     {
@@ -60,7 +62,8 @@
       "example": {
         "s": "___ magna est.",
         "a": "victoria",
-        "de": "Der Sieg ist groß."
+        "de": "Der Sieg ist groß.",
+        "dg": "Der ___ ist groß."
       }
     },
     {
@@ -76,7 +79,8 @@
       "example": {
         "s": "___ servum laudat.",
         "a": "dominus",
-        "de": "Der Herr lobt den Sklaven."
+        "de": "Der Herr lobt den Sklaven.",
+        "dg": "Der ___ lobt den Sklaven."
       }
     },
     {
@@ -92,7 +96,8 @@
       "example": {
         "s": "___ ad tabernam properat.",
         "a": "servus",
-        "de": "Der Sklave eilt zum Gasthaus."
+        "de": "Der Sklave eilt zum Gasthaus.",
+        "dg": "Der ___ eilt zum Gasthaus."
       }
     },
     {
@@ -108,7 +113,8 @@
       "example": {
         "s": "___ in via stat.",
         "a": "equus",
-        "de": "Das Pferd steht auf der Straße."
+        "de": "Das Pferd steht auf der Straße.",
+        "dg": "Das ___ steht auf der Straße."
       }
     },
     {
@@ -124,7 +130,8 @@
       "example": {
         "s": "___ clamorem audit.",
         "a": "populus",
-        "de": "Das Volk hört das Geschrei."
+        "de": "Das Volk hört das Geschrei.",
+        "dg": "Das ___ hört das Geschrei."
       }
     },
     {
@@ -140,7 +147,8 @@
       "example": {
         "s": "serva ___ portat.",
         "a": "frumentum",
-        "de": "Die Sklavin trägt das Getreide."
+        "de": "Die Sklavin trägt das Getreide.",
+        "dg": "Die Sklavin trägt das ___."
       }
     },
     {
@@ -156,7 +164,8 @@
       "example": {
         "s": "dominus ___ videt.",
         "a": "furtum",
-        "de": "Der Herr sieht den Diebstahl."
+        "de": "Der Herr sieht den Diebstahl.",
+        "dg": "Der Herr sieht den ___."
       }
     },
     {
@@ -172,7 +181,8 @@
       "example": {
         "s": "___ populum salutat.",
         "a": "victor",
-        "de": "Der Sieger grüßt das Volk."
+        "de": "Der Sieger grüßt das Volk.",
+        "dg": "Der ___ grüßt das Volk."
       }
     },
     {
@@ -189,7 +199,8 @@
       "example": {
         "s": "___ magnus est.",
         "a": "clamor",
-        "de": "Das Geschrei ist laut."
+        "de": "Das Geschrei ist laut.",
+        "dg": "Das ___ ist laut."
       }
     },
     {
@@ -206,7 +217,8 @@
       "example": {
         "s": "___ in foro stat.",
         "a": "mercator",
-        "de": "Der Kaufmann steht auf dem Forum."
+        "de": "Der Kaufmann steht auf dem Forum.",
+        "dg": "Der ___ steht auf dem Forum."
       }
     },
     {
@@ -224,7 +236,8 @@
       "example": {
         "s": "dominus multa ___.",
         "a": "cogitat",
-        "de": "Der Herr denkt viel nach."
+        "de": "Der Herr denkt viel nach.",
+        "dg": "Der Herr ___ viel nach."
       }
     },
     {
@@ -240,7 +253,8 @@
       "example": {
         "s": "equus ante tabernam ___.",
         "a": "stat",
-        "de": "Das Pferd steht vor dem Gasthaus."
+        "de": "Das Pferd steht vor dem Gasthaus.",
+        "dg": "Das Pferd ___ vor dem Gasthaus."
       }
     },
     {
@@ -258,7 +272,8 @@
       "example": {
         "s": "populus forum ___.",
         "a": "spectat",
-        "de": "Das Volk betrachtet das Forum."
+        "de": "Das Volk betrachtet das Forum.",
+        "dg": "Das Volk ___ das Forum."
       }
     },
     {
@@ -275,7 +290,8 @@
       "example": {
         "s": "serva magna voce ___.",
         "a": "clamat",
-        "de": "Die Sklavin ruft laut."
+        "de": "Die Sklavin ruft laut.",
+        "dg": "Die Sklavin ___ laut."
       }
     },
     {
@@ -292,7 +308,8 @@
       "example": {
         "s": "serva dominam ___.",
         "a": "rogat",
-        "de": "Die Sklavin fragt die Herrin."
+        "de": "Die Sklavin fragt die Herrin.",
+        "dg": "Die Sklavin ___ die Herrin."
       }
     },
     {
@@ -309,7 +326,8 @@
       "example": {
         "s": "dominus servam ___.",
         "a": "amat",
-        "de": "Der Herr liebt die Sklavin."
+        "de": "Der Herr liebt die Sklavin.",
+        "dg": "Der Herr ___ die Sklavin."
       }
     },
     {
@@ -325,7 +343,8 @@
       "example": {
         "s": "servus ___, non clamat.",
         "a": "tacet",
-        "de": "Der Sklave schweigt, er schreit nicht."
+        "de": "Der Sklave schweigt, er schreit nicht.",
+        "dg": "Der Sklave ___, er schreit nicht."
       }
     },
     {
@@ -341,7 +360,8 @@
       "example": {
         "s": "domina servum ___.",
         "a": "videt",
-        "de": "Die Herrin sieht den Sklaven."
+        "de": "Die Herrin sieht den Sklaven.",
+        "dg": "Die Herrin ___ den Sklaven."
       }
     },
     {
@@ -357,7 +377,8 @@
       "example": {
         "s": "victor ___.",
         "a": "gaudet",
-        "de": "Der Sieger freut sich."
+        "de": "Der Sieger freut sich.",
+        "dg": "Der Sieger ___."
       }
     },
     {
@@ -374,7 +395,8 @@
       "example": {
         "s": "serva ___.",
         "a": "ridet",
-        "de": "Die Sklavin lacht."
+        "de": "Die Sklavin lacht.",
+        "dg": "Die Sklavin ___."
       }
     },
     {
@@ -392,7 +414,8 @@
       "example": {
         "s": "servus laborare ___.",
         "a": "debet",
-        "de": "Der Sklave muss arbeiten."
+        "de": "Der Sklave muss arbeiten.",
+        "dg": "Der Sklave ___ arbeiten."
       }
     },
     {
@@ -408,7 +431,8 @@
       "example": {
         "s": "dominus in forum ___.",
         "a": "venit",
-        "de": "Der Herr kommt aufs Forum."
+        "de": "Der Herr kommt aufs Forum.",
+        "dg": "Der Herr ___ aufs Forum."
       }
     },
     {
@@ -425,7 +449,8 @@
       "example": {
         "s": "serva in via ___.",
         "a": "est",
-        "de": "Die Sklavin ist auf der Straße."
+        "de": "Die Sklavin ist auf der Straße.",
+        "dg": "Die Sklavin ___ auf der Straße."
       }
     },
     {
@@ -442,7 +467,8 @@
       "example": {
         "s": "servus domino ___.",
         "a": "adest",
-        "de": "Der Sklave ist beim Herrn da."
+        "de": "Der Sklave ist beim Herrn da.",
+        "dg": "Der Sklave ___ beim Herrn."
       }
     },
     {
@@ -458,7 +484,8 @@
       "example": {
         "s": "___ servum vocat?",
         "a": "quis",
-        "de": "Wer ruft den Sklaven?"
+        "de": "Wer ruft den Sklaven?",
+        "dg": "___ ruft den Sklaven?"
       }
     },
     {
@@ -474,7 +501,8 @@
       "example": {
         "s": "___ servus properat?",
         "a": "cur",
-        "de": "Warum eilt der Sklave?"
+        "de": "Warum eilt der Sklave?",
+        "dg": "___ eilt der Sklave?"
       }
     },
     {
@@ -490,7 +518,8 @@
       "example": {
         "s": "___ est forum?",
         "a": "ubi",
-        "de": "Wo ist das Forum?"
+        "de": "Wo ist das Forum?",
+        "dg": "___ ist das Forum?"
       }
     },
     {
@@ -506,7 +535,8 @@
       "example": {
         "s": "___ mercator stat.",
         "a": "ibi",
-        "de": "Dort steht der Kaufmann."
+        "de": "Dort steht der Kaufmann.",
+        "dg": "___ steht der Kaufmann."
       }
     },
     {
@@ -522,7 +552,8 @@
       "example": {
         "s": "___ est taberna.",
         "a": "hic",
-        "de": "Hier ist das Gasthaus."
+        "de": "Hier ist das Gasthaus.",
+        "dg": "___ ist das Gasthaus."
       }
     },
     {
@@ -538,7 +569,8 @@
       "example": {
         "s": "serva frumentum ___ portat.",
         "a": "non",
-        "de": "Die Sklavin trägt das Getreide nicht."
+        "de": "Die Sklavin trägt das Getreide nicht.",
+        "dg": "Die Sklavin trägt das Getreide ___."
       }
     },
     {
@@ -555,7 +587,8 @@
       "example": {
         "s": "domina ___ serva in via sunt.",
         "a": "et",
-        "de": "Die Herrin und die Sklavin sind auf der Straße."
+        "de": "Die Herrin und die Sklavin sind auf der Straße.",
+        "dg": "Die Herrin ___ die Sklavin sind auf der Straße."
       }
     },
     {
@@ -572,7 +605,8 @@
       "example": {
         "s": "___ serva laborat.",
         "a": "etiam",
-        "de": "Auch die Sklavin arbeitet."
+        "de": "Auch die Sklavin arbeitet.",
+        "dg": "___ die Sklavin arbeitet."
       }
     },
     {
@@ -589,7 +623,8 @@
       "example": {
         "s": "dominus properat, ___ servus non properat.",
         "a": "sed",
-        "de": "Der Herr eilt, aber der Sklave eilt nicht."
+        "de": "Der Herr eilt, aber der Sklave eilt nicht.",
+        "dg": "Der Herr eilt, ___ der Sklave eilt nicht."
       }
     },
     {
@@ -606,7 +641,8 @@
       "example": {
         "s": "___ domina laborat.",
         "a": "nunc",
-        "de": "Jetzt arbeitet die Herrin."
+        "de": "Jetzt arbeitet die Herrin.",
+        "dg": "___ arbeitet die Herrin."
       }
     },
     {
@@ -623,7 +659,8 @@
       "example": {
         "s": "___ populus venit.",
         "a": "undique",
-        "de": "Von allen Seiten kommt das Volk."
+        "de": "Von allen Seiten kommt das Volk.",
+        "dg": "Von ___ kommt das Volk."
       }
     },
     {
@@ -639,7 +676,8 @@
       "example": {
         "s": "servus ___ laborat.",
         "a": "semper",
-        "de": "Der Sklave arbeitet immer."
+        "de": "Der Sklave arbeitet immer.",
+        "dg": "Der Sklave arbeitet ___."
       }
     },
     {
@@ -655,7 +693,8 @@
       "example": {
         "s": "___ dominam salutat.",
         "a": "amica",
-        "de": "Die Freundin grüßt die Herrin."
+        "de": "Die Freundin grüßt die Herrin.",
+        "dg": "Die ___ grüßt die Herrin."
       }
     },
     {
@@ -672,7 +711,8 @@
       "example": {
         "s": "equus in ___ stat.",
         "a": "via",
-        "de": "Das Pferd steht auf der Straße."
+        "de": "Das Pferd steht auf der Straße.",
+        "dg": "Das Pferd steht auf der ___."
       }
     },
     {
@@ -690,7 +730,8 @@
       "example": {
         "s": "mercator in ___ stat.",
         "a": "taberna",
-        "de": "Der Kaufmann steht im Gasthaus."
+        "de": "Der Kaufmann steht im Gasthaus.",
+        "dg": "Der Kaufmann steht im ___."
       }
     },
     {
@@ -706,7 +747,8 @@
       "example": {
         "s": "___ in via est.",
         "a": "bestia",
-        "de": "Das Tier ist auf der Straße."
+        "de": "Das Tier ist auf der Straße.",
+        "dg": "Das ___ ist auf der Straße."
       }
     },
     {
@@ -722,7 +764,8 @@
       "example": {
         "s": "___ servum adiuvat.",
         "a": "amicus",
-        "de": "Der Freund hilft dem Sklaven."
+        "de": "Der Freund hilft dem Sklaven.",
+        "dg": "Der ___ hilft dem Sklaven."
       }
     },
     {
@@ -739,7 +782,8 @@
       "example": {
         "s": "populus ad ___ properat.",
         "a": "circum",
-        "de": "Das Volk eilt zum Zirkus."
+        "de": "Das Volk eilt zum Zirkus.",
+        "dg": "Das Volk eilt zum ___."
       }
     },
     {
@@ -756,7 +800,8 @@
       "example": {
         "s": "dominus in ___ venit.",
         "a": "forum",
-        "de": "Der Herr kommt aufs Forum."
+        "de": "Der Herr kommt aufs Forum.",
+        "dg": "Der Herr kommt aufs ___."
       }
     },
     {
@@ -773,7 +818,8 @@
       "example": {
         "s": "___ magnum est.",
         "a": "aedificium",
-        "de": "Das Gebäude ist groß."
+        "de": "Das Gebäude ist groß.",
+        "dg": "Das ___ ist groß."
       }
     },
     {
@@ -789,7 +835,8 @@
       "example": {
         "s": "___ in foro stat.",
         "a": "senator",
-        "de": "Der Senator steht auf dem Forum."
+        "de": "Der Senator steht auf dem Forum.",
+        "dg": "Der ___ steht auf dem Forum."
       }
     },
     {
@@ -806,7 +853,8 @@
       "example": {
         "s": "___ servum vocat.",
         "a": "praetor",
-        "de": "Der Prätor ruft den Sklaven."
+        "de": "Der Prätor ruft den Sklaven.",
+        "dg": "Der ___ ruft den Sklaven."
       }
     },
     {
@@ -823,7 +871,8 @@
       "example": {
         "s": "servus ad forum ___.",
         "a": "properat",
-        "de": "Der Sklave eilt zum Forum."
+        "de": "Der Sklave eilt zum Forum.",
+        "dg": "Der Sklave ___ zum Forum."
       }
     },
     {
@@ -839,7 +888,8 @@
       "example": {
         "s": "senator populo ___.",
         "a": "narrat",
-        "de": "Der Senator erzählt dem Volk."
+        "de": "Der Senator erzählt dem Volk.",
+        "dg": "Der Senator ___ dem Volk."
       }
     },
     {
@@ -856,7 +906,8 @@
       "example": {
         "s": "amicus servam ___.",
         "a": "adiuvat",
-        "de": "Der Freund hilft der Sklavin."
+        "de": "Der Freund hilft der Sklavin.",
+        "dg": "Der Freund ___ der Sklavin."
       }
     },
     {
@@ -873,7 +924,8 @@
       "example": {
         "s": "domina servam ___.",
         "a": "vocat",
-        "de": "Die Herrin ruft die Sklavin."
+        "de": "Die Herrin ruft die Sklavin.",
+        "dg": "Die Herrin ___ die Sklavin."
       }
     },
     {
@@ -890,7 +942,8 @@
       "example": {
         "s": "servus dominum ___.",
         "a": "exspectat",
-        "de": "Der Sklave wartet auf den Herrn."
+        "de": "Der Sklave wartet auf den Herrn.",
+        "dg": "Der Sklave ___ auf den Herrn."
       }
     },
     {
@@ -906,7 +959,8 @@
       "example": {
         "s": "dominus clamorem ___.",
         "a": "audit",
-        "de": "Der Herr hört das Geschrei."
+        "de": "Der Herr hört das Geschrei.",
+        "dg": "Der Herr ___ das Geschrei."
       }
     },
     {
@@ -923,7 +977,8 @@
       "example": {
         "s": "serva frumentum ___.",
         "a": "reperit",
-        "de": "Die Sklavin findet das Getreide."
+        "de": "Die Sklavin findet das Getreide.",
+        "dg": "Die Sklavin ___ das Getreide."
       }
     },
     {
@@ -942,7 +997,8 @@
       "example": {
         "s": "servus ___ forum properat.",
         "a": "ad",
-        "de": "Der Sklave eilt zum Forum."
+        "de": "Der Sklave eilt zum Forum.",
+        "dg": "Der Sklave eilt ___ Forum."
       }
     },
     {
@@ -959,7 +1015,8 @@
       "example": {
         "s": "servus ___ viam properat.",
         "a": "per",
-        "de": "Der Sklave eilt durch die Straße."
+        "de": "Der Sklave eilt durch die Straße.",
+        "dg": "Der Sklave eilt ___ die Straße."
       }
     },
     {
@@ -978,7 +1035,8 @@
       "example": {
         "s": "domina ___ tabernam intrat.",
         "a": "in",
-        "de": "Die Herrin tritt in das Gasthaus."
+        "de": "Die Herrin tritt in das Gasthaus.",
+        "dg": "Die Herrin tritt ___ das Gasthaus."
       }
     },
     {
@@ -994,7 +1052,8 @@
       "example": {
         "s": "equus ___ tabernam stat.",
         "a": "ante",
-        "de": "Das Pferd steht vor dem Gasthaus."
+        "de": "Das Pferd steht vor dem Gasthaus.",
+        "dg": "Das Pferd steht ___ dem Gasthaus."
       }
     },
     {
@@ -1013,7 +1072,8 @@
       "example": {
         "s": "___ dominus!",
         "a": "ecce",
-        "de": "Schau, der Herr!"
+        "de": "Schau, der Herr!",
+        "dg": "___, der Herr!"
       }
     },
     {
@@ -1029,7 +1089,8 @@
       "example": {
         "s": "servus properat, ___ amicum non videt.",
         "a": "itaque",
-        "de": "Der Sklave eilt, deshalb sieht er den Freund nicht."
+        "de": "Der Sklave eilt, deshalb sieht er den Freund nicht.",
+        "dg": "Der Sklave eilt, ___ sieht er den Freund nicht."
       }
     },
     {
@@ -1047,7 +1108,8 @@
       "example": {
         "s": "___ dominus in forum venit.",
         "a": "tum",
-        "de": "Da kommt der Herr aufs Forum."
+        "de": "Da kommt der Herr aufs Forum.",
+        "dg": "___ kommt der Herr aufs Forum."
       }
     },
     {
@@ -1063,7 +1125,8 @@
       "example": {
         "s": "serva ___ laborat.",
         "a": "bene",
-        "de": "Die Sklavin arbeitet gut."
+        "de": "Die Sklavin arbeitet gut.",
+        "dg": "Die Sklavin arbeitet ___."
       }
     },
     {
@@ -1081,7 +1144,8 @@
       "example": {
         "s": "servus ___ clamat.",
         "a": "iterum",
-        "de": "Der Sklave schreit wieder."
+        "de": "Der Sklave schreit wieder.",
+        "dg": "Der Sklave schreit ___."
       }
     },
     {
@@ -1097,7 +1161,8 @@
       "example": {
         "s": "___ bestia in via est.",
         "a": "subito",
-        "de": "Plötzlich ist ein Tier auf der Straße."
+        "de": "Plötzlich ist ein Tier auf der Straße.",
+        "dg": "___ ist ein Tier auf der Straße."
       }
     },
     {
@@ -1114,7 +1179,8 @@
       "example": {
         "s": "servus ___ properat.",
         "a": "statim",
-        "de": "Der Sklave eilt sofort."
+        "de": "Der Sklave eilt sofort.",
+        "dg": "Der Sklave eilt ___."
       }
     },
     {
@@ -1132,7 +1198,8 @@
       "example": {
         "s": "servus ___ properat.",
         "a": "iam",
-        "de": "Der Sklave eilt schon."
+        "de": "Der Sklave eilt schon.",
+        "dg": "Der Sklave eilt ___."
       }
     },
     {
@@ -1149,7 +1216,8 @@
       "example": {
         "s": "servus ___ exspectat.",
         "a": "diu",
-        "de": "Der Sklave wartet lange."
+        "de": "Der Sklave wartet lange.",
+        "dg": "Der Sklave wartet ___."
       }
     },
     {
@@ -1165,7 +1233,8 @@
       "example": {
         "s": "___ facit servus?",
         "a": "quid",
-        "de": "Was macht der Sklave?"
+        "de": "Was macht der Sklave?",
+        "dg": "___ macht der Sklave?"
       }
     },
     {
@@ -1181,7 +1250,8 @@
       "example": {
         "s": "dominus ___ vocat.",
         "a": "nos",
-        "de": "Der Herr ruft uns."
+        "de": "Der Herr ruft uns.",
+        "dg": "Der Herr ruft ___."
       }
     },
     {
@@ -1198,7 +1268,8 @@
       "example": {
         "s": "___ magnae sunt.",
         "a": "thermae",
-        "de": "Die Thermen sind groß."
+        "de": "Die Thermen sind groß.",
+        "dg": "Die ___ sind groß."
       }
     },
     {
@@ -1215,7 +1286,8 @@
       "example": {
         "s": "servus magnam ___ habet.",
         "a": "audaciam",
-        "de": "Der Sklave hat große Kühnheit."
+        "de": "Der Sklave hat große Kühnheit.",
+        "dg": "Der Sklave hat große ___."
       }
     },
     {
@@ -1232,7 +1304,8 @@
       "example": {
         "s": "serva ___ audit.",
         "a": "verbum",
-        "de": "Die Sklavin hört das Wort."
+        "de": "Die Sklavin hört das Wort.",
+        "dg": "Die Sklavin hört das ___."
       }
     },
     {
@@ -1251,7 +1324,8 @@
       "example": {
         "s": "senator bonum ___ habet.",
         "a": "consilium",
-        "de": "Der Senator hat einen guten Plan."
+        "de": "Der Senator hat einen guten Plan.",
+        "dg": "Der Senator hat einen guten ___."
       }
     },
     {
@@ -1268,7 +1342,8 @@
       "example": {
         "s": "domina tabernam ___.",
         "a": "intrat",
-        "de": "Die Herrin tritt ins Gasthaus."
+        "de": "Die Herrin tritt ins Gasthaus.",
+        "dg": "Die Herrin ___ ins Gasthaus."
       }
     },
     {
@@ -1286,7 +1361,8 @@
       "example": {
         "s": "servus furtum ___.",
         "a": "parat",
-        "de": "Der Sklave plant einen Diebstahl."
+        "de": "Der Sklave plant einen Diebstahl.",
+        "dg": "Der Sklave ___ einen Diebstahl."
       }
     },
     {
@@ -1303,7 +1379,8 @@
       "example": {
         "s": "serva in taberna ___.",
         "a": "laborat",
-        "de": "Die Sklavin arbeitet im Gasthaus."
+        "de": "Die Sklavin arbeitet im Gasthaus.",
+        "dg": "Die Sklavin ___ im Gasthaus."
       }
     },
     {
@@ -1321,7 +1398,8 @@
       "example": {
         "s": "domina frumentum ___.",
         "a": "curat",
-        "de": "Die Herrin sorgt für das Getreide."
+        "de": "Die Herrin sorgt für das Getreide.",
+        "dg": "Die Herrin ___ für das Getreide."
       }
     },
     {
@@ -1337,7 +1415,8 @@
       "example": {
         "s": "servus bestiam ___.",
         "a": "necat",
-        "de": "Der Sklave tötet das Tier."
+        "de": "Der Sklave tötet das Tier.",
+        "dg": "Der Sklave ___ das Tier."
       }
     },
     {
@@ -1354,7 +1433,8 @@
       "example": {
         "s": "serva dominam ___.",
         "a": "salutat",
-        "de": "Die Sklavin grüßt die Herrin."
+        "de": "Die Sklavin grüßt die Herrin.",
+        "dg": "Die Sklavin ___ die Herrin."
       }
     },
     {
@@ -1371,7 +1451,8 @@
       "example": {
         "s": "servus frumentum ___.",
         "a": "portat",
-        "de": "Der Sklave trägt das Getreide."
+        "de": "Der Sklave trägt das Getreide.",
+        "dg": "Der Sklave ___ das Getreide."
       }
     },
     {
@@ -1388,7 +1469,8 @@
       "example": {
         "s": "dominus servam ___.",
         "a": "servat",
-        "de": "Der Herr rettet die Sklavin."
+        "de": "Der Herr rettet die Sklavin.",
+        "dg": "Der Herr ___ die Sklavin."
       }
     },
     {
@@ -1404,7 +1486,8 @@
       "example": {
         "s": "domina servam ___.",
         "a": "laudat",
-        "de": "Die Herrin lobt die Sklavin."
+        "de": "Die Herrin lobt die Sklavin.",
+        "dg": "Die Herrin ___ die Sklavin."
       }
     },
     {
@@ -1420,7 +1503,8 @@
       "example": {
         "s": "senator in foro ___.",
         "a": "sedet",
-        "de": "Der Senator sitzt auf dem Forum."
+        "de": "Der Senator sitzt auf dem Forum.",
+        "dg": "Der Senator ___ auf dem Forum."
       }
     },
     {
@@ -1436,7 +1520,8 @@
       "example": {
         "s": "servus domino ___.",
         "a": "paret",
-        "de": "Der Sklave gehorcht dem Herrn."
+        "de": "Der Sklave gehorcht dem Herrn.",
+        "dg": "Der Sklave ___ dem Herrn."
       }
     },
     {
@@ -1453,7 +1538,8 @@
       "example": {
         "s": "dominus servum ___.",
         "a": "monet",
-        "de": "Der Herr ermahnt den Sklaven."
+        "de": "Der Herr ermahnt den Sklaven.",
+        "dg": "Der Herr ___ den Sklaven."
       }
     },
     {
@@ -1470,7 +1556,8 @@
       "example": {
         "s": "servus furtum ___.",
         "a": "audet",
-        "de": "Der Sklave wagt einen Diebstahl."
+        "de": "Der Sklave wagt einen Diebstahl.",
+        "dg": "Der Sklave ___ einen Diebstahl."
       }
     },
     {
@@ -1487,7 +1574,8 @@
       "example": {
         "s": "domina equum ___.",
         "a": "habet",
-        "de": "Die Herrin hat ein Pferd."
+        "de": "Die Herrin hat ein Pferd.",
+        "dg": "Die Herrin ___ ein Pferd."
       }
     },
     {
@@ -1504,7 +1592,8 @@
       "example": {
         "s": "serva viam ___.",
         "a": "scit",
-        "de": "Die Sklavin kennt den Weg."
+        "de": "Die Sklavin kennt den Weg.",
+        "dg": "Die Sklavin ___ den Weg."
       }
     },
     {
@@ -1520,7 +1609,8 @@
       "example": {
         "s": "servus in forum venire ___.",
         "a": "vult",
-        "de": "Der Sklave will aufs Forum kommen."
+        "de": "Der Sklave will aufs Forum kommen.",
+        "dg": "Der Sklave ___ aufs Forum kommen."
       }
     },
     {
@@ -1537,7 +1627,8 @@
       "example": {
         "s": "___ , domina!",
         "a": "salve",
-        "de": "Sei gegrüßt, Herrin!"
+        "de": "Sei gegrüßt, Herrin!",
+        "dg": "___, Herrin!"
       }
     },
     {
@@ -1553,7 +1644,8 @@
       "example": {
         "s": "servus ___ dominum stat.",
         "a": "apud",
-        "de": "Der Sklave steht beim Herrn."
+        "de": "Der Sklave steht beim Herrn.",
+        "dg": "Der Sklave steht ___ Herrn."
       }
     },
     {
@@ -1569,7 +1661,8 @@
       "example": {
         "s": "___ furtum dominus clamat.",
         "a": "propter",
-        "de": "Wegen des Diebstahls schreit der Herr."
+        "de": "Wegen des Diebstahls schreit der Herr.",
+        "dg": "___ des Diebstahls schreit der Herr."
       }
     },
     {
@@ -1610,7 +1703,8 @@
       "example": {
         "s": "___, victor!",
         "a": "io",
-        "de": "Hurra, der Sieger!"
+        "de": "Hurra, der Sieger!",
+        "dg": "___, der Sieger!"
       }
     },
     {
@@ -1627,7 +1721,8 @@
       "example": {
         "s": "certe dominus ___.",
         "a": "venit",
-        "de": "Gewiss kommt der Herr."
+        "de": "Gewiss kommt der Herr.",
+        "dg": "___ kommt der Herr."
       }
     },
     {
@@ -1644,7 +1739,8 @@
       "example": {
         "s": "serva ___ dicit.",
         "a": "recte",
-        "de": "Die Sklavin sagt es richtig."
+        "de": "Die Sklavin sagt es richtig.",
+        "dg": "Die Sklavin sagt es ___."
       }
     },
     {
@@ -1661,7 +1757,8 @@
       "example": {
         "s": "servus ___ cogitat.",
         "a": "aliter",
-        "de": "Der Sklave denkt anders."
+        "de": "Der Sklave denkt anders.",
+        "dg": "Der Sklave denkt ___."
       }
     },
     {
@@ -1678,7 +1775,8 @@
       "example": {
         "s": "___ post dominus venit.",
         "a": "paulo",
-        "de": "Ein wenig später kommt der Herr."
+        "de": "Ein wenig später kommt der Herr.",
+        "dg": "Ein ___ später kommt der Herr."
       }
     },
     {
@@ -1695,7 +1793,8 @@
       "example": {
         "s": "servus portat, ___ dominus venit.",
         "a": "post",
-        "de": "Der Sklave trägt, dann kommt der Herr."
+        "de": "Der Sklave trägt, dann kommt der Herr.",
+        "dg": "Der Sklave trägt, ___ kommt der Herr."
       }
     },
     {
@@ -1712,7 +1811,8 @@
       "example": {
         "s": "servus stat, ___ dominus venit.",
         "a": "paulo post",
-        "de": "Der Sklave steht, kurz darauf kommt der Herr."
+        "de": "Der Sklave steht, kurz darauf kommt der Herr.",
+        "dg": "Der Sklave steht, ___ kommt der Herr."
       }
     },
     {
@@ -1729,7 +1829,8 @@
       "example": {
         "s": "servus properat, dominus ___ non venit.",
         "a": "tamen",
-        "de": "Der Sklave eilt, dennoch kommt der Herr nicht."
+        "de": "Der Sklave eilt, dennoch kommt der Herr nicht.",
+        "dg": "Der Sklave eilt, ___ kommt der Herr nicht."
       }
     },
     {
@@ -1746,7 +1847,8 @@
       "example": {
         "s": "dominus ___ non venit.",
         "a": "autem",
-        "de": "Der Herr aber kommt nicht."
+        "de": "Der Herr aber kommt nicht.",
+        "dg": "Der Herr ___ kommt nicht."
       }
     },
     {
@@ -1762,7 +1864,8 @@
       "example": {
         "s": "servus ___ laborat.",
         "a": "non iam",
-        "de": "Der Sklave arbeitet nicht mehr."
+        "de": "Der Sklave arbeitet nicht mehr.",
+        "dg": "Der Sklave arbeitet ___ mehr."
       }
     },
     {
@@ -1778,7 +1881,8 @@
       "example": {
         "s": "___ dominus sum.",
         "a": "ego",
-        "de": "Ich bin der Herr."
+        "de": "Ich bin der Herr.",
+        "dg": "___ bin der Herr."
       }
     },
     {
@@ -1794,7 +1898,8 @@
       "example": {
         "s": "___ servus es.",
         "a": "tu",
-        "de": "Du bist der Sklave."
+        "de": "Du bist der Sklave.",
+        "dg": "___ bist der Sklave."
       }
     },
     {
@@ -1810,7 +1915,8 @@
       "example": {
         "s": "domina ___ videt.",
         "a": "me",
-        "de": "Die Herrin sieht mich."
+        "de": "Die Herrin sieht mich.",
+        "dg": "Die Herrin sieht ___."
       }
     },
     {
@@ -1826,7 +1932,8 @@
       "example": {
         "s": "dominus ___ laudat.",
         "a": "te",
-        "de": "Der Herr lobt dich."
+        "de": "Der Herr lobt dich.",
+        "dg": "Der Herr lobt ___."
       }
     }
   ],
