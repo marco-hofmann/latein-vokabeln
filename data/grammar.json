@@ -1,0 +1,2882 @@
+{
+  "id": "grammar",
+  "name": "Grammatik",
+  "subtitle": "Formen und Kasus · Prima L1–L3",
+  "fixedDir": true,
+  "lessons": [
+    {
+      "id": "Deklination",
+      "label": "Deklination"
+    },
+    {
+      "id": "Konjugation",
+      "label": "Konjugation"
+    },
+    {
+      "id": "Präpositionen",
+      "label": "Präpositionen"
+    }
+  ],
+  "words": [
+    {
+      "id": "g-domina-gen-sg",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "domina · Gen. Sg.",
+      "german": [
+        "dominae"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · domina, -ae"
+    },
+    {
+      "id": "g-domina-dat-sg",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "domina · Dat. Sg.",
+      "german": [
+        "dominae"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · domina, -ae"
+    },
+    {
+      "id": "g-domina-akk-sg",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "domina · Akk. Sg.",
+      "german": [
+        "dominam"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · domina, -ae"
+    },
+    {
+      "id": "g-domina-nom-pl",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "domina · Nom. Pl.",
+      "german": [
+        "dominae"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · domina, -ae"
+    },
+    {
+      "id": "g-domina-akk-pl",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "domina · Akk. Pl.",
+      "german": [
+        "dominas"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · domina, -ae"
+    },
+    {
+      "id": "g-via-gen-sg",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "via · Gen. Sg.",
+      "german": [
+        "viae"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · via, -ae"
+    },
+    {
+      "id": "g-via-dat-sg",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "via · Dat. Sg.",
+      "german": [
+        "viae"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · via, -ae"
+    },
+    {
+      "id": "g-via-akk-sg",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "via · Akk. Sg.",
+      "german": [
+        "viam"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · via, -ae"
+    },
+    {
+      "id": "g-via-nom-pl",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "via · Nom. Pl.",
+      "german": [
+        "viae"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · via, -ae"
+    },
+    {
+      "id": "g-via-akk-pl",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "via · Akk. Pl.",
+      "german": [
+        "vias"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · via, -ae"
+    },
+    {
+      "id": "g-taberna-gen-sg",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "taberna · Gen. Sg.",
+      "german": [
+        "tabernae"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · taberna, -ae"
+    },
+    {
+      "id": "g-taberna-dat-sg",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "taberna · Dat. Sg.",
+      "german": [
+        "tabernae"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · taberna, -ae"
+    },
+    {
+      "id": "g-taberna-akk-sg",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "taberna · Akk. Sg.",
+      "german": [
+        "tabernam"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · taberna, -ae"
+    },
+    {
+      "id": "g-taberna-nom-pl",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "taberna · Nom. Pl.",
+      "german": [
+        "tabernae"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · taberna, -ae"
+    },
+    {
+      "id": "g-taberna-akk-pl",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "taberna · Akk. Pl.",
+      "german": [
+        "tabernas"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · taberna, -ae"
+    },
+    {
+      "id": "g-bestia-gen-sg",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "bestia · Gen. Sg.",
+      "german": [
+        "bestiae"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · bestia, -ae"
+    },
+    {
+      "id": "g-bestia-dat-sg",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "bestia · Dat. Sg.",
+      "german": [
+        "bestiae"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · bestia, -ae"
+    },
+    {
+      "id": "g-bestia-akk-sg",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "bestia · Akk. Sg.",
+      "german": [
+        "bestiam"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · bestia, -ae"
+    },
+    {
+      "id": "g-bestia-nom-pl",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "bestia · Nom. Pl.",
+      "german": [
+        "bestiae"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · bestia, -ae"
+    },
+    {
+      "id": "g-bestia-akk-pl",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "bestia · Akk. Pl.",
+      "german": [
+        "bestias"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · bestia, -ae"
+    },
+    {
+      "id": "g-victoria-gen-sg",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "victoria · Gen. Sg.",
+      "german": [
+        "victoriae"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · victoria, -ae"
+    },
+    {
+      "id": "g-victoria-dat-sg",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "victoria · Dat. Sg.",
+      "german": [
+        "victoriae"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · victoria, -ae"
+    },
+    {
+      "id": "g-victoria-akk-sg",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "victoria · Akk. Sg.",
+      "german": [
+        "victoriam"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · victoria, -ae"
+    },
+    {
+      "id": "g-victoria-nom-pl",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "victoria · Nom. Pl.",
+      "german": [
+        "victoriae"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · victoria, -ae"
+    },
+    {
+      "id": "g-victoria-akk-pl",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "victoria · Akk. Pl.",
+      "german": [
+        "victorias"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · victoria, -ae"
+    },
+    {
+      "id": "g-audacia-gen-sg",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "audacia · Gen. Sg.",
+      "german": [
+        "audaciae"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · audacia, -ae"
+    },
+    {
+      "id": "g-audacia-dat-sg",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "audacia · Dat. Sg.",
+      "german": [
+        "audaciae"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · audacia, -ae"
+    },
+    {
+      "id": "g-audacia-akk-sg",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "audacia · Akk. Sg.",
+      "german": [
+        "audaciam"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · audacia, -ae"
+    },
+    {
+      "id": "g-audacia-nom-pl",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "audacia · Nom. Pl.",
+      "german": [
+        "audaciae"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · audacia, -ae"
+    },
+    {
+      "id": "g-audacia-akk-pl",
+      "lesson": "Deklination",
+      "type": "a-Deklination",
+      "term": "audacia · Akk. Pl.",
+      "german": [
+        "audacias"
+      ],
+      "form": "a-Deklination",
+      "hint": "a-Deklination, f. · audacia, -ae"
+    },
+    {
+      "id": "g-dominus-gen-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "dominus · Gen. Sg.",
+      "german": [
+        "domini"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · dominus, -i"
+    },
+    {
+      "id": "g-dominus-dat-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "dominus · Dat. Sg.",
+      "german": [
+        "domino"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · dominus, -i"
+    },
+    {
+      "id": "g-dominus-akk-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "dominus · Akk. Sg.",
+      "german": [
+        "dominum"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · dominus, -i"
+    },
+    {
+      "id": "g-dominus-abl-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "dominus · Abl. Sg.",
+      "german": [
+        "domino"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · dominus, -i"
+    },
+    {
+      "id": "g-dominus-nom-pl",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "dominus · Nom. Pl.",
+      "german": [
+        "domini"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · dominus, -i"
+    },
+    {
+      "id": "g-dominus-akk-pl",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "dominus · Akk. Pl.",
+      "german": [
+        "dominos"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · dominus, -i"
+    },
+    {
+      "id": "g-servus-gen-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "servus · Gen. Sg.",
+      "german": [
+        "servi"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · servus, -i"
+    },
+    {
+      "id": "g-servus-dat-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "servus · Dat. Sg.",
+      "german": [
+        "servo"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · servus, -i"
+    },
+    {
+      "id": "g-servus-akk-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "servus · Akk. Sg.",
+      "german": [
+        "servum"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · servus, -i"
+    },
+    {
+      "id": "g-servus-abl-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "servus · Abl. Sg.",
+      "german": [
+        "servo"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · servus, -i"
+    },
+    {
+      "id": "g-servus-nom-pl",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "servus · Nom. Pl.",
+      "german": [
+        "servi"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · servus, -i"
+    },
+    {
+      "id": "g-servus-akk-pl",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "servus · Akk. Pl.",
+      "german": [
+        "servos"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · servus, -i"
+    },
+    {
+      "id": "g-equus-gen-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "equus · Gen. Sg.",
+      "german": [
+        "equi"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · equus, -i"
+    },
+    {
+      "id": "g-equus-dat-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "equus · Dat. Sg.",
+      "german": [
+        "equo"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · equus, -i"
+    },
+    {
+      "id": "g-equus-akk-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "equus · Akk. Sg.",
+      "german": [
+        "equum"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · equus, -i"
+    },
+    {
+      "id": "g-equus-abl-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "equus · Abl. Sg.",
+      "german": [
+        "equo"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · equus, -i"
+    },
+    {
+      "id": "g-equus-nom-pl",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "equus · Nom. Pl.",
+      "german": [
+        "equi"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · equus, -i"
+    },
+    {
+      "id": "g-equus-akk-pl",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "equus · Akk. Pl.",
+      "german": [
+        "equos"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · equus, -i"
+    },
+    {
+      "id": "g-populus-gen-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "populus · Gen. Sg.",
+      "german": [
+        "populi"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · populus, -i"
+    },
+    {
+      "id": "g-populus-dat-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "populus · Dat. Sg.",
+      "german": [
+        "populo"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · populus, -i"
+    },
+    {
+      "id": "g-populus-akk-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "populus · Akk. Sg.",
+      "german": [
+        "populum"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · populus, -i"
+    },
+    {
+      "id": "g-populus-abl-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "populus · Abl. Sg.",
+      "german": [
+        "populo"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · populus, -i"
+    },
+    {
+      "id": "g-populus-nom-pl",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "populus · Nom. Pl.",
+      "german": [
+        "populi"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · populus, -i"
+    },
+    {
+      "id": "g-populus-akk-pl",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "populus · Akk. Pl.",
+      "german": [
+        "populos"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · populus, -i"
+    },
+    {
+      "id": "g-circus-gen-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "circus · Gen. Sg.",
+      "german": [
+        "circi"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · circus, -i"
+    },
+    {
+      "id": "g-circus-dat-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "circus · Dat. Sg.",
+      "german": [
+        "circo"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · circus, -i"
+    },
+    {
+      "id": "g-circus-akk-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "circus · Akk. Sg.",
+      "german": [
+        "circum"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · circus, -i"
+    },
+    {
+      "id": "g-circus-abl-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "circus · Abl. Sg.",
+      "german": [
+        "circo"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · circus, -i"
+    },
+    {
+      "id": "g-circus-nom-pl",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "circus · Nom. Pl.",
+      "german": [
+        "circi"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · circus, -i"
+    },
+    {
+      "id": "g-circus-akk-pl",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "circus · Akk. Pl.",
+      "german": [
+        "circos"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · circus, -i"
+    },
+    {
+      "id": "g-amicus-gen-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "amicus · Gen. Sg.",
+      "german": [
+        "amici"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · amicus, -i"
+    },
+    {
+      "id": "g-amicus-dat-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "amicus · Dat. Sg.",
+      "german": [
+        "amico"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · amicus, -i"
+    },
+    {
+      "id": "g-amicus-akk-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "amicus · Akk. Sg.",
+      "german": [
+        "amicum"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · amicus, -i"
+    },
+    {
+      "id": "g-amicus-abl-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "amicus · Abl. Sg.",
+      "german": [
+        "amico"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · amicus, -i"
+    },
+    {
+      "id": "g-amicus-nom-pl",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "amicus · Nom. Pl.",
+      "german": [
+        "amici"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · amicus, -i"
+    },
+    {
+      "id": "g-amicus-akk-pl",
+      "lesson": "Deklination",
+      "type": "o-Deklination (m)",
+      "term": "amicus · Akk. Pl.",
+      "german": [
+        "amicos"
+      ],
+      "form": "o-Deklination (m)",
+      "hint": "o-Deklination, m. · amicus, -i"
+    },
+    {
+      "id": "g-frumentum-gen-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (n)",
+      "term": "frumentum · Gen. Sg.",
+      "german": [
+        "frumenti"
+      ],
+      "form": "o-Deklination (n)",
+      "hint": "o-Deklination, n. · frumentum, -i"
+    },
+    {
+      "id": "g-frumentum-dat-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (n)",
+      "term": "frumentum · Dat. Sg.",
+      "german": [
+        "frumento"
+      ],
+      "form": "o-Deklination (n)",
+      "hint": "o-Deklination, n. · frumentum, -i"
+    },
+    {
+      "id": "g-frumentum-nom-pl",
+      "lesson": "Deklination",
+      "type": "o-Deklination (n)",
+      "term": "frumentum · Nom. Pl.",
+      "german": [
+        "frumenta"
+      ],
+      "form": "o-Deklination (n)",
+      "hint": "o-Deklination, n. · frumentum, -i"
+    },
+    {
+      "id": "g-frumentum-akk-pl",
+      "lesson": "Deklination",
+      "type": "o-Deklination (n)",
+      "term": "frumentum · Akk. Pl.",
+      "german": [
+        "frumenta"
+      ],
+      "form": "o-Deklination (n)",
+      "hint": "o-Deklination, n. · frumentum, -i"
+    },
+    {
+      "id": "g-forum-gen-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (n)",
+      "term": "forum · Gen. Sg.",
+      "german": [
+        "fori"
+      ],
+      "form": "o-Deklination (n)",
+      "hint": "o-Deklination, n. · forum, -i"
+    },
+    {
+      "id": "g-forum-dat-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (n)",
+      "term": "forum · Dat. Sg.",
+      "german": [
+        "foro"
+      ],
+      "form": "o-Deklination (n)",
+      "hint": "o-Deklination, n. · forum, -i"
+    },
+    {
+      "id": "g-forum-nom-pl",
+      "lesson": "Deklination",
+      "type": "o-Deklination (n)",
+      "term": "forum · Nom. Pl.",
+      "german": [
+        "fora"
+      ],
+      "form": "o-Deklination (n)",
+      "hint": "o-Deklination, n. · forum, -i"
+    },
+    {
+      "id": "g-forum-akk-pl",
+      "lesson": "Deklination",
+      "type": "o-Deklination (n)",
+      "term": "forum · Akk. Pl.",
+      "german": [
+        "fora"
+      ],
+      "form": "o-Deklination (n)",
+      "hint": "o-Deklination, n. · forum, -i"
+    },
+    {
+      "id": "g-verbum-gen-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (n)",
+      "term": "verbum · Gen. Sg.",
+      "german": [
+        "verbi"
+      ],
+      "form": "o-Deklination (n)",
+      "hint": "o-Deklination, n. · verbum, -i"
+    },
+    {
+      "id": "g-verbum-dat-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (n)",
+      "term": "verbum · Dat. Sg.",
+      "german": [
+        "verbo"
+      ],
+      "form": "o-Deklination (n)",
+      "hint": "o-Deklination, n. · verbum, -i"
+    },
+    {
+      "id": "g-verbum-nom-pl",
+      "lesson": "Deklination",
+      "type": "o-Deklination (n)",
+      "term": "verbum · Nom. Pl.",
+      "german": [
+        "verba"
+      ],
+      "form": "o-Deklination (n)",
+      "hint": "o-Deklination, n. · verbum, -i"
+    },
+    {
+      "id": "g-verbum-akk-pl",
+      "lesson": "Deklination",
+      "type": "o-Deklination (n)",
+      "term": "verbum · Akk. Pl.",
+      "german": [
+        "verba"
+      ],
+      "form": "o-Deklination (n)",
+      "hint": "o-Deklination, n. · verbum, -i"
+    },
+    {
+      "id": "g-consilium-gen-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (n)",
+      "term": "consilium · Gen. Sg.",
+      "german": [
+        "consilii"
+      ],
+      "form": "o-Deklination (n)",
+      "hint": "o-Deklination, n. · consilium, -ii"
+    },
+    {
+      "id": "g-consilium-dat-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (n)",
+      "term": "consilium · Dat. Sg.",
+      "german": [
+        "consilio"
+      ],
+      "form": "o-Deklination (n)",
+      "hint": "o-Deklination, n. · consilium, -ii"
+    },
+    {
+      "id": "g-consilium-nom-pl",
+      "lesson": "Deklination",
+      "type": "o-Deklination (n)",
+      "term": "consilium · Nom. Pl.",
+      "german": [
+        "consilia"
+      ],
+      "form": "o-Deklination (n)",
+      "hint": "o-Deklination, n. · consilium, -ii"
+    },
+    {
+      "id": "g-consilium-akk-pl",
+      "lesson": "Deklination",
+      "type": "o-Deklination (n)",
+      "term": "consilium · Akk. Pl.",
+      "german": [
+        "consilia"
+      ],
+      "form": "o-Deklination (n)",
+      "hint": "o-Deklination, n. · consilium, -ii"
+    },
+    {
+      "id": "g-aedificium-gen-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (n)",
+      "term": "aedificium · Gen. Sg.",
+      "german": [
+        "aedificii"
+      ],
+      "form": "o-Deklination (n)",
+      "hint": "o-Deklination, n. · aedificium, -ii"
+    },
+    {
+      "id": "g-aedificium-dat-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (n)",
+      "term": "aedificium · Dat. Sg.",
+      "german": [
+        "aedificio"
+      ],
+      "form": "o-Deklination (n)",
+      "hint": "o-Deklination, n. · aedificium, -ii"
+    },
+    {
+      "id": "g-aedificium-nom-pl",
+      "lesson": "Deklination",
+      "type": "o-Deklination (n)",
+      "term": "aedificium · Nom. Pl.",
+      "german": [
+        "aedificia"
+      ],
+      "form": "o-Deklination (n)",
+      "hint": "o-Deklination, n. · aedificium, -ii"
+    },
+    {
+      "id": "g-aedificium-akk-pl",
+      "lesson": "Deklination",
+      "type": "o-Deklination (n)",
+      "term": "aedificium · Akk. Pl.",
+      "german": [
+        "aedificia"
+      ],
+      "form": "o-Deklination (n)",
+      "hint": "o-Deklination, n. · aedificium, -ii"
+    },
+    {
+      "id": "g-furtum-gen-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (n)",
+      "term": "furtum · Gen. Sg.",
+      "german": [
+        "furti"
+      ],
+      "form": "o-Deklination (n)",
+      "hint": "o-Deklination, n. · furtum, -i"
+    },
+    {
+      "id": "g-furtum-dat-sg",
+      "lesson": "Deklination",
+      "type": "o-Deklination (n)",
+      "term": "furtum · Dat. Sg.",
+      "german": [
+        "furto"
+      ],
+      "form": "o-Deklination (n)",
+      "hint": "o-Deklination, n. · furtum, -i"
+    },
+    {
+      "id": "g-furtum-nom-pl",
+      "lesson": "Deklination",
+      "type": "o-Deklination (n)",
+      "term": "furtum · Nom. Pl.",
+      "german": [
+        "furta"
+      ],
+      "form": "o-Deklination (n)",
+      "hint": "o-Deklination, n. · furtum, -i"
+    },
+    {
+      "id": "g-furtum-akk-pl",
+      "lesson": "Deklination",
+      "type": "o-Deklination (n)",
+      "term": "furtum · Akk. Pl.",
+      "german": [
+        "furta"
+      ],
+      "form": "o-Deklination (n)",
+      "hint": "o-Deklination, n. · furtum, -i"
+    },
+    {
+      "id": "g-victor-gen-sg",
+      "lesson": "Deklination",
+      "type": "3. Deklination",
+      "term": "victor · Gen. Sg.",
+      "german": [
+        "victoris"
+      ],
+      "form": "3. Deklination",
+      "hint": "3. Deklination, m. · victor, victoris"
+    },
+    {
+      "id": "g-victor-akk-sg",
+      "lesson": "Deklination",
+      "type": "3. Deklination",
+      "term": "victor · Akk. Sg.",
+      "german": [
+        "victorem"
+      ],
+      "form": "3. Deklination",
+      "hint": "3. Deklination, m. · victor, victoris"
+    },
+    {
+      "id": "g-victor-nom-pl",
+      "lesson": "Deklination",
+      "type": "3. Deklination",
+      "term": "victor · Nom. Pl.",
+      "german": [
+        "victores"
+      ],
+      "form": "3. Deklination",
+      "hint": "3. Deklination, m. · victor, victoris"
+    },
+    {
+      "id": "g-victor-akk-pl",
+      "lesson": "Deklination",
+      "type": "3. Deklination",
+      "term": "victor · Akk. Pl.",
+      "german": [
+        "victores"
+      ],
+      "form": "3. Deklination",
+      "hint": "3. Deklination, m. · victor, victoris"
+    },
+    {
+      "id": "g-clamor-gen-sg",
+      "lesson": "Deklination",
+      "type": "3. Deklination",
+      "term": "clamor · Gen. Sg.",
+      "german": [
+        "clamoris"
+      ],
+      "form": "3. Deklination",
+      "hint": "3. Deklination, m. · clamor, clamoris"
+    },
+    {
+      "id": "g-clamor-akk-sg",
+      "lesson": "Deklination",
+      "type": "3. Deklination",
+      "term": "clamor · Akk. Sg.",
+      "german": [
+        "clamorem"
+      ],
+      "form": "3. Deklination",
+      "hint": "3. Deklination, m. · clamor, clamoris"
+    },
+    {
+      "id": "g-clamor-nom-pl",
+      "lesson": "Deklination",
+      "type": "3. Deklination",
+      "term": "clamor · Nom. Pl.",
+      "german": [
+        "clamores"
+      ],
+      "form": "3. Deklination",
+      "hint": "3. Deklination, m. · clamor, clamoris"
+    },
+    {
+      "id": "g-clamor-akk-pl",
+      "lesson": "Deklination",
+      "type": "3. Deklination",
+      "term": "clamor · Akk. Pl.",
+      "german": [
+        "clamores"
+      ],
+      "form": "3. Deklination",
+      "hint": "3. Deklination, m. · clamor, clamoris"
+    },
+    {
+      "id": "g-mercator-gen-sg",
+      "lesson": "Deklination",
+      "type": "3. Deklination",
+      "term": "mercator · Gen. Sg.",
+      "german": [
+        "mercatoris"
+      ],
+      "form": "3. Deklination",
+      "hint": "3. Deklination, m. · mercator, mercatoris"
+    },
+    {
+      "id": "g-mercator-akk-sg",
+      "lesson": "Deklination",
+      "type": "3. Deklination",
+      "term": "mercator · Akk. Sg.",
+      "german": [
+        "mercatorem"
+      ],
+      "form": "3. Deklination",
+      "hint": "3. Deklination, m. · mercator, mercatoris"
+    },
+    {
+      "id": "g-mercator-nom-pl",
+      "lesson": "Deklination",
+      "type": "3. Deklination",
+      "term": "mercator · Nom. Pl.",
+      "german": [
+        "mercatores"
+      ],
+      "form": "3. Deklination",
+      "hint": "3. Deklination, m. · mercator, mercatoris"
+    },
+    {
+      "id": "g-mercator-akk-pl",
+      "lesson": "Deklination",
+      "type": "3. Deklination",
+      "term": "mercator · Akk. Pl.",
+      "german": [
+        "mercatores"
+      ],
+      "form": "3. Deklination",
+      "hint": "3. Deklination, m. · mercator, mercatoris"
+    },
+    {
+      "id": "g-senator-gen-sg",
+      "lesson": "Deklination",
+      "type": "3. Deklination",
+      "term": "senator · Gen. Sg.",
+      "german": [
+        "senatoris"
+      ],
+      "form": "3. Deklination",
+      "hint": "3. Deklination, m. · senator, senatoris"
+    },
+    {
+      "id": "g-senator-akk-sg",
+      "lesson": "Deklination",
+      "type": "3. Deklination",
+      "term": "senator · Akk. Sg.",
+      "german": [
+        "senatorem"
+      ],
+      "form": "3. Deklination",
+      "hint": "3. Deklination, m. · senator, senatoris"
+    },
+    {
+      "id": "g-senator-nom-pl",
+      "lesson": "Deklination",
+      "type": "3. Deklination",
+      "term": "senator · Nom. Pl.",
+      "german": [
+        "senatores"
+      ],
+      "form": "3. Deklination",
+      "hint": "3. Deklination, m. · senator, senatoris"
+    },
+    {
+      "id": "g-senator-akk-pl",
+      "lesson": "Deklination",
+      "type": "3. Deklination",
+      "term": "senator · Akk. Pl.",
+      "german": [
+        "senatores"
+      ],
+      "form": "3. Deklination",
+      "hint": "3. Deklination, m. · senator, senatoris"
+    },
+    {
+      "id": "g-praetor-gen-sg",
+      "lesson": "Deklination",
+      "type": "3. Deklination",
+      "term": "praetor · Gen. Sg.",
+      "german": [
+        "praetoris"
+      ],
+      "form": "3. Deklination",
+      "hint": "3. Deklination, m. · praetor, praetoris"
+    },
+    {
+      "id": "g-praetor-akk-sg",
+      "lesson": "Deklination",
+      "type": "3. Deklination",
+      "term": "praetor · Akk. Sg.",
+      "german": [
+        "praetorem"
+      ],
+      "form": "3. Deklination",
+      "hint": "3. Deklination, m. · praetor, praetoris"
+    },
+    {
+      "id": "g-praetor-nom-pl",
+      "lesson": "Deklination",
+      "type": "3. Deklination",
+      "term": "praetor · Nom. Pl.",
+      "german": [
+        "praetores"
+      ],
+      "form": "3. Deklination",
+      "hint": "3. Deklination, m. · praetor, praetoris"
+    },
+    {
+      "id": "g-praetor-akk-pl",
+      "lesson": "Deklination",
+      "type": "3. Deklination",
+      "term": "praetor · Akk. Pl.",
+      "german": [
+        "praetores"
+      ],
+      "form": "3. Deklination",
+      "hint": "3. Deklination, m. · praetor, praetoris"
+    },
+    {
+      "id": "g-amare-1-sg",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "amare · 1. Sg.",
+      "german": [
+        "amo"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · amare"
+    },
+    {
+      "id": "g-amare-3-sg",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "amare · 3. Sg.",
+      "german": [
+        "amat"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · amare"
+    },
+    {
+      "id": "g-amare-1-pl",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "amare · 1. Pl.",
+      "german": [
+        "amamus"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · amare"
+    },
+    {
+      "id": "g-amare-3-pl",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "amare · 3. Pl.",
+      "german": [
+        "amant"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · amare"
+    },
+    {
+      "id": "g-amare-infinitiv",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "amare · Infinitiv",
+      "german": [
+        "amare"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · amare"
+    },
+    {
+      "id": "g-amare-imperativ-sg",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "amare · Imperativ Sg.",
+      "german": [
+        "ama"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · amare"
+    },
+    {
+      "id": "g-clamare-1-sg",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "clamare · 1. Sg.",
+      "german": [
+        "clamo"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · clamare"
+    },
+    {
+      "id": "g-clamare-3-sg",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "clamare · 3. Sg.",
+      "german": [
+        "clamat"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · clamare"
+    },
+    {
+      "id": "g-clamare-1-pl",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "clamare · 1. Pl.",
+      "german": [
+        "clamamus"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · clamare"
+    },
+    {
+      "id": "g-clamare-3-pl",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "clamare · 3. Pl.",
+      "german": [
+        "clamant"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · clamare"
+    },
+    {
+      "id": "g-clamare-infinitiv",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "clamare · Infinitiv",
+      "german": [
+        "clamare"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · clamare"
+    },
+    {
+      "id": "g-clamare-imperativ-sg",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "clamare · Imperativ Sg.",
+      "german": [
+        "clama"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · clamare"
+    },
+    {
+      "id": "g-spectare-1-sg",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "spectare · 1. Sg.",
+      "german": [
+        "specto"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · spectare"
+    },
+    {
+      "id": "g-spectare-3-sg",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "spectare · 3. Sg.",
+      "german": [
+        "spectat"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · spectare"
+    },
+    {
+      "id": "g-spectare-1-pl",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "spectare · 1. Pl.",
+      "german": [
+        "spectamus"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · spectare"
+    },
+    {
+      "id": "g-spectare-3-pl",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "spectare · 3. Pl.",
+      "german": [
+        "spectant"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · spectare"
+    },
+    {
+      "id": "g-spectare-infinitiv",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "spectare · Infinitiv",
+      "german": [
+        "spectare"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · spectare"
+    },
+    {
+      "id": "g-spectare-imperativ-sg",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "spectare · Imperativ Sg.",
+      "german": [
+        "specta"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · spectare"
+    },
+    {
+      "id": "g-portare-1-sg",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "portare · 1. Sg.",
+      "german": [
+        "porto"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · portare"
+    },
+    {
+      "id": "g-portare-3-sg",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "portare · 3. Sg.",
+      "german": [
+        "portat"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · portare"
+    },
+    {
+      "id": "g-portare-1-pl",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "portare · 1. Pl.",
+      "german": [
+        "portamus"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · portare"
+    },
+    {
+      "id": "g-portare-3-pl",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "portare · 3. Pl.",
+      "german": [
+        "portant"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · portare"
+    },
+    {
+      "id": "g-portare-infinitiv",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "portare · Infinitiv",
+      "german": [
+        "portare"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · portare"
+    },
+    {
+      "id": "g-portare-imperativ-sg",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "portare · Imperativ Sg.",
+      "german": [
+        "porta"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · portare"
+    },
+    {
+      "id": "g-rogare-1-sg",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "rogare · 1. Sg.",
+      "german": [
+        "rogo"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · rogare"
+    },
+    {
+      "id": "g-rogare-3-sg",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "rogare · 3. Sg.",
+      "german": [
+        "rogat"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · rogare"
+    },
+    {
+      "id": "g-rogare-1-pl",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "rogare · 1. Pl.",
+      "german": [
+        "rogamus"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · rogare"
+    },
+    {
+      "id": "g-rogare-3-pl",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "rogare · 3. Pl.",
+      "german": [
+        "rogant"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · rogare"
+    },
+    {
+      "id": "g-rogare-infinitiv",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "rogare · Infinitiv",
+      "german": [
+        "rogare"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · rogare"
+    },
+    {
+      "id": "g-rogare-imperativ-sg",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "rogare · Imperativ Sg.",
+      "german": [
+        "roga"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · rogare"
+    },
+    {
+      "id": "g-vocare-1-sg",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "vocare · 1. Sg.",
+      "german": [
+        "voco"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · vocare"
+    },
+    {
+      "id": "g-vocare-3-sg",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "vocare · 3. Sg.",
+      "german": [
+        "vocat"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · vocare"
+    },
+    {
+      "id": "g-vocare-1-pl",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "vocare · 1. Pl.",
+      "german": [
+        "vocamus"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · vocare"
+    },
+    {
+      "id": "g-vocare-3-pl",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "vocare · 3. Pl.",
+      "german": [
+        "vocant"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · vocare"
+    },
+    {
+      "id": "g-vocare-infinitiv",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "vocare · Infinitiv",
+      "german": [
+        "vocare"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · vocare"
+    },
+    {
+      "id": "g-vocare-imperativ-sg",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "vocare · Imperativ Sg.",
+      "german": [
+        "voca"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · vocare"
+    },
+    {
+      "id": "g-adiuvare-1-sg",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "adiuvare · 1. Sg.",
+      "german": [
+        "adiuvo"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · adiuvare"
+    },
+    {
+      "id": "g-adiuvare-3-sg",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "adiuvare · 3. Sg.",
+      "german": [
+        "adiuvat"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · adiuvare"
+    },
+    {
+      "id": "g-adiuvare-1-pl",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "adiuvare · 1. Pl.",
+      "german": [
+        "adiuvamus"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · adiuvare"
+    },
+    {
+      "id": "g-adiuvare-3-pl",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "adiuvare · 3. Pl.",
+      "german": [
+        "adiuvant"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · adiuvare"
+    },
+    {
+      "id": "g-adiuvare-infinitiv",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "adiuvare · Infinitiv",
+      "german": [
+        "adiuvare"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · adiuvare"
+    },
+    {
+      "id": "g-adiuvare-imperativ-sg",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "adiuvare · Imperativ Sg.",
+      "german": [
+        "adiuva"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · adiuvare"
+    },
+    {
+      "id": "g-exspectare-1-sg",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "exspectare · 1. Sg.",
+      "german": [
+        "exspecto"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · exspectare"
+    },
+    {
+      "id": "g-exspectare-3-sg",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "exspectare · 3. Sg.",
+      "german": [
+        "exspectat"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · exspectare"
+    },
+    {
+      "id": "g-exspectare-1-pl",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "exspectare · 1. Pl.",
+      "german": [
+        "exspectamus"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · exspectare"
+    },
+    {
+      "id": "g-exspectare-3-pl",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "exspectare · 3. Pl.",
+      "german": [
+        "exspectant"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · exspectare"
+    },
+    {
+      "id": "g-exspectare-infinitiv",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "exspectare · Infinitiv",
+      "german": [
+        "exspectare"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · exspectare"
+    },
+    {
+      "id": "g-exspectare-imperativ-sg",
+      "lesson": "Konjugation",
+      "type": "a-Konjugation",
+      "term": "exspectare · Imperativ Sg.",
+      "german": [
+        "exspecta"
+      ],
+      "form": "a-Konjugation",
+      "hint": "a-Konjugation · exspectare"
+    },
+    {
+      "id": "g-debere-1-sg",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "debere · 1. Sg.",
+      "german": [
+        "debeo"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · debere"
+    },
+    {
+      "id": "g-debere-3-sg",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "debere · 3. Sg.",
+      "german": [
+        "debet"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · debere"
+    },
+    {
+      "id": "g-debere-1-pl",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "debere · 1. Pl.",
+      "german": [
+        "debemus"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · debere"
+    },
+    {
+      "id": "g-debere-3-pl",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "debere · 3. Pl.",
+      "german": [
+        "debent"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · debere"
+    },
+    {
+      "id": "g-debere-infinitiv",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "debere · Infinitiv",
+      "german": [
+        "debere"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · debere"
+    },
+    {
+      "id": "g-tacere-1-sg",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "tacere · 1. Sg.",
+      "german": [
+        "taceo"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · tacere"
+    },
+    {
+      "id": "g-tacere-3-sg",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "tacere · 3. Sg.",
+      "german": [
+        "tacet"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · tacere"
+    },
+    {
+      "id": "g-tacere-1-pl",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "tacere · 1. Pl.",
+      "german": [
+        "tacemus"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · tacere"
+    },
+    {
+      "id": "g-tacere-3-pl",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "tacere · 3. Pl.",
+      "german": [
+        "tacent"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · tacere"
+    },
+    {
+      "id": "g-tacere-infinitiv",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "tacere · Infinitiv",
+      "german": [
+        "tacere"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · tacere"
+    },
+    {
+      "id": "g-tacere-imperativ-sg",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "tacere · Imperativ Sg.",
+      "german": [
+        "tace"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · tacere"
+    },
+    {
+      "id": "g-ridere-1-sg",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "ridere · 1. Sg.",
+      "german": [
+        "rideo"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · ridere"
+    },
+    {
+      "id": "g-ridere-3-sg",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "ridere · 3. Sg.",
+      "german": [
+        "ridet"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · ridere"
+    },
+    {
+      "id": "g-ridere-1-pl",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "ridere · 1. Pl.",
+      "german": [
+        "ridemus"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · ridere"
+    },
+    {
+      "id": "g-ridere-3-pl",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "ridere · 3. Pl.",
+      "german": [
+        "rident"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · ridere"
+    },
+    {
+      "id": "g-ridere-infinitiv",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "ridere · Infinitiv",
+      "german": [
+        "ridere"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · ridere"
+    },
+    {
+      "id": "g-ridere-imperativ-sg",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "ridere · Imperativ Sg.",
+      "german": [
+        "ride"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · ridere"
+    },
+    {
+      "id": "g-sedere-1-sg",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "sedere · 1. Sg.",
+      "german": [
+        "sedeo"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · sedere"
+    },
+    {
+      "id": "g-sedere-3-sg",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "sedere · 3. Sg.",
+      "german": [
+        "sedet"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · sedere"
+    },
+    {
+      "id": "g-sedere-1-pl",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "sedere · 1. Pl.",
+      "german": [
+        "sedemus"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · sedere"
+    },
+    {
+      "id": "g-sedere-3-pl",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "sedere · 3. Pl.",
+      "german": [
+        "sedent"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · sedere"
+    },
+    {
+      "id": "g-sedere-infinitiv",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "sedere · Infinitiv",
+      "german": [
+        "sedere"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · sedere"
+    },
+    {
+      "id": "g-sedere-imperativ-sg",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "sedere · Imperativ Sg.",
+      "german": [
+        "sede"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · sedere"
+    },
+    {
+      "id": "g-habere-1-sg",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "habere · 1. Sg.",
+      "german": [
+        "habeo"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · habere"
+    },
+    {
+      "id": "g-habere-3-sg",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "habere · 3. Sg.",
+      "german": [
+        "habet"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · habere"
+    },
+    {
+      "id": "g-habere-1-pl",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "habere · 1. Pl.",
+      "german": [
+        "habemus"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · habere"
+    },
+    {
+      "id": "g-habere-3-pl",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "habere · 3. Pl.",
+      "german": [
+        "habent"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · habere"
+    },
+    {
+      "id": "g-habere-infinitiv",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "habere · Infinitiv",
+      "german": [
+        "habere"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · habere"
+    },
+    {
+      "id": "g-habere-imperativ-sg",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "habere · Imperativ Sg.",
+      "german": [
+        "habe"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · habere"
+    },
+    {
+      "id": "g-monere-1-sg",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "monere · 1. Sg.",
+      "german": [
+        "moneo"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · monere"
+    },
+    {
+      "id": "g-monere-3-sg",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "monere · 3. Sg.",
+      "german": [
+        "monet"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · monere"
+    },
+    {
+      "id": "g-monere-1-pl",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "monere · 1. Pl.",
+      "german": [
+        "monemus"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · monere"
+    },
+    {
+      "id": "g-monere-3-pl",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "monere · 3. Pl.",
+      "german": [
+        "monent"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · monere"
+    },
+    {
+      "id": "g-monere-infinitiv",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "monere · Infinitiv",
+      "german": [
+        "monere"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · monere"
+    },
+    {
+      "id": "g-monere-imperativ-sg",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "monere · Imperativ Sg.",
+      "german": [
+        "mone"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · monere"
+    },
+    {
+      "id": "g-parere-1-sg",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "parere · 1. Sg.",
+      "german": [
+        "pareo"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · parere"
+    },
+    {
+      "id": "g-parere-3-sg",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "parere · 3. Sg.",
+      "german": [
+        "paret"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · parere"
+    },
+    {
+      "id": "g-parere-1-pl",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "parere · 1. Pl.",
+      "german": [
+        "paremus"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · parere"
+    },
+    {
+      "id": "g-parere-3-pl",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "parere · 3. Pl.",
+      "german": [
+        "parent"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · parere"
+    },
+    {
+      "id": "g-parere-infinitiv",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "parere · Infinitiv",
+      "german": [
+        "parere"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · parere"
+    },
+    {
+      "id": "g-parere-imperativ-sg",
+      "lesson": "Konjugation",
+      "type": "e-Konjugation",
+      "term": "parere · Imperativ Sg.",
+      "german": [
+        "pare"
+      ],
+      "form": "e-Konjugation",
+      "hint": "e-Konjugation · parere"
+    },
+    {
+      "id": "g-audire-1-sg",
+      "lesson": "Konjugation",
+      "type": "i-Konjugation",
+      "term": "audire · 1. Sg.",
+      "german": [
+        "audio"
+      ],
+      "form": "i-Konjugation",
+      "hint": "i-Konjugation · audire"
+    },
+    {
+      "id": "g-audire-3-sg",
+      "lesson": "Konjugation",
+      "type": "i-Konjugation",
+      "term": "audire · 3. Sg.",
+      "german": [
+        "audit"
+      ],
+      "form": "i-Konjugation",
+      "hint": "i-Konjugation · audire"
+    },
+    {
+      "id": "g-audire-1-pl",
+      "lesson": "Konjugation",
+      "type": "i-Konjugation",
+      "term": "audire · 1. Pl.",
+      "german": [
+        "audimus"
+      ],
+      "form": "i-Konjugation",
+      "hint": "i-Konjugation · audire"
+    },
+    {
+      "id": "g-audire-3-pl",
+      "lesson": "Konjugation",
+      "type": "i-Konjugation",
+      "term": "audire · 3. Pl.",
+      "german": [
+        "audiunt"
+      ],
+      "form": "i-Konjugation",
+      "hint": "i-Konjugation · audire"
+    },
+    {
+      "id": "g-audire-infinitiv",
+      "lesson": "Konjugation",
+      "type": "i-Konjugation",
+      "term": "audire · Infinitiv",
+      "german": [
+        "audire"
+      ],
+      "form": "i-Konjugation",
+      "hint": "i-Konjugation · audire"
+    },
+    {
+      "id": "g-audire-imperativ-sg",
+      "lesson": "Konjugation",
+      "type": "i-Konjugation",
+      "term": "audire · Imperativ Sg.",
+      "german": [
+        "audi"
+      ],
+      "form": "i-Konjugation",
+      "hint": "i-Konjugation · audire"
+    },
+    {
+      "id": "g-venire-1-sg",
+      "lesson": "Konjugation",
+      "type": "i-Konjugation",
+      "term": "venire · 1. Sg.",
+      "german": [
+        "venio"
+      ],
+      "form": "i-Konjugation",
+      "hint": "i-Konjugation · venire"
+    },
+    {
+      "id": "g-venire-3-sg",
+      "lesson": "Konjugation",
+      "type": "i-Konjugation",
+      "term": "venire · 3. Sg.",
+      "german": [
+        "venit"
+      ],
+      "form": "i-Konjugation",
+      "hint": "i-Konjugation · venire"
+    },
+    {
+      "id": "g-venire-1-pl",
+      "lesson": "Konjugation",
+      "type": "i-Konjugation",
+      "term": "venire · 1. Pl.",
+      "german": [
+        "venimus"
+      ],
+      "form": "i-Konjugation",
+      "hint": "i-Konjugation · venire"
+    },
+    {
+      "id": "g-venire-3-pl",
+      "lesson": "Konjugation",
+      "type": "i-Konjugation",
+      "term": "venire · 3. Pl.",
+      "german": [
+        "veniunt"
+      ],
+      "form": "i-Konjugation",
+      "hint": "i-Konjugation · venire"
+    },
+    {
+      "id": "g-venire-infinitiv",
+      "lesson": "Konjugation",
+      "type": "i-Konjugation",
+      "term": "venire · Infinitiv",
+      "german": [
+        "venire"
+      ],
+      "form": "i-Konjugation",
+      "hint": "i-Konjugation · venire"
+    },
+    {
+      "id": "g-venire-imperativ-sg",
+      "lesson": "Konjugation",
+      "type": "i-Konjugation",
+      "term": "venire · Imperativ Sg.",
+      "german": [
+        "veni"
+      ],
+      "form": "i-Konjugation",
+      "hint": "i-Konjugation · venire"
+    },
+    {
+      "id": "g-scire-1-sg",
+      "lesson": "Konjugation",
+      "type": "i-Konjugation",
+      "term": "scire · 1. Sg.",
+      "german": [
+        "scio"
+      ],
+      "form": "i-Konjugation",
+      "hint": "i-Konjugation · scire"
+    },
+    {
+      "id": "g-scire-3-sg",
+      "lesson": "Konjugation",
+      "type": "i-Konjugation",
+      "term": "scire · 3. Sg.",
+      "german": [
+        "scit"
+      ],
+      "form": "i-Konjugation",
+      "hint": "i-Konjugation · scire"
+    },
+    {
+      "id": "g-scire-1-pl",
+      "lesson": "Konjugation",
+      "type": "i-Konjugation",
+      "term": "scire · 1. Pl.",
+      "german": [
+        "scimus"
+      ],
+      "form": "i-Konjugation",
+      "hint": "i-Konjugation · scire"
+    },
+    {
+      "id": "g-scire-3-pl",
+      "lesson": "Konjugation",
+      "type": "i-Konjugation",
+      "term": "scire · 3. Pl.",
+      "german": [
+        "sciunt"
+      ],
+      "form": "i-Konjugation",
+      "hint": "i-Konjugation · scire"
+    },
+    {
+      "id": "g-scire-infinitiv",
+      "lesson": "Konjugation",
+      "type": "i-Konjugation",
+      "term": "scire · Infinitiv",
+      "german": [
+        "scire"
+      ],
+      "form": "i-Konjugation",
+      "hint": "i-Konjugation · scire"
+    },
+    {
+      "id": "g-scire-imperativ-sg",
+      "lesson": "Konjugation",
+      "type": "i-Konjugation",
+      "term": "scire · Imperativ Sg.",
+      "german": [
+        "sci"
+      ],
+      "form": "i-Konjugation",
+      "hint": "i-Konjugation · scire"
+    },
+    {
+      "id": "g-reperire-1-sg",
+      "lesson": "Konjugation",
+      "type": "i-Konjugation",
+      "term": "reperire · 1. Sg.",
+      "german": [
+        "reperio"
+      ],
+      "form": "i-Konjugation",
+      "hint": "i-Konjugation · reperire"
+    },
+    {
+      "id": "g-reperire-3-sg",
+      "lesson": "Konjugation",
+      "type": "i-Konjugation",
+      "term": "reperire · 3. Sg.",
+      "german": [
+        "reperit"
+      ],
+      "form": "i-Konjugation",
+      "hint": "i-Konjugation · reperire"
+    },
+    {
+      "id": "g-reperire-1-pl",
+      "lesson": "Konjugation",
+      "type": "i-Konjugation",
+      "term": "reperire · 1. Pl.",
+      "german": [
+        "reperimus"
+      ],
+      "form": "i-Konjugation",
+      "hint": "i-Konjugation · reperire"
+    },
+    {
+      "id": "g-reperire-3-pl",
+      "lesson": "Konjugation",
+      "type": "i-Konjugation",
+      "term": "reperire · 3. Pl.",
+      "german": [
+        "reperiunt"
+      ],
+      "form": "i-Konjugation",
+      "hint": "i-Konjugation · reperire"
+    },
+    {
+      "id": "g-reperire-infinitiv",
+      "lesson": "Konjugation",
+      "type": "i-Konjugation",
+      "term": "reperire · Infinitiv",
+      "german": [
+        "reperire"
+      ],
+      "form": "i-Konjugation",
+      "hint": "i-Konjugation · reperire"
+    },
+    {
+      "id": "g-reperire-imperativ-sg",
+      "lesson": "Konjugation",
+      "type": "i-Konjugation",
+      "term": "reperire · Imperativ Sg.",
+      "german": [
+        "reperi"
+      ],
+      "form": "i-Konjugation",
+      "hint": "i-Konjugation · reperire"
+    },
+    {
+      "id": "g-esse-1-sg",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "esse · 1. Sg.",
+      "german": [
+        "sum"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · esse"
+    },
+    {
+      "id": "g-esse-2-sg",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "esse · 2. Sg.",
+      "german": [
+        "es"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · esse"
+    },
+    {
+      "id": "g-esse-3-sg",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "esse · 3. Sg.",
+      "german": [
+        "est"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · esse"
+    },
+    {
+      "id": "g-esse-1-pl",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "esse · 1. Pl.",
+      "german": [
+        "sumus"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · esse"
+    },
+    {
+      "id": "g-esse-2-pl",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "esse · 2. Pl.",
+      "german": [
+        "estis"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · esse"
+    },
+    {
+      "id": "g-esse-3-pl",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "esse · 3. Pl.",
+      "german": [
+        "sunt"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · esse"
+    },
+    {
+      "id": "g-esse-infinitiv",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "esse · Infinitiv",
+      "german": [
+        "esse"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · esse"
+    },
+    {
+      "id": "g-adesse-1-sg",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "adesse · 1. Sg.",
+      "german": [
+        "adsum"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · adesse"
+    },
+    {
+      "id": "g-adesse-3-sg",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "adesse · 3. Sg.",
+      "german": [
+        "adest"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · adesse"
+    },
+    {
+      "id": "g-adesse-1-pl",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "adesse · 1. Pl.",
+      "german": [
+        "adsumus"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · adesse"
+    },
+    {
+      "id": "g-adesse-3-pl",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "adesse · 3. Pl.",
+      "german": [
+        "adsunt"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · adesse"
+    },
+    {
+      "id": "g-adesse-infinitiv",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "adesse · Infinitiv",
+      "german": [
+        "adesse"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · adesse"
+    },
+    {
+      "id": "g-velle-1-sg",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "velle · 1. Sg.",
+      "german": [
+        "volo"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · velle"
+    },
+    {
+      "id": "g-velle-2-sg",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "velle · 2. Sg.",
+      "german": [
+        "vis"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · velle"
+    },
+    {
+      "id": "g-velle-3-sg",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "velle · 3. Sg.",
+      "german": [
+        "vult"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · velle"
+    },
+    {
+      "id": "g-velle-1-pl",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "velle · 1. Pl.",
+      "german": [
+        "volumus"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · velle"
+    },
+    {
+      "id": "g-velle-3-pl",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "velle · 3. Pl.",
+      "german": [
+        "volunt"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · velle"
+    },
+    {
+      "id": "g-velle-infinitiv",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "velle · Infinitiv",
+      "german": [
+        "velle"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · velle"
+    },
+    {
+      "id": "g-audere-1-sg",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "audere · 1. Sg.",
+      "german": [
+        "audeo"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · audere"
+    },
+    {
+      "id": "g-audere-3-sg",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "audere · 3. Sg.",
+      "german": [
+        "audet"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · audere"
+    },
+    {
+      "id": "g-audere-1-pl",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "audere · 1. Pl.",
+      "german": [
+        "audemus"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · audere"
+    },
+    {
+      "id": "g-audere-3-pl",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "audere · 3. Pl.",
+      "german": [
+        "audent"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · audere"
+    },
+    {
+      "id": "g-audere-infinitiv",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "audere · Infinitiv",
+      "german": [
+        "audere"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · audere"
+    },
+    {
+      "id": "g-audere-imperativ-sg",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "audere · Imperativ Sg.",
+      "german": [
+        "aude"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · audere"
+    },
+    {
+      "id": "g-stare-1-sg",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "stare · 1. Sg.",
+      "german": [
+        "sto"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · stare"
+    },
+    {
+      "id": "g-stare-3-sg",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "stare · 3. Sg.",
+      "german": [
+        "stat"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · stare"
+    },
+    {
+      "id": "g-stare-1-pl",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "stare · 1. Pl.",
+      "german": [
+        "stamus"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · stare"
+    },
+    {
+      "id": "g-stare-3-pl",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "stare · 3. Pl.",
+      "german": [
+        "stant"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · stare"
+    },
+    {
+      "id": "g-stare-infinitiv",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "stare · Infinitiv",
+      "german": [
+        "stare"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · stare"
+    },
+    {
+      "id": "g-stare-imperativ-sg",
+      "lesson": "Konjugation",
+      "type": "Sonderverben",
+      "term": "stare · Imperativ Sg.",
+      "german": [
+        "sta"
+      ],
+      "form": "Sonderverben",
+      "hint": "unregelmässig · stare"
+    },
+    {
+      "id": "g-ad-kasus",
+      "lesson": "Präpositionen",
+      "type": "Präpositionen",
+      "term": "ad · Kasus?",
+      "german": [
+        "Akkusativ"
+      ],
+      "form": "Präpositionen",
+      "hint": "zu, zu ... hin, bei, nach"
+    },
+    {
+      "id": "g-per-kasus",
+      "lesson": "Präpositionen",
+      "type": "Präpositionen",
+      "term": "per · Kasus?",
+      "german": [
+        "Akkusativ"
+      ],
+      "form": "Präpositionen",
+      "hint": "durch"
+    },
+    {
+      "id": "g-ante-kasus",
+      "lesson": "Präpositionen",
+      "type": "Präpositionen",
+      "term": "ante · Kasus?",
+      "german": [
+        "Akkusativ"
+      ],
+      "form": "Präpositionen",
+      "hint": "vor"
+    },
+    {
+      "id": "g-apud-kasus",
+      "lesson": "Präpositionen",
+      "type": "Präpositionen",
+      "term": "apud · Kasus?",
+      "german": [
+        "Akkusativ"
+      ],
+      "form": "Präpositionen",
+      "hint": "bei"
+    },
+    {
+      "id": "g-propter-kasus",
+      "lesson": "Präpositionen",
+      "type": "Präpositionen",
+      "term": "propter · Kasus?",
+      "german": [
+        "Akkusativ"
+      ],
+      "form": "Präpositionen",
+      "hint": "wegen"
+    },
+    {
+      "id": "g-in-wohin-kasus",
+      "lesson": "Präpositionen",
+      "type": "Präpositionen",
+      "term": "in (wohin?) · Kasus?",
+      "german": [
+        "Akkusativ"
+      ],
+      "form": "Präpositionen",
+      "hint": "in ... hinein, nach, gegen"
+    },
+    {
+      "id": "g-in-wo-kasus",
+      "lesson": "Präpositionen",
+      "type": "Präpositionen",
+      "term": "in (wo?) · Kasus?",
+      "german": [
+        "Ablativ"
+      ],
+      "form": "Präpositionen",
+      "hint": "in, auf (Ortsangabe)"
+    }
+  ]
+}

@@ -5,7 +5,7 @@
    - navigation: network-first, falls back to the cached page when offline
    Bump CACHE_VERSION on deploys that change index.html — the browser only re-fetches the page
    when the cache name changes (or when the network answers first, which it usually does). */
-const CACHE_VERSION = "vokabeln-v3";
+const CACHE_VERSION = "vokabeln-v4";
 const SHELL = [
   "./",
   "./index.html",
@@ -18,7 +18,8 @@ const DECKS = [
   "./data/subjects.json",
   "./data/latin.json",
   "./data/french.json",
-  "./data/english.json"
+  "./data/english.json",
+  "./data/grammar.json"
 ];
 
 self.addEventListener("install", event => {

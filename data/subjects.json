@@ -20,6 +20,13 @@
       "file": "english.json",
       "accent": "#f5b942",
       "speech": "en-GB"
+    },
+    {
+      "id": "grammar",
+      "name": "Grammatik",
+      "file": "grammar.json",
+      "accent": "#c084fc",
+      "speech": "it-IT"
     }
   ]
 }

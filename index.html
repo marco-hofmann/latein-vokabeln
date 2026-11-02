@@ -194,6 +194,18 @@
   .lessonbar .track i{display:block; height:100%; background:var(--accent); border-radius:99px}
   .lessonbar .pct{width:38px; text-align:right; font-variant-numeric:tabular-nums; color:var(--muted); font-size:12px}
   .scroll{max-height:340px; overflow:auto; -webkit-overflow-scrolling:touch}
+  /* settings stay out of the way until asked for */
+  .settings > summary{
+    list-style:none; cursor:pointer; display:flex; align-items:baseline; gap:8px; flex-wrap:wrap;
+    font-size:13px; font-weight:600; color:var(--text); user-select:none;
+  }
+  .settings > summary::-webkit-details-marker{display:none}
+  .settings > summary::after{content:"›"; margin-left:auto; color:var(--muted); font-size:15px;
+    transform:rotate(90deg); transition:transform .15s}
+  .settings[open] > summary::after{transform:rotate(-90deg)}
+  .settings > summary .sum{font-weight:400; color:var(--muted); font-size:12px}
+  .settings[open]{padding-bottom:18px}
+  .cloze-de{font-size:14px; line-height:1.45; color:var(--muted); max-width:34ch}
   .hidden{display:none !important}
   /* ---- light theme ---- */
   html[data-theme="light"]{
@@ -318,30 +330,35 @@
     </div>
 
     <button class="btn" id="startBtn">Lernen starten</button>
+    <button class="btn ghost small" id="examBtn">Prüfung (20)</button>
+    <button class="btn ghost small hidden" id="resumeBtn"></button>
     <div class="actions lobby-actions">
       <button class="btn ghost small" id="focusBtn">Nur Wackelkandidaten</button>
       <button class="btn ghost small" id="markedBtn">Markiert (0)</button>
     </div>
-    <button class="btn ghost small" id="examBtn">Prüfung (20)</button>
-    <button class="btn ghost small hidden" id="resumeBtn"></button>
 
-    <div class="panel">
-      <div class="label" style="margin-top:0">Prüfung</div>
-      <div class="chips" id="examSizeChips"></div>
-      <div class="chips" id="examTimeChips" style="margin-top:7px"></div>
+    <details class="panel settings" id="settingsPanel">
+      <summary>
+        <span>Einstellungen</span>
+        <span class="sum" id="cfgSummary"></span>
+      </summary>
+
+      <div class="label" style="margin-top:12px">Abfrage</div>
+      <div class="chips" id="modeChips"></div>
       <div class="label">Lektionen</div>
       <div class="chips" id="lessonChips"></div>
       <div class="label">Wortarten</div>
       <div class="chips" id="typeChips"></div>
-      <div class="label">Abfrage</div>
-      <div class="chips" id="modeChips"></div>
-      <div class="label">Richtung</div>
+      <div class="label" id="dirLabel">Richtung</div>
       <div class="chips" id="dirChips"></div>
-      <div class="label">Optionen</div>
+      <div class="label">Prüfung</div>
+      <div class="chips" id="examSizeChips"></div>
+      <div class="chips" id="examTimeChips" style="margin-top:7px"></div>
+      <div class="label">Weiteres</div>
       <div class="chips" id="optChips"></div>
       <div class="label">Tagesziel</div>
       <div class="chips" id="goalChips"></div>
-    </div>
+    </details>
   </section>
 
   <!-- ================= SESSION ================= -->
@@ -351,6 +368,7 @@
       <button class="star" id="starBtn" title="merken">☆</button>
       <div class="tag" id="cardTag">Latein → Deutsch</div>
       <div class="prompt" id="prompt"></div>
+      <div class="cloze-de hidden" id="clozeDe"></div>
       <div id="answerBox" class="hidden">
         <div class="divider"></div>
         <div class="answer" id="answer"></div>
@@ -852,19 +870,26 @@ function renderChips(){
   });
 
   el("modeChips").innerHTML = "";
-  [[ "typing","Tippen"],["cards","Karten"],["mc","Multiple Choice"],
-   ["cloze", `Lücke (${pool().filter(hasCloze).length})`]].forEach(([v,label]) => {
+  const clozeCount = pool().filter(hasCloze).length;
+  const modes = [["typing","Tippen"],["cards","Karten"],["mc","Multiple Choice"]];
+  if(clozeCount) modes.push(["cloze", `Lücke (${clozeCount})`]);
+  modes.forEach(([v,label]) => {
     el("modeChips").appendChild(makeChip(label, cfg.mode === v, () => {
       cfg.mode = v; save(); renderChips(); renderLobby();
     }));
   });
 
   el("dirChips").innerHTML = "";
-  [["la-de","Latein → Deutsch"],["de-la","Deutsch → Latein"]].forEach(([v,label]) => {
-    el("dirChips").appendChild(makeChip(label, cfg.dir === v, () => {
-      cfg.dir = v; save(); renderChips(); renderLobby();
-    }));
-  });
+  const fixedDir = !!(deck && deck.fixedDir);
+  el("dirLabel").classList.toggle("hidden", fixedDir);
+  el("dirChips").classList.toggle("hidden", fixedDir);
+  if(!fixedDir){
+    [["la-de","Latein → Deutsch"],["de-la","Deutsch → Latein"]].forEach(([v,label]) => {
+      el("dirChips").appendChild(makeChip(label, cfg.dir === v, () => {
+        cfg.dir = v; save(); renderChips(); renderLobby();
+      }));
+    });
+  }
 
   el("optChips").innerHTML = "";
   el("optChips").appendChild(makeChip("Aussprache", cfg.audio, () => {
@@ -926,6 +951,14 @@ function renderLobby(){
   const marked = markedList().length;
   el("markedBtn").textContent = `Markiert (${marked})`;
   el("markedBtn").disabled = marked === 0;
+
+  // one line that says what the hidden settings currently do
+  const modeNames = {typing: "Tippen", cards: "Karten", mc: "Multiple Choice", cloze: "Lücke"};
+  const modeTxt = (modeNames[cfg.mode] || "Tippen") + (cfg.mode === "cloze" && cfg.clozeMC ? " · Auswahl" : "");
+  const lesTxt = cfg.lessons.length === LESSONS.length
+    ? "alle Lektionen"
+    : cfg.lessons.map(id => (LESSONS.find(l => l.id === id) || {label: id}).label).join(", ");
+  el("cfgSummary").textContent = [modeTxt, lesTxt, ...(cfg.types.length ? [cfg.types.join(" / ")] : [])].join(" · ");
 
   // a round that was interrupted (tab closed, phone locked, reload) can be picked up again
   const open = savedSession();
@@ -1003,9 +1036,12 @@ function nextCard(){
   const deToLa = cfg.dir === "de-la";
   const cloze = cfg.mode === "cloze" && hasCloze(w);
   session.cloze = cloze;
+  const fixedDir = !!(deck && deck.fixedDir);
   el("cardTag").textContent = session.exam
     ? (session.deadline ? "Prüfung · " + clockLabel(session.deadline) : "Prüfung")
-    : (cloze ? "Lücke" : (deToLa ? "Deutsch → Latein" : "Latein → Deutsch"));
+    : (cloze ? "Lücke"
+             : (fixedDir ? (w.type || "Form")
+                         : (deToLa ? "Deutsch → Latein" : "Latein → Deutsch")));
   el("prompt").className = "prompt" + (cloze ? " cloze" : (deToLa ? " de" : ""));
   if(cloze){
     // the gap is drawn, not underscore-typed, so the eye lands on the hole in the sentence
@@ -1015,8 +1051,11 @@ function nextCard(){
   }
   el("answer").textContent = cloze ? w.example.a : answerFor(w, cfg.dir);
   el("answer").className = "answer" + (cloze ? "" : (deToLa ? "" : " de"));
+  // the German sentence is part of the exercise, not a reward after it
+  el("clozeDe").classList.toggle("hidden", !cloze);
+  el("clozeDe").textContent = cloze ? (w.example.de || "") : "";
   el("hint").textContent = cloze
-    ? [clozeFilled(w), w.example.de].filter(Boolean).join(" · ")
+    ? clozeFilled(w)
     : (deToLa ? (w.form || "") : (w.hint || ""));
 
   el("answerBox").classList.add("hidden");
@@ -1694,6 +1733,7 @@ async function loadSubject(id){
 
   migrateStorage();
   loadCfg();
+  if(deck.fixedDir) cfg.dir = "la-de";
   const valid = new Set(LESSONS.map(l => l.id));
   cfg.lessons = (cfg.lessons || []).filter(x => valid.has(x));
   if(!cfg.lessons.length) cfg.lessons = LESSONS.map(l => l.id);
