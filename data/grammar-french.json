@@ -1,0 +1,1400 @@
+{
+  "id": "grammar",
+  "name": "Grammatik · Französisch",
+  "subtitle": "Présent · Grundverben",
+  "fixedDir": true,
+  "lessons": [
+    {
+      "id": "Konjugation",
+      "label": "Konjugation"
+    }
+  ],
+  "words": [
+    {
+      "id": "gf-être-1-sg",
+      "lesson": "Konjugation",
+      "type": "Hilfsverben",
+      "lemma": "être",
+      "term": "être · 1. Sg.",
+      "german": [
+        "suis"
+      ],
+      "form": "Hilfsverben",
+      "hint": "présent · Hilfsverben",
+      "mc": [
+        "suis",
+        "es",
+        "est",
+        "sommes",
+        "êtes",
+        "sont"
+      ]
+    },
+    {
+      "id": "gf-être-2-sg",
+      "lesson": "Konjugation",
+      "type": "Hilfsverben",
+      "lemma": "être",
+      "term": "être · 2. Sg.",
+      "german": [
+        "es"
+      ],
+      "form": "Hilfsverben",
+      "hint": "présent · Hilfsverben",
+      "mc": [
+        "suis",
+        "es",
+        "est",
+        "sommes",
+        "êtes",
+        "sont"
+      ]
+    },
+    {
+      "id": "gf-être-3-sg",
+      "lesson": "Konjugation",
+      "type": "Hilfsverben",
+      "lemma": "être",
+      "term": "être · 3. Sg.",
+      "german": [
+        "est"
+      ],
+      "form": "Hilfsverben",
+      "hint": "présent · Hilfsverben",
+      "mc": [
+        "suis",
+        "es",
+        "est",
+        "sommes",
+        "êtes",
+        "sont"
+      ]
+    },
+    {
+      "id": "gf-être-1-pl",
+      "lesson": "Konjugation",
+      "type": "Hilfsverben",
+      "lemma": "être",
+      "term": "être · 1. Pl.",
+      "german": [
+        "sommes"
+      ],
+      "form": "Hilfsverben",
+      "hint": "présent · Hilfsverben",
+      "mc": [
+        "suis",
+        "es",
+        "est",
+        "sommes",
+        "êtes",
+        "sont"
+      ]
+    },
+    {
+      "id": "gf-être-2-pl",
+      "lesson": "Konjugation",
+      "type": "Hilfsverben",
+      "lemma": "être",
+      "term": "être · 2. Pl.",
+      "german": [
+        "êtes"
+      ],
+      "form": "Hilfsverben",
+      "hint": "présent · Hilfsverben",
+      "mc": [
+        "suis",
+        "es",
+        "est",
+        "sommes",
+        "êtes",
+        "sont"
+      ]
+    },
+    {
+      "id": "gf-être-3-pl",
+      "lesson": "Konjugation",
+      "type": "Hilfsverben",
+      "lemma": "être",
+      "term": "être · 3. Pl.",
+      "german": [
+        "sont"
+      ],
+      "form": "Hilfsverben",
+      "hint": "présent · Hilfsverben",
+      "mc": [
+        "suis",
+        "es",
+        "est",
+        "sommes",
+        "êtes",
+        "sont"
+      ]
+    },
+    {
+      "id": "gf-avoir-1-sg",
+      "lesson": "Konjugation",
+      "type": "Hilfsverben",
+      "lemma": "avoir",
+      "term": "avoir · 1. Sg.",
+      "german": [
+        "ai"
+      ],
+      "form": "Hilfsverben",
+      "hint": "présent · Hilfsverben",
+      "mc": [
+        "ai",
+        "as",
+        "a",
+        "avons",
+        "avez",
+        "ont"
+      ]
+    },
+    {
+      "id": "gf-avoir-2-sg",
+      "lesson": "Konjugation",
+      "type": "Hilfsverben",
+      "lemma": "avoir",
+      "term": "avoir · 2. Sg.",
+      "german": [
+        "as"
+      ],
+      "form": "Hilfsverben",
+      "hint": "présent · Hilfsverben",
+      "mc": [
+        "ai",
+        "as",
+        "a",
+        "avons",
+        "avez",
+        "ont"
+      ]
+    },
+    {
+      "id": "gf-avoir-3-sg",
+      "lesson": "Konjugation",
+      "type": "Hilfsverben",
+      "lemma": "avoir",
+      "term": "avoir · 3. Sg.",
+      "german": [
+        "a"
+      ],
+      "form": "Hilfsverben",
+      "hint": "présent · Hilfsverben",
+      "mc": [
+        "ai",
+        "as",
+        "a",
+        "avons",
+        "avez",
+        "ont"
+      ]
+    },
+    {
+      "id": "gf-avoir-1-pl",
+      "lesson": "Konjugation",
+      "type": "Hilfsverben",
+      "lemma": "avoir",
+      "term": "avoir · 1. Pl.",
+      "german": [
+        "avons"
+      ],
+      "form": "Hilfsverben",
+      "hint": "présent · Hilfsverben",
+      "mc": [
+        "ai",
+        "as",
+        "a",
+        "avons",
+        "avez",
+        "ont"
+      ]
+    },
+    {
+      "id": "gf-avoir-2-pl",
+      "lesson": "Konjugation",
+      "type": "Hilfsverben",
+      "lemma": "avoir",
+      "term": "avoir · 2. Pl.",
+      "german": [
+        "avez"
+      ],
+      "form": "Hilfsverben",
+      "hint": "présent · Hilfsverben",
+      "mc": [
+        "ai",
+        "as",
+        "a",
+        "avons",
+        "avez",
+        "ont"
+      ]
+    },
+    {
+      "id": "gf-avoir-3-pl",
+      "lesson": "Konjugation",
+      "type": "Hilfsverben",
+      "lemma": "avoir",
+      "term": "avoir · 3. Pl.",
+      "german": [
+        "ont"
+      ],
+      "form": "Hilfsverben",
+      "hint": "présent · Hilfsverben",
+      "mc": [
+        "ai",
+        "as",
+        "a",
+        "avons",
+        "avez",
+        "ont"
+      ]
+    },
+    {
+      "id": "gf-aller-1-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "aller",
+      "term": "aller · 1. Sg.",
+      "german": [
+        "vais"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "vais",
+        "vas",
+        "va",
+        "allons",
+        "allez",
+        "vont"
+      ]
+    },
+    {
+      "id": "gf-aller-2-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "aller",
+      "term": "aller · 2. Sg.",
+      "german": [
+        "vas"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "vais",
+        "vas",
+        "va",
+        "allons",
+        "allez",
+        "vont"
+      ]
+    },
+    {
+      "id": "gf-aller-3-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "aller",
+      "term": "aller · 3. Sg.",
+      "german": [
+        "va"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "vais",
+        "vas",
+        "va",
+        "allons",
+        "allez",
+        "vont"
+      ]
+    },
+    {
+      "id": "gf-aller-1-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "aller",
+      "term": "aller · 1. Pl.",
+      "german": [
+        "allons"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "vais",
+        "vas",
+        "va",
+        "allons",
+        "allez",
+        "vont"
+      ]
+    },
+    {
+      "id": "gf-aller-2-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "aller",
+      "term": "aller · 2. Pl.",
+      "german": [
+        "allez"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "vais",
+        "vas",
+        "va",
+        "allons",
+        "allez",
+        "vont"
+      ]
+    },
+    {
+      "id": "gf-aller-3-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "aller",
+      "term": "aller · 3. Pl.",
+      "german": [
+        "vont"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "vais",
+        "vas",
+        "va",
+        "allons",
+        "allez",
+        "vont"
+      ]
+    },
+    {
+      "id": "gf-faire-1-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "faire",
+      "term": "faire · 1. Sg.",
+      "german": [
+        "fais"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "fais",
+        "fait",
+        "faisons",
+        "faites",
+        "font"
+      ]
+    },
+    {
+      "id": "gf-faire-2-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "faire",
+      "term": "faire · 2. Sg.",
+      "german": [
+        "fais"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "fais",
+        "fait",
+        "faisons",
+        "faites",
+        "font"
+      ]
+    },
+    {
+      "id": "gf-faire-3-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "faire",
+      "term": "faire · 3. Sg.",
+      "german": [
+        "fait"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "fais",
+        "fait",
+        "faisons",
+        "faites",
+        "font"
+      ]
+    },
+    {
+      "id": "gf-faire-1-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "faire",
+      "term": "faire · 1. Pl.",
+      "german": [
+        "faisons"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "fais",
+        "fait",
+        "faisons",
+        "faites",
+        "font"
+      ]
+    },
+    {
+      "id": "gf-faire-2-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "faire",
+      "term": "faire · 2. Pl.",
+      "german": [
+        "faites"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "fais",
+        "fait",
+        "faisons",
+        "faites",
+        "font"
+      ]
+    },
+    {
+      "id": "gf-faire-3-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "faire",
+      "term": "faire · 3. Pl.",
+      "german": [
+        "font"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "fais",
+        "fait",
+        "faisons",
+        "faites",
+        "font"
+      ]
+    },
+    {
+      "id": "gf-dire-1-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "dire",
+      "term": "dire · 1. Sg.",
+      "german": [
+        "dis"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "dis",
+        "dit",
+        "disons",
+        "dites",
+        "disent"
+      ]
+    },
+    {
+      "id": "gf-dire-2-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "dire",
+      "term": "dire · 2. Sg.",
+      "german": [
+        "dis"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "dis",
+        "dit",
+        "disons",
+        "dites",
+        "disent"
+      ]
+    },
+    {
+      "id": "gf-dire-3-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "dire",
+      "term": "dire · 3. Sg.",
+      "german": [
+        "dit"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "dis",
+        "dit",
+        "disons",
+        "dites",
+        "disent"
+      ]
+    },
+    {
+      "id": "gf-dire-1-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "dire",
+      "term": "dire · 1. Pl.",
+      "german": [
+        "disons"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "dis",
+        "dit",
+        "disons",
+        "dites",
+        "disent"
+      ]
+    },
+    {
+      "id": "gf-dire-2-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "dire",
+      "term": "dire · 2. Pl.",
+      "german": [
+        "dites"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "dis",
+        "dit",
+        "disons",
+        "dites",
+        "disent"
+      ]
+    },
+    {
+      "id": "gf-dire-3-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "dire",
+      "term": "dire · 3. Pl.",
+      "german": [
+        "disent"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "dis",
+        "dit",
+        "disons",
+        "dites",
+        "disent"
+      ]
+    },
+    {
+      "id": "gf-pouvoir-1-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "pouvoir",
+      "term": "pouvoir · 1. Sg.",
+      "german": [
+        "peux"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "peux",
+        "peut",
+        "pouvons",
+        "pouvez",
+        "peuvent"
+      ]
+    },
+    {
+      "id": "gf-pouvoir-2-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "pouvoir",
+      "term": "pouvoir · 2. Sg.",
+      "german": [
+        "peux"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "peux",
+        "peut",
+        "pouvons",
+        "pouvez",
+        "peuvent"
+      ]
+    },
+    {
+      "id": "gf-pouvoir-3-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "pouvoir",
+      "term": "pouvoir · 3. Sg.",
+      "german": [
+        "peut"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "peux",
+        "peut",
+        "pouvons",
+        "pouvez",
+        "peuvent"
+      ]
+    },
+    {
+      "id": "gf-pouvoir-1-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "pouvoir",
+      "term": "pouvoir · 1. Pl.",
+      "german": [
+        "pouvons"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "peux",
+        "peut",
+        "pouvons",
+        "pouvez",
+        "peuvent"
+      ]
+    },
+    {
+      "id": "gf-pouvoir-2-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "pouvoir",
+      "term": "pouvoir · 2. Pl.",
+      "german": [
+        "pouvez"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "peux",
+        "peut",
+        "pouvons",
+        "pouvez",
+        "peuvent"
+      ]
+    },
+    {
+      "id": "gf-pouvoir-3-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "pouvoir",
+      "term": "pouvoir · 3. Pl.",
+      "german": [
+        "peuvent"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "peux",
+        "peut",
+        "pouvons",
+        "pouvez",
+        "peuvent"
+      ]
+    },
+    {
+      "id": "gf-vouloir-1-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "vouloir",
+      "term": "vouloir · 1. Sg.",
+      "german": [
+        "veux"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "veux",
+        "veut",
+        "voulons",
+        "voulez",
+        "veulent"
+      ]
+    },
+    {
+      "id": "gf-vouloir-2-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "vouloir",
+      "term": "vouloir · 2. Sg.",
+      "german": [
+        "veux"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "veux",
+        "veut",
+        "voulons",
+        "voulez",
+        "veulent"
+      ]
+    },
+    {
+      "id": "gf-vouloir-3-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "vouloir",
+      "term": "vouloir · 3. Sg.",
+      "german": [
+        "veut"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "veux",
+        "veut",
+        "voulons",
+        "voulez",
+        "veulent"
+      ]
+    },
+    {
+      "id": "gf-vouloir-1-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "vouloir",
+      "term": "vouloir · 1. Pl.",
+      "german": [
+        "voulons"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "veux",
+        "veut",
+        "voulons",
+        "voulez",
+        "veulent"
+      ]
+    },
+    {
+      "id": "gf-vouloir-2-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "vouloir",
+      "term": "vouloir · 2. Pl.",
+      "german": [
+        "voulez"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "veux",
+        "veut",
+        "voulons",
+        "voulez",
+        "veulent"
+      ]
+    },
+    {
+      "id": "gf-vouloir-3-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "vouloir",
+      "term": "vouloir · 3. Pl.",
+      "german": [
+        "veulent"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "veux",
+        "veut",
+        "voulons",
+        "voulez",
+        "veulent"
+      ]
+    },
+    {
+      "id": "gf-savoir-1-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "savoir",
+      "term": "savoir · 1. Sg.",
+      "german": [
+        "sais"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "sais",
+        "sait",
+        "savons",
+        "savez",
+        "savent"
+      ]
+    },
+    {
+      "id": "gf-savoir-2-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "savoir",
+      "term": "savoir · 2. Sg.",
+      "german": [
+        "sais"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "sais",
+        "sait",
+        "savons",
+        "savez",
+        "savent"
+      ]
+    },
+    {
+      "id": "gf-savoir-3-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "savoir",
+      "term": "savoir · 3. Sg.",
+      "german": [
+        "sait"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "sais",
+        "sait",
+        "savons",
+        "savez",
+        "savent"
+      ]
+    },
+    {
+      "id": "gf-savoir-1-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "savoir",
+      "term": "savoir · 1. Pl.",
+      "german": [
+        "savons"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "sais",
+        "sait",
+        "savons",
+        "savez",
+        "savent"
+      ]
+    },
+    {
+      "id": "gf-savoir-2-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "savoir",
+      "term": "savoir · 2. Pl.",
+      "german": [
+        "savez"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "sais",
+        "sait",
+        "savons",
+        "savez",
+        "savent"
+      ]
+    },
+    {
+      "id": "gf-savoir-3-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "savoir",
+      "term": "savoir · 3. Pl.",
+      "german": [
+        "savent"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "sais",
+        "sait",
+        "savons",
+        "savez",
+        "savent"
+      ]
+    },
+    {
+      "id": "gf-voir-1-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "voir",
+      "term": "voir · 1. Sg.",
+      "german": [
+        "vois"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "vois",
+        "voit",
+        "voyons",
+        "voyez",
+        "voient"
+      ]
+    },
+    {
+      "id": "gf-voir-2-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "voir",
+      "term": "voir · 2. Sg.",
+      "german": [
+        "vois"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "vois",
+        "voit",
+        "voyons",
+        "voyez",
+        "voient"
+      ]
+    },
+    {
+      "id": "gf-voir-3-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "voir",
+      "term": "voir · 3. Sg.",
+      "german": [
+        "voit"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "vois",
+        "voit",
+        "voyons",
+        "voyez",
+        "voient"
+      ]
+    },
+    {
+      "id": "gf-voir-1-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "voir",
+      "term": "voir · 1. Pl.",
+      "german": [
+        "voyons"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "vois",
+        "voit",
+        "voyons",
+        "voyez",
+        "voient"
+      ]
+    },
+    {
+      "id": "gf-voir-2-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "voir",
+      "term": "voir · 2. Pl.",
+      "german": [
+        "voyez"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "vois",
+        "voit",
+        "voyons",
+        "voyez",
+        "voient"
+      ]
+    },
+    {
+      "id": "gf-voir-3-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "voir",
+      "term": "voir · 3. Pl.",
+      "german": [
+        "voient"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "vois",
+        "voit",
+        "voyons",
+        "voyez",
+        "voient"
+      ]
+    },
+    {
+      "id": "gf-venir-1-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "venir",
+      "term": "venir · 1. Sg.",
+      "german": [
+        "viens"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "viens",
+        "vient",
+        "venons",
+        "venez",
+        "viennent"
+      ]
+    },
+    {
+      "id": "gf-venir-2-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "venir",
+      "term": "venir · 2. Sg.",
+      "german": [
+        "viens"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "viens",
+        "vient",
+        "venons",
+        "venez",
+        "viennent"
+      ]
+    },
+    {
+      "id": "gf-venir-3-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "venir",
+      "term": "venir · 3. Sg.",
+      "german": [
+        "vient"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "viens",
+        "vient",
+        "venons",
+        "venez",
+        "viennent"
+      ]
+    },
+    {
+      "id": "gf-venir-1-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "venir",
+      "term": "venir · 1. Pl.",
+      "german": [
+        "venons"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "viens",
+        "vient",
+        "venons",
+        "venez",
+        "viennent"
+      ]
+    },
+    {
+      "id": "gf-venir-2-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "venir",
+      "term": "venir · 2. Pl.",
+      "german": [
+        "venez"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "viens",
+        "vient",
+        "venons",
+        "venez",
+        "viennent"
+      ]
+    },
+    {
+      "id": "gf-venir-3-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "venir",
+      "term": "venir · 3. Pl.",
+      "german": [
+        "viennent"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "viens",
+        "vient",
+        "venons",
+        "venez",
+        "viennent"
+      ]
+    },
+    {
+      "id": "gf-prendre-1-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "prendre",
+      "term": "prendre · 1. Sg.",
+      "german": [
+        "prends"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "prends",
+        "prend",
+        "prenons",
+        "prenez",
+        "prennent"
+      ]
+    },
+    {
+      "id": "gf-prendre-2-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "prendre",
+      "term": "prendre · 2. Sg.",
+      "german": [
+        "prends"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "prends",
+        "prend",
+        "prenons",
+        "prenez",
+        "prennent"
+      ]
+    },
+    {
+      "id": "gf-prendre-3-sg",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "prendre",
+      "term": "prendre · 3. Sg.",
+      "german": [
+        "prend"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "prends",
+        "prend",
+        "prenons",
+        "prenez",
+        "prennent"
+      ]
+    },
+    {
+      "id": "gf-prendre-1-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "prendre",
+      "term": "prendre · 1. Pl.",
+      "german": [
+        "prenons"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "prends",
+        "prend",
+        "prenons",
+        "prenez",
+        "prennent"
+      ]
+    },
+    {
+      "id": "gf-prendre-2-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "prendre",
+      "term": "prendre · 2. Pl.",
+      "german": [
+        "prenez"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "prends",
+        "prend",
+        "prenons",
+        "prenez",
+        "prennent"
+      ]
+    },
+    {
+      "id": "gf-prendre-3-pl",
+      "lesson": "Konjugation",
+      "type": "unregelmässige Verben",
+      "lemma": "prendre",
+      "term": "prendre · 3. Pl.",
+      "german": [
+        "prennent"
+      ],
+      "form": "unregelmässige Verben",
+      "hint": "présent · unregelmässige Verben",
+      "mc": [
+        "prends",
+        "prend",
+        "prenons",
+        "prenez",
+        "prennent"
+      ]
+    },
+    {
+      "id": "gf-parler-1-sg",
+      "lesson": "Konjugation",
+      "type": "-er-Verben",
+      "lemma": "parler",
+      "term": "parler · 1. Sg.",
+      "german": [
+        "parle"
+      ],
+      "form": "-er-Verben",
+      "hint": "présent · -er-Verben",
+      "mc": [
+        "parle",
+        "parles",
+        "parlons",
+        "parlez",
+        "parlent"
+      ]
+    },
+    {
+      "id": "gf-parler-2-sg",
+      "lesson": "Konjugation",
+      "type": "-er-Verben",
+      "lemma": "parler",
+      "term": "parler · 2. Sg.",
+      "german": [
+        "parles"
+      ],
+      "form": "-er-Verben",
+      "hint": "présent · -er-Verben",
+      "mc": [
+        "parle",
+        "parles",
+        "parlons",
+        "parlez",
+        "parlent"
+      ]
+    },
+    {
+      "id": "gf-parler-3-sg",
+      "lesson": "Konjugation",
+      "type": "-er-Verben",
+      "lemma": "parler",
+      "term": "parler · 3. Sg.",
+      "german": [
+        "parle"
+      ],
+      "form": "-er-Verben",
+      "hint": "présent · -er-Verben",
+      "mc": [
+        "parle",
+        "parles",
+        "parlons",
+        "parlez",
+        "parlent"
+      ]
+    },
+    {
+      "id": "gf-parler-1-pl",
+      "lesson": "Konjugation",
+      "type": "-er-Verben",
+      "lemma": "parler",
+      "term": "parler · 1. Pl.",
+      "german": [
+        "parlons"
+      ],
+      "form": "-er-Verben",
+      "hint": "présent · -er-Verben",
+      "mc": [
+        "parle",
+        "parles",
+        "parlons",
+        "parlez",
+        "parlent"
+      ]
+    },
+    {
+      "id": "gf-parler-2-pl",
+      "lesson": "Konjugation",
+      "type": "-er-Verben",
+      "lemma": "parler",
+      "term": "parler · 2. Pl.",
+      "german": [
+        "parlez"
+      ],
+      "form": "-er-Verben",
+      "hint": "présent · -er-Verben",
+      "mc": [
+        "parle",
+        "parles",
+        "parlons",
+        "parlez",
+        "parlent"
+      ]
+    },
+    {
+      "id": "gf-parler-3-pl",
+      "lesson": "Konjugation",
+      "type": "-er-Verben",
+      "lemma": "parler",
+      "term": "parler · 3. Pl.",
+      "german": [
+        "parlent"
+      ],
+      "form": "-er-Verben",
+      "hint": "présent · -er-Verben",
+      "mc": [
+        "parle",
+        "parles",
+        "parlons",
+        "parlez",
+        "parlent"
+      ]
+    }
+  ]
+}

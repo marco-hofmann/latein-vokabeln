@@ -347,6 +347,8 @@
         <span class="sum" id="cfgSummary"></span>
       </summary>
 
+      <div class="label hidden" id="langLabel" style="margin-top:12px">Sprache</div>
+      <div class="chips hidden" id="langChips"></div>
       <div class="label" style="margin-top:12px">Modus</div>
       <div class="chips" id="modeChips"></div>
       <div class="label">Lektionen</div>
@@ -547,11 +549,21 @@ function freshState(){ return {cards:{}, days:{}}; }
    same way a cookie would. Each device keeps its own progress; nothing is sent anywhere. */
 const SUBJ_KEY = "latin-vokabeln:subject";
 const THEME_KEY = "latin-vokabeln:theme";
-let SUBJECTS = [], deck = null, subjectId = null, subjectMeta = null;
+let SUBJECTS = [], deck = null, subjectId = null, subjectMeta = null, deckLang = null;
 
-function STATE_KEY(){ return `latin-vokabeln:subj:${subjectId}:state`; }
-function CFG_KEY(){ return `latin-vokabeln:subj:${subjectId}:cfg`; }
-function CUSTOM_KEY(){ return `latin-vokabeln:subj:${subjectId}:custom`; }
+/* Storage is per subject — and per language for the grammar subject, whose deck is chosen. */
+function scope(){ return deckLang ? `${subjectId}:${deckLang}` : subjectId; }
+
+function STATE_KEY(){ return `latin-vokabeln:subj:${scope()}:state`; }
+function CFG_KEY(){ return `latin-vokabeln:subj:${scope()}:cfg`; }
+function CUSTOM_KEY(){ return `latin-vokabeln:subj:${scope()}:custom`; }
+function LANG_KEY(){ return `latin-vokabeln:lang:${subjectId}`; }
+function loadLang(){
+  try{ return localStorage.getItem(LANG_KEY()); }catch(e){ return null; }
+}
+function saveLang(l){
+  try{ localStorage.setItem(LANG_KEY(), l); }catch(e){}
+}
 
 /* adopt data written by earlier versions (flat single-user store, or the profile build) */
 function migrateStorage(){
@@ -599,7 +611,7 @@ function loadCfg(){
   }catch(e){}
 }
 
-function SESSION_KEY(){ return `latin-vokabeln:subj:${subjectId}:session`; }
+function SESSION_KEY(){ return `latin-vokabeln:subj:${scope()}:session`; }
 
 /* A running round is snapshotted on every card so closing the tab, switching to another app or
    reloading does not throw the remaining queue away. Finished rounds clear the snapshot. */
@@ -655,7 +667,7 @@ function restoreSession(){
    Swiss grading: note = 1 + 5·(richtig / total), also 0 % = 1,0 und 100 % = 6,0, gerundet auf
    halbe Noten. 4,0 ist die Genügend-Grenze. Die Noten bleiben im Verlauf sichtbar, sonst ist
    jede Prüfung nach dem Schliessen des Tabs weg. */
-function EXAM_KEY(){ return `latin-vokabeln:subj:${subjectId}:exams`; }
+function EXAM_KEY(){ return `latin-vokabeln:subj:${scope()}:exams`; }
 function loadExams(){
   try{
     const a = JSON.parse(localStorage.getItem(EXAM_KEY()) || "[]");
@@ -868,6 +880,20 @@ function makeChip(label, on, handler, opts){
 function renderChips(){
   const inLessons = w => !cfg.lessons.length || cfg.lessons.includes(w.lesson);
   const typeCount = t => VOCAB.filter(w => w.type === t && inLessons(w)).length;
+
+  /* ---- language, only for subjects that have one deck per language ---- */
+  const langs = subjectMeta && subjectMeta.langs;
+  el("langLabel").classList.toggle("hidden", !langs);
+  el("langChips").classList.toggle("hidden", !langs);
+  el("langChips").innerHTML = "";
+  if(langs){
+    langs.forEach(l => {
+      el("langChips").appendChild(makeChip(l.label, deckLang === l.id, () => {
+        saveLang(l.id);
+        loadSubject(subjectId);
+      }));
+    });
+  }
 
   // a selected word type that vanished from the chosen lessons would empty the round silently
   cfg.types = cfg.types.filter(t => typeCount(t) > 0);
@@ -1835,7 +1861,16 @@ async function loadSubject(id){
   localStorage.setItem(SUBJ_KEY, id);
   const meta = SUBJECTS.find(x => x.id === id) || SUBJECTS[0];
   subjectMeta = meta;
-  deck = await (await fetch("data/" + meta.file)).json();
+  deckLang = null;
+  let file = meta.file;
+  if(meta.decks){
+    // the grammar subject has one deck per language; its progress lives in its own namespace
+    const langs = Object.keys(meta.decks);
+    const saved = loadLang();
+    deckLang = langs.includes(saved) ? saved : langs[0];
+    file = meta.decks[deckLang];
+  }
+  deck = await (await fetch("data/" + file)).json();
 
   VOCAB = (deck.words || []).concat(loadCustom());
   LESSONS = mergeLessons(deck.lessons, VOCAB);

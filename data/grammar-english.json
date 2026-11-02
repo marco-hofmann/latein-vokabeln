@@ -1,0 +1,676 @@
+{
+  "id": "grammar",
+  "name": "Grammatik · English",
+  "subtitle": "Irregular verbs · Grundformen",
+  "fixedDir": true,
+  "lessons": [
+    {
+      "id": "Irregular verbs",
+      "label": "Irregular verbs"
+    }
+  ],
+  "words": [
+    {
+      "id": "ge-to-be-past",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to be",
+      "term": "to be · Past",
+      "german": [
+        "was"
+      ],
+      "form": "unregelmässig",
+      "hint": "to be – was – been",
+      "mc": [
+        "to be",
+        "was",
+        "been"
+      ]
+    },
+    {
+      "id": "ge-to-be-past-participle",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to be",
+      "term": "to be · Past participle",
+      "german": [
+        "been"
+      ],
+      "form": "unregelmässig",
+      "hint": "to be – was – been",
+      "mc": [
+        "to be",
+        "was",
+        "been"
+      ]
+    },
+    {
+      "id": "ge-to-have-past",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to have",
+      "term": "to have · Past",
+      "german": [
+        "had"
+      ],
+      "form": "unregelmässig",
+      "hint": "to have – had – had",
+      "mc": [
+        "to have",
+        "had"
+      ]
+    },
+    {
+      "id": "ge-to-have-past-participle",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to have",
+      "term": "to have · Past participle",
+      "german": [
+        "had"
+      ],
+      "form": "unregelmässig",
+      "hint": "to have – had – had",
+      "mc": [
+        "to have",
+        "had"
+      ]
+    },
+    {
+      "id": "ge-to-go-past",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to go",
+      "term": "to go · Past",
+      "german": [
+        "went"
+      ],
+      "form": "unregelmässig",
+      "hint": "to go – went – gone",
+      "mc": [
+        "to go",
+        "went",
+        "gone"
+      ]
+    },
+    {
+      "id": "ge-to-go-past-participle",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to go",
+      "term": "to go · Past participle",
+      "german": [
+        "gone"
+      ],
+      "form": "unregelmässig",
+      "hint": "to go – went – gone",
+      "mc": [
+        "to go",
+        "went",
+        "gone"
+      ]
+    },
+    {
+      "id": "ge-to-do-past",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to do",
+      "term": "to do · Past",
+      "german": [
+        "did"
+      ],
+      "form": "unregelmässig",
+      "hint": "to do – did – done",
+      "mc": [
+        "to do",
+        "did",
+        "done"
+      ]
+    },
+    {
+      "id": "ge-to-do-past-participle",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to do",
+      "term": "to do · Past participle",
+      "german": [
+        "done"
+      ],
+      "form": "unregelmässig",
+      "hint": "to do – did – done",
+      "mc": [
+        "to do",
+        "did",
+        "done"
+      ]
+    },
+    {
+      "id": "ge-to-say-past",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to say",
+      "term": "to say · Past",
+      "german": [
+        "said"
+      ],
+      "form": "unregelmässig",
+      "hint": "to say – said – said",
+      "mc": [
+        "to say",
+        "said"
+      ]
+    },
+    {
+      "id": "ge-to-say-past-participle",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to say",
+      "term": "to say · Past participle",
+      "german": [
+        "said"
+      ],
+      "form": "unregelmässig",
+      "hint": "to say – said – said",
+      "mc": [
+        "to say",
+        "said"
+      ]
+    },
+    {
+      "id": "ge-to-see-past",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to see",
+      "term": "to see · Past",
+      "german": [
+        "saw"
+      ],
+      "form": "unregelmässig",
+      "hint": "to see – saw – seen",
+      "mc": [
+        "to see",
+        "saw",
+        "seen"
+      ]
+    },
+    {
+      "id": "ge-to-see-past-participle",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to see",
+      "term": "to see · Past participle",
+      "german": [
+        "seen"
+      ],
+      "form": "unregelmässig",
+      "hint": "to see – saw – seen",
+      "mc": [
+        "to see",
+        "saw",
+        "seen"
+      ]
+    },
+    {
+      "id": "ge-to-come-past",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to come",
+      "term": "to come · Past",
+      "german": [
+        "came"
+      ],
+      "form": "unregelmässig",
+      "hint": "to come – came – come",
+      "mc": [
+        "to come",
+        "came",
+        "come"
+      ]
+    },
+    {
+      "id": "ge-to-come-past-participle",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to come",
+      "term": "to come · Past participle",
+      "german": [
+        "come"
+      ],
+      "form": "unregelmässig",
+      "hint": "to come – came – come",
+      "mc": [
+        "to come",
+        "came",
+        "come"
+      ]
+    },
+    {
+      "id": "ge-to-take-past",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to take",
+      "term": "to take · Past",
+      "german": [
+        "took"
+      ],
+      "form": "unregelmässig",
+      "hint": "to take – took – taken",
+      "mc": [
+        "to take",
+        "took",
+        "taken"
+      ]
+    },
+    {
+      "id": "ge-to-take-past-participle",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to take",
+      "term": "to take · Past participle",
+      "german": [
+        "taken"
+      ],
+      "form": "unregelmässig",
+      "hint": "to take – took – taken",
+      "mc": [
+        "to take",
+        "took",
+        "taken"
+      ]
+    },
+    {
+      "id": "ge-to-know-past",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to know",
+      "term": "to know · Past",
+      "german": [
+        "knew"
+      ],
+      "form": "unregelmässig",
+      "hint": "to know – knew – known",
+      "mc": [
+        "to know",
+        "knew",
+        "known"
+      ]
+    },
+    {
+      "id": "ge-to-know-past-participle",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to know",
+      "term": "to know · Past participle",
+      "german": [
+        "known"
+      ],
+      "form": "unregelmässig",
+      "hint": "to know – knew – known",
+      "mc": [
+        "to know",
+        "knew",
+        "known"
+      ]
+    },
+    {
+      "id": "ge-to-think-past",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to think",
+      "term": "to think · Past",
+      "german": [
+        "thought"
+      ],
+      "form": "unregelmässig",
+      "hint": "to think – thought – thought",
+      "mc": [
+        "to think",
+        "thought"
+      ]
+    },
+    {
+      "id": "ge-to-think-past-participle",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to think",
+      "term": "to think · Past participle",
+      "german": [
+        "thought"
+      ],
+      "form": "unregelmässig",
+      "hint": "to think – thought – thought",
+      "mc": [
+        "to think",
+        "thought"
+      ]
+    },
+    {
+      "id": "ge-to-give-past",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to give",
+      "term": "to give · Past",
+      "german": [
+        "gave"
+      ],
+      "form": "unregelmässig",
+      "hint": "to give – gave – given",
+      "mc": [
+        "to give",
+        "gave",
+        "given"
+      ]
+    },
+    {
+      "id": "ge-to-give-past-participle",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to give",
+      "term": "to give · Past participle",
+      "german": [
+        "given"
+      ],
+      "form": "unregelmässig",
+      "hint": "to give – gave – given",
+      "mc": [
+        "to give",
+        "gave",
+        "given"
+      ]
+    },
+    {
+      "id": "ge-to-find-past",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to find",
+      "term": "to find · Past",
+      "german": [
+        "found"
+      ],
+      "form": "unregelmässig",
+      "hint": "to find – found – found",
+      "mc": [
+        "to find",
+        "found"
+      ]
+    },
+    {
+      "id": "ge-to-find-past-participle",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to find",
+      "term": "to find · Past participle",
+      "german": [
+        "found"
+      ],
+      "form": "unregelmässig",
+      "hint": "to find – found – found",
+      "mc": [
+        "to find",
+        "found"
+      ]
+    },
+    {
+      "id": "ge-to-tell-past",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to tell",
+      "term": "to tell · Past",
+      "german": [
+        "told"
+      ],
+      "form": "unregelmässig",
+      "hint": "to tell – told – told",
+      "mc": [
+        "to tell",
+        "told"
+      ]
+    },
+    {
+      "id": "ge-to-tell-past-participle",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to tell",
+      "term": "to tell · Past participle",
+      "german": [
+        "told"
+      ],
+      "form": "unregelmässig",
+      "hint": "to tell – told – told",
+      "mc": [
+        "to tell",
+        "told"
+      ]
+    },
+    {
+      "id": "ge-to-become-past",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to become",
+      "term": "to become · Past",
+      "german": [
+        "became"
+      ],
+      "form": "unregelmässig",
+      "hint": "to become – became – become",
+      "mc": [
+        "to become",
+        "became",
+        "become"
+      ]
+    },
+    {
+      "id": "ge-to-become-past-participle",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to become",
+      "term": "to become · Past participle",
+      "german": [
+        "become"
+      ],
+      "form": "unregelmässig",
+      "hint": "to become – became – become",
+      "mc": [
+        "to become",
+        "became",
+        "become"
+      ]
+    },
+    {
+      "id": "ge-to-leave-past",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to leave",
+      "term": "to leave · Past",
+      "german": [
+        "left"
+      ],
+      "form": "unregelmässig",
+      "hint": "to leave – left – left",
+      "mc": [
+        "to leave",
+        "left"
+      ]
+    },
+    {
+      "id": "ge-to-leave-past-participle",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to leave",
+      "term": "to leave · Past participle",
+      "german": [
+        "left"
+      ],
+      "form": "unregelmässig",
+      "hint": "to leave – left – left",
+      "mc": [
+        "to leave",
+        "left"
+      ]
+    },
+    {
+      "id": "ge-to-feel-past",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to feel",
+      "term": "to feel · Past",
+      "german": [
+        "felt"
+      ],
+      "form": "unregelmässig",
+      "hint": "to feel – felt – felt",
+      "mc": [
+        "to feel",
+        "felt"
+      ]
+    },
+    {
+      "id": "ge-to-feel-past-participle",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to feel",
+      "term": "to feel · Past participle",
+      "german": [
+        "felt"
+      ],
+      "form": "unregelmässig",
+      "hint": "to feel – felt – felt",
+      "mc": [
+        "to feel",
+        "felt"
+      ]
+    },
+    {
+      "id": "ge-to-bring-past",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to bring",
+      "term": "to bring · Past",
+      "german": [
+        "brought"
+      ],
+      "form": "unregelmässig",
+      "hint": "to bring – brought – brought",
+      "mc": [
+        "to bring",
+        "brought"
+      ]
+    },
+    {
+      "id": "ge-to-bring-past-participle",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to bring",
+      "term": "to bring · Past participle",
+      "german": [
+        "brought"
+      ],
+      "form": "unregelmässig",
+      "hint": "to bring – brought – brought",
+      "mc": [
+        "to bring",
+        "brought"
+      ]
+    },
+    {
+      "id": "ge-to-buy-past",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to buy",
+      "term": "to buy · Past",
+      "german": [
+        "bought"
+      ],
+      "form": "unregelmässig",
+      "hint": "to buy – bought – bought",
+      "mc": [
+        "to buy",
+        "bought"
+      ]
+    },
+    {
+      "id": "ge-to-buy-past-participle",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to buy",
+      "term": "to buy · Past participle",
+      "german": [
+        "bought"
+      ],
+      "form": "unregelmässig",
+      "hint": "to buy – bought – bought",
+      "mc": [
+        "to buy",
+        "bought"
+      ]
+    },
+    {
+      "id": "ge-to-speak-past",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to speak",
+      "term": "to speak · Past",
+      "german": [
+        "spoke"
+      ],
+      "form": "unregelmässig",
+      "hint": "to speak – spoke – spoken",
+      "mc": [
+        "to speak",
+        "spoke",
+        "spoken"
+      ]
+    },
+    {
+      "id": "ge-to-speak-past-participle",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to speak",
+      "term": "to speak · Past participle",
+      "german": [
+        "spoken"
+      ],
+      "form": "unregelmässig",
+      "hint": "to speak – spoke – spoken",
+      "mc": [
+        "to speak",
+        "spoke",
+        "spoken"
+      ]
+    },
+    {
+      "id": "ge-to-write-past",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to write",
+      "term": "to write · Past",
+      "german": [
+        "wrote"
+      ],
+      "form": "unregelmässig",
+      "hint": "to write – wrote – written",
+      "mc": [
+        "to write",
+        "wrote",
+        "written"
+      ]
+    },
+    {
+      "id": "ge-to-write-past-participle",
+      "lesson": "Irregular verbs",
+      "type": "unregelmässige Verben",
+      "lemma": "to write",
+      "term": "to write · Past participle",
+      "german": [
+        "written"
+      ],
+      "form": "unregelmässig",
+      "hint": "to write – wrote – written",
+      "mc": [
+        "to write",
+        "wrote",
+        "written"
+      ]
+    }
+  ]
+}

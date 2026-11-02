@@ -24,9 +24,18 @@
     {
       "id": "grammar",
       "name": "Grammatik",
-      "file": "grammar.json",
       "accent": "#c084fc",
-      "speech": "it-IT"
+      "speech": "it-IT",
+      "decks": {
+        "latin": "grammar-latin.json",
+        "french": "grammar-french.json",
+        "english": "grammar-english.json"
+      },
+      "langs": [
+        { "id": "latin", "label": "Latein" },
+        { "id": "french", "label": "Französisch" },
+        { "id": "english", "label": "English" }
+      ]
     }
   ]
 }
