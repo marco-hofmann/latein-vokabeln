@@ -68,6 +68,8 @@
     transition:background .12s, color .12s, border-color .12s;
   }
   .chip:hover{color:var(--text)}
+  .chip.off{opacity:.35; cursor:not-allowed}
+  .chip.off:hover{color:var(--muted)}
   .chip.on{background:var(--accent-dim); border-color:var(--accent); color:#dffbea}
   .btn{
     width:100%; border:none; border-radius:13px; padding:15px; font-size:16px;
@@ -345,7 +347,7 @@
         <span class="sum" id="cfgSummary"></span>
       </summary>
 
-      <div class="label" style="margin-top:12px">Abfrage</div>
+      <div class="label" style="margin-top:12px">Modus</div>
       <div class="chips" id="modeChips"></div>
       <div class="label">Lektionen</div>
       <div class="chips" id="lessonChips"></div>
@@ -356,7 +358,7 @@
       <div class="label">Prüfung</div>
       <div class="chips" id="examSizeChips"></div>
       <div class="chips" id="examTimeChips" style="margin-top:7px"></div>
-      <div class="label">Weiteres</div>
+      <div class="label">Optionen</div>
       <div class="chips" id="optChips"></div>
       <div class="label">Tagesziel</div>
       <div class="chips" id="goalChips"></div>
@@ -849,86 +851,123 @@ function shuffle(a){
 }
 
 /* ================= chips ================= */
-function makeChip(label, on, handler){
+function makeChip(label, on, handler, opts){
+  const o = opts || {};
   const d = document.createElement("div");
-  d.className = "chip" + (on ? " on" : "");
+  d.className = "chip" + (on ? " on" : "") + (o.disabled ? " off" : "");
   d.textContent = label;
-  d.onclick = () => handler(d);
+  if(o.reason) d.title = o.reason;
+  d.onclick = () => {
+    // a greyed chip explains itself instead of doing nothing
+    if(o.disabled) return o.reason ? toast(o.reason) : undefined;
+    handler(d);
+  };
   return d;
 }
+
 function renderChips(){
+  const inLessons = w => !cfg.lessons.length || cfg.lessons.includes(w.lesson);
+  const typeCount = t => VOCAB.filter(w => w.type === t && inLessons(w)).length;
+
+  // a selected word type that vanished from the chosen lessons would empty the round silently
+  cfg.types = cfg.types.filter(t => typeCount(t) > 0);
+
+  /* ---- lessons, with the number of words they contribute ---- */
   el("lessonChips").innerHTML = "";
   LESSONS.forEach(l => {
-    const on = cfg.lessons.includes(l.id);
-    el("lessonChips").appendChild(makeChip(l.label, on, () => {
+    const n = VOCAB.filter(w => w.lesson === l.id && (!cfg.types.length || cfg.types.includes(w.type))).length;
+    const active = cfg.lessons.includes(l.id);
+    el("lessonChips").appendChild(makeChip(`${l.label} (${n})`, active, () => {
       const i = cfg.lessons.indexOf(l.id);
-      if(i >= 0){
-        if(cfg.lessons.length === 1) return toast("Mindestens eine Lektion");
-        cfg.lessons.splice(i,1);
-      } else cfg.lessons.push(l.id);
+      i >= 0 ? cfg.lessons.splice(i, 1) : cfg.lessons.push(l.id);
       save(); renderChips(); renderLobby();
-    }));
+    }, { disabled: active && cfg.lessons.length === 1,
+         reason: "Eine Lektion muss gewählt bleiben" }));
   });
 
+  /* ---- word types, greyed when empty in the current lessons ---- */
   el("typeChips").innerHTML = "";
   [...new Set(VOCAB.map(w => w.type))].forEach(t => {
-    const on = cfg.types.includes(t);
-    el("typeChips").appendChild(makeChip(t, on, () => {
+    const n = typeCount(t);
+    el("typeChips").appendChild(makeChip(`${t} (${n})`, cfg.types.includes(t), () => {
       const i = cfg.types.indexOf(t);
-      i >= 0 ? cfg.types.splice(i,1) : cfg.types.push(t);
+      i >= 0 ? cfg.types.splice(i, 1) : cfg.types.push(t);
       save(); renderChips(); renderLobby();
-    }));
+    }, { disabled: n === 0, reason: "Keine Wörter dieser Art in den gewählten Lektionen" }));
   });
 
-  el("modeChips").innerHTML = "";
+  /* ---- mode ---- */
   const clozeCount = pool().filter(hasCloze).length;
-  const modes = [["typing","Tippen"],["cards","Karten"],["mc","Multiple Choice"]];
-  if(clozeCount) modes.push(["cloze", `Lücke (${clozeCount})`]);
-  modes.forEach(([v,label]) => {
+  el("modeChips").innerHTML = "";
+  [["typing", "Tippen"], ["cards", "Karten"], ["mc", "Multiple Choice"]].forEach(([v, label]) => {
     el("modeChips").appendChild(makeChip(label, cfg.mode === v, () => {
       cfg.mode = v; save(); renderChips(); renderLobby();
     }));
   });
+  el("modeChips").appendChild(makeChip(`Lücke (${clozeCount})`, cfg.mode === "cloze", () => {
+    cfg.mode = "cloze"; save(); renderChips(); renderLobby();
+  }, { disabled: clozeCount === 0, reason: "Keine Beispielsätze in dieser Auswahl" }));
 
+  // a mode that became impossible must not stay selected
+  if(cfg.mode === "cloze" && clozeCount === 0){
+    cfg.mode = "typing"; save();
+    toast("Keine Beispielsätze in dieser Auswahl — Tippen aktiv");
+  }
+
+  /* ---- direction: meaningless in Lücke, and fixed decks have none ---- */
+  const dirRelevant = !(deck && deck.fixedDir) && cfg.mode !== "cloze";
+  el("dirLabel").classList.toggle("hidden", !dirRelevant);
+  el("dirChips").classList.toggle("hidden", !dirRelevant);
   el("dirChips").innerHTML = "";
-  const fixedDir = !!(deck && deck.fixedDir);
-  el("dirLabel").classList.toggle("hidden", fixedDir);
-  el("dirChips").classList.toggle("hidden", fixedDir);
-  if(!fixedDir){
-    [["la-de","Latein → Deutsch"],["de-la","Deutsch → Latein"]].forEach(([v,label]) => {
+  if(dirRelevant){
+    [["la-de", "Latein → Deutsch"], ["de-la", "Deutsch → Latein"]].forEach(([v, label]) => {
       el("dirChips").appendChild(makeChip(label, cfg.dir === v, () => {
         cfg.dir = v; save(); renderChips(); renderLobby();
       }));
     });
   }
 
+  /* ---- extras: only what can actually act here ---- */
   el("optChips").innerHTML = "";
   el("optChips").appendChild(makeChip("Aussprache", cfg.audio, () => {
     cfg.audio = !cfg.audio; save(); renderChips();
     if(cfg.audio) speak("salve");
-  }));
-  // Lücke can be answered by typing the gap or by picking it from four options
-  el("optChips").appendChild(makeChip("Lücke per Auswahl", cfg.clozeMC, () => {
-    cfg.clozeMC = !cfg.clozeMC; save(); renderChips();
-  }));
+  }, { disabled: cfg.mode === "cloze", reason: "In der Lücke wird nichts vorgelesen — sonst wäre die Antwort zu hören" }));
+  if(cfg.mode === "cloze"){
+    el("optChips").appendChild(makeChip("Lücke per Auswahl", cfg.clozeMC, () => {
+      cfg.clozeMC = !cfg.clozeMC; save(); renderChips();
+    }));
+  }
+
+  /* ---- exam: length is limited by what the current selection holds ---- */
+  const examPool = (cfg.mode === "cloze" ? pool().filter(hasCloze) : pool()).length;
+  // clamp BEFORE drawing, or the chip shows unselected while the button already uses "alle"
+  if(typeof cfg.examSize === "number" && cfg.examSize > examPool){
+    const fitting = [10, 20, 40].filter(n => n <= examPool);
+    cfg.examSize = fitting.length ? Math.max(...fitting) : "all";
+    save();
+  }
+  el("examSizeChips").innerHTML = "";
+  [10, 20, 40].forEach(n => {
+    el("examSizeChips").appendChild(makeChip(`${n} Karten`, cfg.examSize === n, () => {
+      cfg.examSize = n; save(); renderChips(); renderLobby();
+    }, { disabled: n > examPool, reason: `Nur ${examPool} Wörter in dieser Auswahl` }));
+  });
+  el("examSizeChips").appendChild(makeChip(`alle (${examPool})`, cfg.examSize === "all", () => {
+    cfg.examSize = "all"; save(); renderChips(); renderLobby();
+  }, { disabled: examPool === 0, reason: "Diese Auswahl enthält keine Wörter" }));
+
+  el("examTimeChips").innerHTML = "";
+  [[0, "ohne Zeit"], [10, "10 Min"], [20, "20 Min"]].forEach(([min, label]) => {
+    el("examTimeChips").appendChild(makeChip(label, cfg.examTime === min, () => {
+      cfg.examTime = min; save(); renderChips(); renderLobby();
+    }));
+  });
 
   el("goalChips").innerHTML = "";
   [10, 20, 40, 60].forEach(g => {
     el("goalChips").appendChild(makeChip(String(g), cfg.goal === g, () => {
       cfg.goal = g; save(); renderChips(); renderLobby();
-    }));
-  });
-
-  el("examSizeChips").innerHTML = "";
-  [10, 20, 40].forEach(n => {
-    el("examSizeChips").appendChild(makeChip(n + " Karten", cfg.examSize === n, () => {
-      cfg.examSize = n; save(); renderChips(); renderLobby();
-    }));
-  });
-  el("examTimeChips").innerHTML = "";
-  [[0, "ohne Zeit"], [10, "10 Min"], [20, "20 Min"]].forEach(([min, label]) => {
-    el("examTimeChips").appendChild(makeChip(label, cfg.examTime === min, () => {
-      cfg.examTime = min; save(); renderChips(); renderLobby();
     }));
   });
 }
@@ -957,7 +996,11 @@ function renderLobby(){
   el("streakNum").textContent = streak();
 
   el("startBtn").textContent = planned ? "Lernen starten" : "Alles wiederholen";
-  el("examBtn").textContent = `Prüfung (${cfg.examSize})`;
+  // the exam can only deal the cards the current selection actually holds
+  const examPool = (cfg.mode === "cloze" ? pool().filter(hasCloze) : pool()).length;
+  const examN = cfg.examSize === "all" ? examPool : Math.min(cfg.examSize, examPool);
+  el("examBtn").textContent = `Prüfung (${examN})`;
+  el("examBtn").disabled = examPool === 0;
   el("focusBtn").disabled = weakList().length === 0;
   const marked = markedList().length;
   el("markedBtn").textContent = `Markiert (${marked})`;
@@ -1009,7 +1052,8 @@ function startSession(kind){
     queue = narrow(markedList());
     if(!queue.length) return toast(cfg.mode === "cloze" ? "Nichts Markiertes mit Satz" : "Nichts markiert");
   } else if(kind === "exam"){
-    queue = shuffle(narrow(pool())).slice(0, cfg.examSize);
+    const all = shuffle(narrow(pool()));
+    queue = cfg.examSize === "all" ? all : all.slice(0, cfg.examSize);
     exam = true;
     if(!queue.length) return toast("Keine Wörter für eine Prüfung");
   } else {
