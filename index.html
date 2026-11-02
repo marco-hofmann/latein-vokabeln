@@ -507,7 +507,7 @@ const BOX_DAYS = [0, 1, 2, 5, 10, 21];
 const MC_OPTIONS = 4;
 const CFG_DEFAULTS = {
   lessons: [], types: [], mode: "typing", dir: "la-de", size: 20,
-  audio: false, goal: 20, examSize: 20, examTime: 0
+  audio: false, goal: 20, examSize: 20, examTime: 0, clozeMC: false
 };
 
 let VOCAB = [], LESSONS = [], state = {}, cfg = Object.assign({}, CFG_DEFAULTS);
@@ -871,6 +871,10 @@ function renderChips(){
     cfg.audio = !cfg.audio; save(); renderChips();
     if(cfg.audio) speak("salve");
   }));
+  // Lücke can be answered by typing the gap or by picking it from four options
+  el("optChips").appendChild(makeChip("Lücke per Auswahl", cfg.clozeMC, () => {
+    cfg.clozeMC = !cfg.clozeMC; save(); renderChips();
+  }));
 
   el("goalChips").innerHTML = "";
   [10, 20, 40, 60].forEach(g => {
@@ -1024,45 +1028,60 @@ function nextCard(){
   el("bar").style.width = (100 * session.index / session.queue.length) + "%";
   el("feedback").textContent = "";
 
-  const typing = !session.exam && (cfg.mode === "typing" || cfg.mode === "cloze");
-  const mc = !session.exam && cfg.mode === "mc";
-  el("inputBox").classList.toggle("hidden", !typing && !session.exam);
+  const clozeMC = cloze && !!cfg.clozeMC;
+  session.clozeMC = clozeMC;
+  const typing = session.exam ? !clozeMC : (cfg.mode === "typing" || (cloze && !clozeMC));
+  const mc = clozeMC || (!session.exam && cfg.mode === "mc");
+  el("inputBox").classList.toggle("hidden", !typing);
   el("mcBox").classList.toggle("hidden", !mc);
 
   el("typeInput").style.display = "";
-  if(session.exam){
+  if(typing){
     el("typeInput").value = "";
     el("typeInput").disabled = false;
-    el("typeInput").placeholder = cloze ? "Fehlendes Wort…" : (deToLa ? "Latein…" : "Deutsch…");
-    el("examActions").classList.remove("hidden");
+    el("typeInput").placeholder = cloze ? "Fehlendes Wort…"
+      : (session.exam ? (deToLa ? "Latein…" : "Deutsch…") : "Antwort…");
     setTimeout(() => el("typeInput").focus(), 60);
-  } else if(typing){
-    el("typeInput").value = "";
-    el("typeInput").disabled = false;
-    el("typeInput").placeholder = cloze ? "Fehlendes Wort…" : "Antwort…";
-    setTimeout(() => el("typeInput").focus(), 60);
-  } else if(mc){
-    buildChoices(w);
   }
+  if(mc){
+    if(clozeMC) buildClozeChoices(w); else buildChoices(w);
+  }
+  // in a cloze multiple-choice exam the click both answers and advances — no "Weiter" button
+  el("examActions").classList.toggle("hidden", !session.exam || mc);
 
   updateStar();
   // never speak the answer in cloze mode — the missing word is the whole exercise
   if(cfg.audio && !deToLa && !cloze) speak(front(w));
-  el("kbdHint").textContent = session.exam
-    ? "Enter = weiter"
-    : (cfg.mode === "cards" ? "Leertaste = umdrehen · 1 / 2 = nochmal / gewusst · m = merken"
-                            : (cloze ? "Fehlendes Wort tippen · Enter" : "Tippen und Enter"));
+  el("kbdHint").textContent = mc
+    ? (session.exam ? "Antwort antippen" : "Antwort antippen · m = merken")
+    : (session.exam
+        ? "Enter = weiter"
+        : (cfg.mode === "cards" ? "Leertaste = umdrehen · 1 / 2 = nochmal / gewusst · m = merken"
+                                : (cloze ? "Fehlendes Wort tippen · Enter" : "Tippen und Enter")));
   saveSession();
 }
 
 function buildChoices(w){
   const deToLa = cfg.dir === "de-la";
   const correct = deToLa ? front(w) : w.german[0];
-  const others = shuffle(VOCAB.filter(x =>
+  const candidates = shuffle(VOCAB.filter(x =>
       x.id !== w.id && x.type === w.type &&
-      (!cfg.lessons.length || cfg.lessons.includes(x.lesson))))
-    .slice(0, MC_OPTIONS - 1)
-    .map(x => deToLa ? front(x) : x.german[0]);
+      (!cfg.lessons.length || cfg.lessons.includes(x.lesson))));
+
+  const seen = new Set([deToLa ? latinKey(correct) : norm(correct)]);
+  // a distractor that is another listed meaning of this word would be a correct answer
+  const meanings = new Set((w.german || []).flatMap(g => [norm(g), stripArticle(g)]));
+  const others = [];
+  for(const x of candidates){
+    const t = deToLa ? front(x) : x.german[0];
+    if(!t) continue;
+    const key = deToLa ? latinKey(t) : norm(t);
+    if(seen.has(key)) continue;
+    if(!deToLa && (meanings.has(norm(t)) || meanings.has(stripArticle(t)))) continue;
+    seen.add(key);
+    others.push(t);
+    if(others.length === MC_OPTIONS - 1) break;
+  }
 
   const options = shuffle([correct, ...others]);
   el("mcBox").innerHTML = "";
@@ -1072,6 +1091,57 @@ function buildChoices(w){
     b.onclick = () => answerMC(b, opt, correct);
     el("mcBox").appendChild(b);
   });
+}
+
+/* Lücke per Auswahl: the sentence stays, but the gap is filled by clicking one of four forms
+   from the same word type instead of typing it. */
+function buildClozeChoices(w){
+  const correct = w.example.a;
+  const seen = new Set([latinKey(correct)]);
+  const sameType = shuffle(VOCAB.filter(x => x.id !== w.id && x.type === w.type && hasCloze(x)));
+  const rest = shuffle(VOCAB.filter(x => x.id !== w.id && hasCloze(x)));
+  const others = [];
+  for(const x of [...sameType, ...rest]){
+    const t = x.example.a;
+    if(!t) continue;
+    const key = latinKey(t);
+    if(seen.has(key)) continue;
+    seen.add(key);
+    others.push(t);
+    if(others.length === MC_OPTIONS - 1) break;
+  }
+
+  const options = shuffle([correct, ...others]);
+  el("mcBox").innerHTML = "";
+  options.forEach(opt => {
+    const b = document.createElement("button");
+    b.textContent = opt;
+    b.onclick = () => answerClozeMC(b, opt, correct);
+    el("mcBox").appendChild(b);
+  });
+}
+
+function answerClozeMC(button, chosen, correct){
+  const ok = latinKey(chosen) === latinKey(correct);
+  [...el("mcBox").children].forEach(b => {
+    b.disabled = true;
+    if(latinKey(b.textContent) === latinKey(correct)) b.classList.add("right");
+  });
+  if(!ok) button.classList.add("wrong");
+  el("feedback").className = "feedback " + (ok ? "ok" : "no");
+  el("feedback").textContent = ok ? "richtig" : "richtig wäre: " + correct;
+  session.revealed = true;
+  if(session.exam) return examRecord(ok);
+  applyGrade(ok, true);
+}
+
+function examRecord(ok){
+  const w = session.current;
+  session.answers.push({id: w.id, ok});
+  if(!ok) session.mistakes.push(w);
+  if(ok) session.right++; else session.wrong++;
+  session.index++;
+  nextCard();
 }
 
 function answerMC(button, chosen, correct){
@@ -1112,11 +1182,7 @@ function submitExam(){
   const typingGerman = cfg.dir === "la-de" && !session.cloze;
   const ok = session.cloze ? clozeMatches(el("typeInput").value, w)
     : (typingGerman ? germanMatches(el("typeInput").value, w) : latinMatches(el("typeInput").value, w));
-  session.answers.push({id: w.id, ok});
-  if(!ok) session.mistakes.push(w);
-  if(ok) session.right++; else session.wrong++;
-  session.index++;
-  nextCard();
+  examRecord(ok);
 }
 
 function reveal(){
