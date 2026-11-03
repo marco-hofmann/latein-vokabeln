@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buffln — Datenschutz</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    margin: 0 auto; max-width: 42rem; padding: 2.5rem 1.25rem 4rem;
+    font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #0d1117; color: #e6edf3;
+  }
+  @media (prefers-color-scheme: light) { body { background: #fff; color: #1f2328; } }
+  h1 { font-size: 1.9rem; margin: 0 0 .25rem; letter-spacing: -.02em; }
+  h2 { font-size: 1.1rem; margin: 2.2rem 0 .5rem; }
+  p, li { color: inherit; }
+  .sub { color: #8b949e; margin: 0 0 2rem; }
+  a { color: #6ee7a8; }
+  code { background: rgba(110,231,168,.12); padding: .1em .35em; border-radius: 4px; }
+  footer { margin-top: 3rem; color: #8b949e; font-size: .9rem; }
+</style>
+</head>
+<body>
+  <h1>Datenschutz</h1>
+  <p class="sub">Buffln — Vokabeltrainer für Latein, Französisch und Englisch. Stand: 3. November 2026.</p>
+
+  <h2>Kurzfassung</h2>
+  <p>Buffln braucht kein Konto, sammelt keine Namen, keine E-Mail-Adressen und kein Nutzungsverhalten
+  zu Werbezwecken. Der Lernfortschritt liegt auf dem Gerät.</p>
+
+  <h2>Was auf dem Gerät gespeichert wird</h2>
+  <ul>
+    <li>Lernfortschritt pro Fach (Boxen, Fälligkeiten, richtige und falsche Antworten), Prüfungsnotizen
+    und eigene Wörter.</li>
+    <li>Einstellungen (Modus, Stimme, Richtung, Prüfungslänge).</li>
+  </ul>
+  <p>Diese Daten verlassen das Gerät nur, wenn du die Synchronisation selbst einschaltest.</p>
+
+  <h2>Synchronisation (optional)</h2>
+  <p>Für den Abgleich zwischen iPhone und Computer erzeugt die App einen Code. Aus diesem Code wird
+  auf dem Gerät ein Schlüssel berechnet, und der Lernstand wird <strong>vor dem Senden verschlüsselt</strong>
+  (AES-GCM). Der Server speichert nur einen aus dem Code abgeleiteten Bezeichner und den
+  verschlüsselten Block — er kann keine Wörter, Bedeutungen oder Namen lesen. Wer den Code nicht kennt,
+  kann die Daten nicht entschlüsseln. Der Server steht bei Cloudflare (Workers + D1).</p>
+
+  <h2>Aussprache</h2>
+  <p>Die Hörbeispiele sind vorproduzierte Audiodateien und liegen in der App. Für das Abspielen wird
+  keine Verbindung zu einem Sprachdienst aufgebaut.</p>
+
+  <h2>Kein Tracking</h2>
+  <p>Keine Analyse-SDKs, keine Werbung, keine Weitergabe an Dritte. Die App erklärt das auch gegenüber
+  Apple im Privacy Manifest (<code>NSPrivacyTracking: false</code>).</p>
+
+  <h2>Kinder</h2>
+  <p>Die App ist für den Schulunterricht gedacht und enthält keine Chats, keine Werbung und keine
+  Käufe, die eine elterliche Freigabe erfordern.</p>
+
+  <h2>Löschen</h2>
+  <p>Einstellungen → „Fortschritt zurücksetzen" löscht die Lernstände auf dem Gerät. Wer zusätzlich die
+  Kopie auf dem Sync-Server löschen will, schickt eine kurze Nachricht an die unten stehende Adresse;
+  ohne den Code ist der Block nicht lesbar und wird auf Wunsch gelöscht.</p>
+
+  <h2>Kontakt</h2>
+  <p>Marco Hofmann · <a href="mailto:support@episodepal.app">support@episodepal.app</a></p>
+
+  <footer>Buffln ist ein privates Projekt. Diese Seite beschreibt die tatsächlichen Datenflüsse der
+  App und der Web-App unter <a href="https://is.gd/vokab">is.gd/vokab</a>.</footer>
+</body>
+</html>
