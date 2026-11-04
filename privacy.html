@@ -44,6 +44,12 @@
   verschlüsselten Block — er kann keine Wörter, Bedeutungen oder Namen lesen. Wer den Code nicht kennt,
   kann die Daten nicht entschlüsseln. Der Server steht bei Cloudflare (Workers + D1).</p>
 
+  <h2>Foto-Import (optional)</h2>
+  <p>Der Foto-Import liest Vokabeln aus einem Bild. Standardm&auml;ssig passiert das auf dem Ger&auml;t,
+     nur wenn du „Mit KI genauer lesen" ausw&auml;hlst, verl&auml;sst das Bild den Dienst Buffalo
+     (Cloudflare Worker). Er schickt es an ein Sprachmodell zur Auswertung, speichert es nicht und
+     gibt nur Wort-Paare zur&uuml;ck. Ohne diese Auswahl verl&auml;sst kein Bild das Ger&auml;t.</p>
+
   <h2>Aussprache</h2>
   <p>Die Hörbeispiele sind vorproduzierte Audiodateien und liegen in der App. Für das Abspielen wird
   keine Verbindung zu einem Sprachdienst aufgebaut.</p>
