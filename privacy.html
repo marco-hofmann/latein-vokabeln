@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Buffln — Datenschutz</title>
+<title>Büffel — Datenschutz</title>
 <style>
   :root { color-scheme: light dark; }
   body {
@@ -23,10 +23,10 @@
 </head>
 <body>
   <h1>Datenschutz</h1>
-  <p class="sub">Buffln — Vokabeltrainer für Latein, Französisch und Englisch. Stand: 3. November 2026.</p>
+  <p class="sub">Büffel — Vokabeltrainer für Latein, Französisch und Englisch. Stand: 3. November 2026.</p>
 
   <h2>Kurzfassung</h2>
-  <p>Buffln braucht kein Konto, sammelt keine Namen, keine E-Mail-Adressen und kein Nutzungsverhalten
+  <p>Büffel braucht kein Konto, sammelt keine Namen, keine E-Mail-Adressen und kein Nutzungsverhalten
   zu Werbezwecken. Der Lernfortschritt liegt auf dem Gerät.</p>
 
   <h2>Was auf dem Gerät gespeichert wird</h2>
@@ -44,12 +44,11 @@
   verschlüsselten Block — er kann keine Wörter, Bedeutungen oder Namen lesen. Wer den Code nicht kennt,
   kann die Daten nicht entschlüsseln. Der Server steht bei Cloudflare (Workers + D1).</p>
 
-  <h2>Foto-Import</h2>
-  <p>Beim Import liest die App die Vokabeln aus dem Foto. Daf&uuml;r wird das Bild an den
-     Buffalo-Dienst (Cloudflare Worker) geschickt und dort von einem Sprachmodell ausgewertet;
-     zur&uuml;ck kommen nur Wort und Bedeutung. Der Dienst speichert das Bild nicht und legt kein
-     Konto an. Ist er nicht erreichbar, liest die App das Bild ersatzweise auf dem Ger&auml;t.</p>
-  <p>Wer gar nichts hochladen will, benutzt den Import nicht und legt W&ouml;rter von Hand an.</p>
+  <h2>Foto-Import (optional)</h2>
+  <p>Der Foto-Import liest Vokabeln aus einem Bild. Standardm&auml;ssig passiert das auf dem Ger&auml;t,
+     nur wenn du „Mit KI genauer lesen" ausw&auml;hlst, verl&auml;sst das Bild den Dienst Büffel
+     (Cloudflare Worker). Er schickt es an ein Sprachmodell zur Auswertung, speichert es nicht und
+     gibt nur Wort-Paare zur&uuml;ck. Ohne diese Auswahl verl&auml;sst kein Bild das Ger&auml;t.</p>
 
   <h2>Aussprache</h2>
   <p>Die Hörbeispiele sind vorproduzierte Audiodateien und liegen in der App. Für das Abspielen wird
@@ -71,7 +70,7 @@
   <h2>Kontakt</h2>
   <p>Marco Hofmann · <a href="mailto:support@episodepal.app">support@episodepal.app</a></p>
 
-  <footer>Buffln ist ein privates Projekt. Diese Seite beschreibt die tatsächlichen Datenflüsse der
+  <footer>Büffel ist ein privates Projekt. Diese Seite beschreibt die tatsächlichen Datenflüsse der
   App und der Web-App unter <a href="https://is.gd/vokab">is.gd/vokab</a>.</footer>
 </body>
 </html>
