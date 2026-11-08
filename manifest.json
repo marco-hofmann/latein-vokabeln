@@ -1,7 +1,7 @@
 {
-  "name": "Vokabeln pauken — Latein",
+  "name": "Vokabeln pauken",
   "short_name": "Vokabeln",
-  "description": "Latein-Vokabeln L1–L3 mit Spaced Repetition pauken",
+  "description": "Latein, Französisch, Englisch und Grammatik mit Spaced Repetition pauken — offline",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

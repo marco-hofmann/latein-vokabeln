@@ -5,7 +5,7 @@
    - navigation: network-first, falls back to the cached page when offline
    Bump CACHE_VERSION on deploys that change index.html — the browser only re-fetches the page
    when the cache name changes (or when the network answers first, which it usually does). */
-const CACHE_VERSION = "vokabeln-v15";
+const CACHE_VERSION = "vokabeln-v16";
 const SHELL = [
   "./",
   "./index.html",
@@ -37,7 +37,9 @@ self.addEventListener("install", event => {
 self.addEventListener("activate", event => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
-    await Promise.all(keys.filter(k => k !== CACHE_VERSION).map(k => caches.delete(k)));
+    // only our own caches: on marco-hofmann.github.io other Pages apps share the origin
+    await Promise.all(keys.filter(k => k.startsWith("vokabeln-") && k !== CACHE_VERSION)
+                          .map(k => caches.delete(k)));
     await self.clients.claim();
   })());
 });

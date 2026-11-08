@@ -213,6 +213,26 @@
   .cloze-de .gap{display:inline-block; min-width:1.9em; height:.8em; vertical-align:baseline;
     margin:0 .08em; border-bottom:2px solid currentColor; opacity:.55}
   .hidden{display:none !important}
+  /* ---- charts follow the theme (SVG attributes cannot read var()) ---- */
+  #goalArc{stroke:var(--info)}
+  #arcKnown{stroke:var(--accent)}
+  #arcLearning{stroke:var(--info)}
+  .accwrap .grid{stroke:var(--line); stroke-width:1}
+  .accwrap .line{stroke:var(--accent); stroke-width:2; fill:none}
+  .accwrap .dot{fill:var(--panel); stroke:var(--accent); stroke-width:1.8}
+  #accG .s0{stop-color:var(--accent); stop-opacity:.16}
+  #accG .s1{stop-color:var(--accent); stop-opacity:0}
+  #examChart .grid{stroke:var(--line); stroke-width:1; stroke-dasharray:4 4}
+  #examChart .line{stroke:var(--info); stroke-width:2; fill:none}
+  #examChart .pass{fill:var(--accent)}
+  #examChart .fail{fill:var(--bad)}
+  input[type=date]{
+    width:100%; max-width:360px; background:var(--panel-2); border:1px solid var(--line);
+    color:var(--text); border-radius:12px; padding:12px 14px; font-size:15px; outline:none;
+    font-family:inherit;
+  }
+  input[type=date]:focus{border-color:var(--accent-dim)}
+
   /* ---- light theme ---- */
   html[data-theme="light"]{
     --bg:#f4f6f9; --panel:#ffffff; --panel-2:#eceff5; --line:#dbe0e9;
@@ -450,9 +470,9 @@
         <div class="donut">
           <svg width="132" height="132" viewBox="0 0 132 132">
             <circle cx="66" cy="66" r="52" fill="none" class="ringtrack" stroke-width="13"/>
-            <circle id="arcKnown" cx="66" cy="66" r="52" fill="none" stroke="#6ee7a8" stroke-width="13"
+            <circle id="arcKnown" cx="66" cy="66" r="52" fill="none" stroke-width="13"
                     stroke-linecap="round" stroke-dasharray="0 327"/>
-            <circle id="arcLearning" cx="66" cy="66" r="52" fill="none" stroke="#7fb6f5" stroke-width="13"
+            <circle id="arcLearning" cx="66" cy="66" r="52" fill="none" stroke-width="13"
                     stroke-linecap="round" stroke-dasharray="0 327"/>
           </svg>
           <div class="c"><b id="ovPct">–</b><small>sicher</small></div>
@@ -572,20 +592,47 @@
 const STORE = "latin-vokabeln-v2";
 const BOX_DAYS = [0, 1, 2, 5, 10, 21];
 const MC_OPTIONS = 4;
+const ROUND_SIZE = 20;          // cards per round
 const CFG_DEFAULTS = {
-  lessons: [], types: [], mode: "typing", dir: "la-de", size: 20,
+  lessons: [], types: [], mode: "typing", dir: "la-de",
   voice: "off", goal: 20, examSize: 20, examTime: 0, clozeMC: false,
   examWeak: false, examDate: ""
 };
 
 let VOCAB = [], LESSONS = [], state = {}, cfg = Object.assign({}, CFG_DEFAULTS);
-let session = null, undoStack = [], examTick = null;
+let session = null, undoStack = [], examTick = null, advanceTimer = null;
 
 const el = id => document.getElementById(id);
-const today = () => new Date().toISOString().slice(0, 10);
+/* Local calendar day, never UTC: a 00:30 answer belongs to today in Zurich. */
+function dayKey(d){
+  const x = d || new Date(), p = n => String(n).padStart(2, "0");
+  return `${x.getFullYear()}-${p(x.getMonth() + 1)}-${p(x.getDate())}`;
+}
+const today = () => dayKey();
+
+/* Per-device day counters, so merging two devices adds their answers instead of
+   keeping only the larger number (and stays idempotent when both sync twice). */
+const DEVICE_KEY = "latin-vokabeln:device";
+function deviceId(){
+  try{
+    let id = localStorage.getItem(DEVICE_KEY);
+    if(!id){
+      id = [...crypto.getRandomValues(new Uint8Array(6))].map(b => b.toString(16).padStart(2, "0")).join("");
+      localStorage.setItem(DEVICE_KEY, id);
+    }
+    return id;
+  }catch(e){ return "dev"; }
+}
+function dayBucket(d){
+  if(!state.daysByDev) state.daysByDev = {};
+  const dev = deviceId();
+  if(!state.daysByDev[d]) state.daysByDev[d] = {};
+  if(!state.daysByDev[d][dev]) state.daysByDev[d][dev] = {r:0, w:0};
+  return state.daysByDev[d][dev];
+}
 
 /* ================= persistence ================= */
-function freshState(){ return {cards:{}, days:{}}; }
+function freshState(){ return {cards:{}, days:{}, daysByDev:{}}; }
 
 /* ---------- storage ----------
    No accounts and no picker: one learner per browser, remembered automatically the
@@ -667,13 +714,26 @@ function migrateStorage(){
 function load(){
   try{
     const raw = JSON.parse(localStorage.getItem(STATE_KEY()) || "null");
-    if(raw && raw.cards) return raw;
+    if(raw && raw.cards){
+      raw.days = raw.days || {};
+      raw.daysByDev = raw.daysByDev || {};
+      return raw;
+    }
   }catch(e){}
   return freshState();
 }
+let storageWarned = false;
 function save(){
-  localStorage.setItem(STATE_KEY(), JSON.stringify(state));
-  localStorage.setItem(CFG_KEY(), JSON.stringify(cfg));
+  try{
+    localStorage.setItem(STATE_KEY(), JSON.stringify(state));
+    localStorage.setItem(CFG_KEY(), JSON.stringify(cfg));
+  }catch(e){
+    // a full quota must not swallow the answer that was just graded
+    if(!storageWarned){
+      storageWarned = true;
+      toast("Speicher voll — Export machen und alte Daten löschen");
+    }
+  }
 }
 function loadCfg(){
   cfg = Object.assign({}, CFG_DEFAULTS);
@@ -750,7 +810,9 @@ const SYNC_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";   /* no I, O, 0, 1 */
 
 function syncApi(){ return localStorage.getItem(SYNC_API_KEY) || SYNC_API_DEFAULT; }
 function syncCode(){ return (localStorage.getItem(SYNC_CODE_KEY) || "").trim().toUpperCase(); }
-function syncSetCode(c){ localStorage.setItem(SYNC_CODE_KEY, (c || "").trim().toUpperCase()); }
+function syncSetCode(c){
+  try{ localStorage.setItem(SYNC_CODE_KEY, (c || "").trim().toUpperCase()); }catch(e){}
+}
 
 function syncMakeCode(){
   const buf = new Uint8Array(12);
@@ -799,12 +861,13 @@ function syncPayload(){
     t: Date.now(),
     cards: state.cards || {},
     days: state.days || {},
+    daysByDev: state.daysByDev || {},
     cfg: cfg,
     exams: loadExams(),
   };
 }
 function syncMerge(remote, local){
-  const out = {v:1, t: Math.max(remote.t || 0, local.t || 0), cards:{}, days:{}, cfg: local.cfg, exams:[]};
+  const out = {v:1, t: Math.max(remote.t || 0, local.t || 0), cards:{}, days:{}, daysByDev:{}, cfg: local.cfg, exams:[]};
   const ids = new Set([...Object.keys(local.cards || {}), ...Object.keys(remote.cards || {})]);
   ids.forEach(id => {
     const a = local.cards[id], b = remote.cards[id];
@@ -812,14 +875,34 @@ function syncMerge(remote, local){
     else if(!b) out.cards[id] = a;
     else out.cards[id] = ((b.t || 0) > (a.t || 0)) ? b : a;
   });
+  /* Days are summed per device, not by their maximum: two devices that both studied
+     the same day keep both answers, and syncing twice changes nothing. */
   const dates = new Set([...Object.keys(local.days || {}), ...Object.keys(remote.days || {})]);
   dates.forEach(d => {
-    const a = local.days[d], b = remote.days[d];
-    const ca = a ? (a.r || 0) + (a.w || 0) : 0;
-    const cb = b ? (b.r || 0) + (b.w || 0) : 0;
-    out.days[d] = cb > ca ? b : (a || b);
+    const la = (local.daysByDev && local.daysByDev[d]) || null;
+    const rb = (remote.daysByDev && remote.daysByDev[d]) || null;
+    if(la && rb){
+      const devs = {};
+      [...new Set([...Object.keys(la), ...Object.keys(rb)])].forEach(k => {
+        const x = la[k], y = rb[k];
+        if(!x) devs[k] = y;
+        else if(!y) devs[k] = x;
+        else devs[k] = {r: Math.max(x.r || 0, y.r || 0), w: Math.max(x.w || 0, y.w || 0)};
+      });
+      out.daysByDev[d] = devs;
+      out.days[d] = Object.keys(devs).reduce((a, k) => ({r: a.r + (devs[k].r || 0), w: a.w + (devs[k].w || 0)}), {r:0, w:0});
+    }else{
+      // a peer from before per-device counters: keep the larger total, add nothing twice
+      const a = local.days[d], b = remote.days[d];
+      const ca = a ? (a.r || 0) + (a.w || 0) : 0;
+      const cb = b ? (b.r || 0) + (b.w || 0) : 0;
+      out.days[d] = cb > ca ? b : (a || b);
+      const mine = la || rb;
+      if(mine) out.daysByDev[d] = mine;
+    }
   });
-  out.cfg = (remote.t || 0) > (local.t || 0) ? remote.cfg : local.cfg;
+  // settings stay local: voice, mode and lesson choice are per device
+  out.cfg = local.cfg;
   const seen = new Set();
   [...(local.exams || []), ...(remote.exams || [])].forEach(e => {
     const k = (e.ts || 0) + "|" + (e.grade || "") + "|" + (e.total || "");
@@ -828,56 +911,98 @@ function syncMerge(remote, local){
   out.exams.sort((x, y) => (x.ts || 0) - (y.ts || 0));
   return out;
 }
-async function syncPushScope(name, payload, id, key){
+async function syncPushScope(name, payload, id, key, base){
   const blob = await syncEncrypt(key, payload);
+  const body = {id, scope:name, blob, ts: payload.t};
+  if(base !== undefined) body.base = base;      // compare-and-swap against this version
   const r = await fetch(syncApi() + "/v1/push", {
     method:"POST",
     headers:{"Content-Type":"application/json"},
-    body: JSON.stringify({id, scope:name, blob, ts: payload.t}),
+    body: JSON.stringify(body),
   });
   if(!r.ok) throw new Error("Upload fehlgeschlagen (" + r.status + ")");
-  return r.json();
+  const out = await r.json().catch(() => ({}));
+  if(out && out.ok === false) throw new Error(out.error || "Upload abgelehnt");
+  return out;
 }
+/* Returns {data, ver} or null when the server holds nothing yet. A failed pull must
+   throw: treating it as "no remote" would overwrite the other device's progress. */
 async function syncPullScope(name, id, key){
   const r = await fetch(syncApi() + "/v1/pull?id=" + encodeURIComponent(id) + "&scope=" + encodeURIComponent(name));
-  if(!r.ok) return null;
-  const j = await r.json();
-  if(!j.ok || !j.blob) return null;
-  try{ return await syncDecrypt(key, j.blob); }catch(e){ return null; }
+  if(r.status === 404) return null;
+  if(!r.ok) throw new Error("Abruf fehlgeschlagen (" + r.status + ")");
+  const j = await r.json().catch(() => { throw new Error("Antwort nicht lesbar"); });
+  if(!j || !j.blob) return null;
+  let data;
+  try{ data = await syncDecrypt(key, j.blob); }
+  catch(e){ throw new Error("Code passt nicht zu diesem Stand"); }
+  return {data, ver: Number(j.ver || 0)};
 }
 /* Syncs the subject that is open right now; other subjects follow on their own. */
+let syncBusy = false;
+function applyMerged(m){
+  state.cards = m.cards || {};
+  state.days = m.days || {};
+  state.daysByDev = m.daysByDev || {};
+  saveExams(m.exams || []);
+}
 async function syncNow(quiet){
   const code = syncCode();
   if(!code){
     if(!quiet) toast("Kein Sync-Code — zuerst einen Code erstellen");
     return false;
   }
+  if(syncBusy){ if(!quiet) toast("Sync läuft schon"); return false; }
+  syncBusy = true;
   const status = el("syncStatus");
   if(status) status.textContent = "Verbinde …";
   try{
     const id = await sha256hex("buffln-sync:" + code);
     const key = await syncKey(code);
     const name = scope();
-    const local = syncPayload();
+    let merged = syncPayload(), base = 0;
     const remote = await syncPullScope(name, id, key);
-    let merged = local;
     if(remote){
-      merged = syncMerge(remote, local);
-      state.cards = merged.cards;
-      state.days = merged.days;
-      cfg = Object.assign({}, cfg, merged.cfg);
-      saveExams(merged.exams);
-      save();
+      base = remote.ver;
+      merged = syncMerge(remote.data, merged);
+      applyMerged(merged);
     }
     merged.t = Date.now();
-    await syncPushScope(name, merged, id, key);
+    let saved = await syncPushScope(name, merged, id, key, base);
+    // the server had a newer block than the one we merged: merge again, then push
+    if(saved && saved.kept){
+      const again = await syncPullScope(name, id, key);
+      if(again){
+        merged = syncMerge(again.data, syncPayload());
+        applyMerged(merged);
+        merged.t = Date.now();
+        saved = await syncPushScope(name, merged, id, key, again.ver);
+      }
+    }
+    save();
+    if(saved && saved.kept) throw new Error("Server war schneller — bitte nochmals synchronisieren");
     if(status) status.textContent = "Synchronisiert · " + new Date().toLocaleTimeString("de-CH", {hour:"2-digit", minute:"2-digit"});
+    renderChips(); renderLobby();
     return true;
   }catch(e){
     if(status) status.textContent = "Sync fehlgeschlagen: " + (e && e.message ? e.message : e);
     if(!quiet) toast("Sync fehlgeschlagen");
     return false;
+  }finally{
+    syncBusy = false;
   }
+}
+
+/* Second device: type the ten characters shown on the first one. */
+async function syncConnect(){
+  const raw = (el("syncCodeInput").value || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+  if(raw.length !== 10) return toast("Der Code besteht aus 10 Zeichen");
+  if([...raw].some(c => !SYNC_ALPHABET.includes(c))) return toast("Dieser Code passt nicht");
+  if(raw === syncCode()) return toast("Dieses Gerät nutzt den Code schon");
+  syncSetCode(raw);
+  el("syncCodeInput").value = "";
+  const ok = await syncNow();
+  if(ok) toast("Verbunden — Stand zusammengeführt");
 }
 function renderSync(){
   const box = el("syncChips");
@@ -977,6 +1102,8 @@ function logAnswer(ok){
   const d = today();
   if(!state.days[d]) state.days[d] = {r:0, w:0};
   ok ? state.days[d].r++ : state.days[d].w++;
+  const b = dayBucket(d);
+  ok ? b.r++ : b.w++;
 }
 function todayCount(){
   const d = state.days[today()];
@@ -1037,8 +1164,10 @@ function blankGermanSentence(w){
 function clozeMatches(input, w){
   const typed = latinKey(input);
   if(!typed) return false;
-  const targets = [latinKey(w.example.a), latinKey(front(w)), latinKey(front(w).split("/")[0])];
-  return targets.some(t => t && (typed === t || (t.startsWith(typed) && typed.length >= 4 && t.length - typed.length <= 2)));
+  // only the form the sentence needs; accepting the lemma would answer "cogitare" for "cogitat"
+  const target = latinKey(w.example.a);
+  return !!target && (typed === target ||
+    (target.startsWith(typed) && typed.length >= 4 && target.length - typed.length <= 2));
 }
 
 /* ================= audio =================
@@ -1055,7 +1184,7 @@ function speakFallback(text){
   try{
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text.replace(/[?!]/g, ""));
-    u.lang = (subjectMeta && subjectMeta.speech) || "it-IT";
+    u.lang = (subjectMeta && subjectMeta.speech) || "de-DE";
     u.rate = 0.9;
     speechSynthesis.speak(u);
   }catch(e){}
@@ -1082,11 +1211,15 @@ function pool(){
     (!cfg.types.length   || cfg.types.includes(w.type)));
 }
 function isDue(c){ return c.due <= Date.now(); }
+/* reading a card must not write one: filtering used to seed state.cards with every
+   word of the deck, which then travelled into export and sync. */
+const EMPTY_CARD = {box:0, due:0, right:0, wrong:0, seen:0, marked:false};
+function peek(id){ return state.cards[id] || EMPTY_CARD; }
 function dueList(){
-  return pool().filter(w => { const c = card(w.id); return c.seen > 0 && isDue(c); })
-               .sort((a,b) => card(a.id).due - card(b.id).due);
+  return pool().filter(w => { const c = peek(w.id); return c.seen > 0 && isDue(c); })
+               .sort((a,b) => peek(a.id).due - peek(b.id).due);
 }
-function newList(){ return pool().filter(w => !card(w.id).seen); }
+function newList(){ return pool().filter(w => !peek(w.id).seen); }
 // marked words ignore the lesson/type filters — if you flagged it, you want to see it
 function markedList(){ return VOCAB.filter(w => state.cards[w.id] && state.cards[w.id].marked); }
 function isMarked(w){ return !!(state.cards[w.id] && state.cards[w.id].marked); }
@@ -1111,6 +1244,12 @@ function weakList(){
                  const ca = state.cards[a.id], cb = state.cards[b.id];
                  return (cb.wrong - ca.wrong) || (ca.box - cb.box);
                });
+}
+/* the size an exam deals right now: the preference, capped to the selection */
+function examSizeNow(poolSize){
+  const pool = poolSize === undefined ? examBase().length : poolSize;
+  const want = cfg.examSize === "all" ? pool : (Number(cfg.examSize) || 20);
+  return Math.max(0, Math.min(want, pool));
 }
 /* what an exam would deal right now — the weak set on request, otherwise the whole selection */
 function examBase(){
@@ -1259,19 +1398,17 @@ function renderChips(){
   if(cfg.examWeak && weakPool === 0){ cfg.examWeak = false; save(); }
 
   const examPool = examBase().length;
-  // clamp BEFORE drawing, or the chip shows unselected while the button already uses "alle"
-  if(typeof cfg.examSize === "number" && cfg.examSize > examPool){
-    const fitting = [10, 20, 40].filter(n => n <= examPool);
-    cfg.examSize = fitting.length ? Math.max(...fitting) : "all";
-    save();
-  }
+  // the chosen length stays chosen; a small selection only caps this round, it does not
+  // silently rewrite the preference to "alle" for every later exam
+  const examNow = examSizeNow(examPool);
+  const examKey = examNow === examPool ? "all" : examNow;
   el("examSizeChips").innerHTML = "";
   [10, 20, 40].forEach(n => {
-    el("examSizeChips").appendChild(makeChip(`${n} Karten`, cfg.examSize === n, () => {
+    el("examSizeChips").appendChild(makeChip(`${n} Karten`, examKey === n, () => {
       cfg.examSize = n; save(); renderChips(); renderLobby();
     }, { disabled: n > examPool, reason: `Nur ${examPool} Wörter in dieser Auswahl` }));
   });
-  el("examSizeChips").appendChild(makeChip(`alle (${examPool})`, cfg.examSize === "all", () => {
+  el("examSizeChips").appendChild(makeChip(`alle (${examPool})`, examKey === "all", () => {
     cfg.examSize = "all"; save(); renderChips(); renderLobby();
   }, { disabled: examPool === 0, reason: "Diese Auswahl enthält keine Wörter" }));
 
@@ -1295,7 +1432,7 @@ function renderChips(){
 /* ================= lobby ================= */
 function renderLobby(){
   const due = dueList().length, fresh = newList().length;
-  const planned = Math.min(cfg.size, due + fresh);
+  const planned = Math.min(ROUND_SIZE, due + fresh);
   el("dueCount").textContent = planned;
   el("dueLabel").textContent = due
     ? `${due} fällig · ${fresh} neu`
@@ -1304,7 +1441,7 @@ function renderLobby(){
   const done = todayCount();
   const frac = Math.min(1, done / cfg.goal);
   el("goalArc").setAttribute("stroke-dashoffset", String(169.6 * (1 - frac)));
-  el("goalArc").setAttribute("stroke", done >= cfg.goal ? "#6ee7a8" : "#7fb6f5");
+  el("goalArc").style.stroke = done >= cfg.goal ? "var(--accent)" : "var(--info)";
   el("stToday").textContent = done + " / " + cfg.goal;
 
   const all = pool();
@@ -1318,7 +1455,7 @@ function renderLobby(){
   el("startBtn").textContent = planned ? "Lernen starten" : "Alles wiederholen";
   // the exam can only deal the cards the current selection actually holds
   const examPool = examBase().length;
-  const examN = cfg.examSize === "all" ? examPool : Math.min(cfg.examSize, examPool);
+  const examN = examSizeNow(examPool);
   el("examBtn").textContent = `Prüfung (${examN})`;
   el("examBtn").disabled = examPool === 0;
 
@@ -1348,7 +1485,7 @@ function streak(){
   let n = 0;
   const d = new Date();
   for(;;){
-    const key = d.toISOString().slice(0,10);
+    const key = dayKey(d);
     const day = state.days[key];
     if(day && (day.r + day.w) > 0){ n++; d.setDate(d.getDate() - 1); }
     else break;
@@ -1357,7 +1494,7 @@ function streak(){
   // a day not yet started must not break a running streak
   if(n === 0){
     const y = new Date(); y.setDate(y.getDate() - 1);
-    const day = state.days[y.toISOString().slice(0,10)];
+    const day = state.days[dayKey(y)];
     if(day && (day.r + day.w) > 0) return 1;
   }
   return n;
@@ -1370,21 +1507,21 @@ function startSession(kind){
   const narrow = list => cfg.mode === "cloze" ? list.filter(hasCloze) : list;
 
   if(kind === "focus"){
-    queue = narrow(weakList()).slice(0, cfg.size);
+    queue = narrow(weakList()).slice(0, ROUND_SIZE);
     if(!queue.length) return toast(cfg.mode === "cloze" ? "Keine Wackelkandidaten mit Satz" : "Keine Wackelkandidaten — stark");
   } else if(kind === "marked"){
     queue = narrow(markedList());
     if(!queue.length) return toast(cfg.mode === "cloze" ? "Nichts Markiertes mit Satz" : "Nichts markiert");
   } else if(kind === "exam"){
     const all = shuffle(narrow(cfg.examWeak ? weakList() : pool()));
-    queue = cfg.examSize === "all" ? all : all.slice(0, cfg.examSize);
+    queue = all.slice(0, examSizeNow(all.length));
     exam = true;
     if(!queue.length) return toast("Keine Wörter für eine Prüfung");
   } else {
     const due = narrow(dueList());
-    queue = due.slice(0, cfg.size);
-    if(queue.length < cfg.size) queue = queue.concat(narrow(newList()).slice(0, cfg.size - due.length));
-    if(!queue.length) queue = shuffle(narrow(pool())).slice(0, cfg.size);
+    queue = due.slice(0, ROUND_SIZE);
+    if(queue.length < ROUND_SIZE) queue = queue.concat(narrow(newList()).slice(0, ROUND_SIZE - due.length));
+    if(!queue.length) queue = shuffle(narrow(pool())).slice(0, ROUND_SIZE);
     if(!queue.length) return toast(cfg.mode === "cloze" ? "Für diese Auswahl gibt es keine Beispielsätze" : "Keine Wörter in dieser Auswahl");
   }
 
@@ -1401,8 +1538,10 @@ function startSession(kind){
 
 function nextCard(){
   if(!session || session.done) return;
+  clearTimeout(advanceTimer); advanceTimer = null;
   session.revealed = false;
   session.answered = false;
+  session.grace = Date.now() + 250;     // swallows a double Enter on the new card
   if(session.index >= session.queue.length) return finish();
 
   const w = session.queue[session.index];
@@ -1464,13 +1603,19 @@ function nextCard(){
     el("typeInput").disabled = false;
     el("typeInput").placeholder = cloze ? "Fehlendes Wort…"
       : (session.exam ? (deToLa ? "Latein…" : "Deutsch…") : "Antwort…");
-    setTimeout(() => el("typeInput").focus(), 60);
+    setTimeout(() => {
+      if(session && !session.done && !el("typeInput").disabled) el("typeInput").focus();
+    }, 60);
+  }else{
+    // a hidden input that keeps focus swallows every keyboard shortcut
+    if(document.activeElement === el("typeInput")) el("typeInput").blur();
   }
   if(mc){
     if(clozeMC) buildClozeChoices(w); else buildChoices(w);
   }
-  // in a cloze multiple-choice exam the click both answers and advances — no "Weiter" button
-  el("examActions").classList.toggle("hidden", !session.exam || mc);
+  // typing exams submit with Enter, multiple choice on click — "Weiter" would grade the
+  // next, still unanswered card as wrong, so it never appears
+  el("examActions").classList.toggle("hidden", !session.exam || mc || typing);
 
   updateStar();
   // never speak the answer in cloze mode — the missing word is the whole exercise
@@ -1478,7 +1623,7 @@ function nextCard(){
   el("kbdHint").textContent = mc
     ? (session.exam ? "1–4 = Antwort" : "1–4 = Antwort · m = merken · Esc = beenden")
     : (session.exam
-        ? "Enter = weiter"
+        ? "Antwort tippen · Enter"
         : (cfg.mode === "cards" ? "Leertaste = umdrehen · 1 / 2 = nochmal / gewusst · m = merken"
                                 : (cloze ? "Fehlendes Wort tippen · Enter" : "Tippen und Enter")));
   saveSession();
@@ -1648,6 +1793,9 @@ function submitTyped(){
 }
 
 function submitExam(){
+  if(!session || session.done || session.answered) return;
+  if(Date.now() < (session.grace || 0)) return;
+  session.answered = true;
   const w = session.current;
   const typingGerman = cfg.dir === "la-de" && !session.cloze;
   const ok = session.cloze ? clozeMatches(el("typeInput").value, w)
@@ -1667,9 +1815,21 @@ function reveal(){
 }
 
 function applyGrade(ok, auto){
+  // one card, one grade: a second click, a second key press or a late timer must not count
+  if(!session || session.done || session.answered) return;
+  session.answered = true;
   const w = session.current;
   const c = card(w.id);
-  undoStack.push({id: w.id, before: JSON.parse(JSON.stringify(c))});
+  const day = today();
+  // everything undo() has to put back: the card, the counters, the repeat, the queue
+  undoStack.push({
+    id: w.id, card: JSON.parse(JSON.stringify(c)),
+    index: session.index, right: session.right, wrong: session.wrong,
+    repeats: session.repeats[w.id] || 0,
+    queue: session.queue.map(x => x.id),
+    day, dayVal: state.days[day] ? Object.assign({}, state.days[day]) : null,
+    dayDev: state.daysByDev && state.daysByDev[day] ? JSON.parse(JSON.stringify(state.daysByDev[day])) : null,
+  });
 
   if(ok){
     c.box = Math.min(BOX_DAYS.length - 1, (c.box || 0) + 1);
@@ -1691,26 +1851,36 @@ function applyGrade(ok, auto){
   logAnswer(ok);
   save();
 
-  const advance = () => { if(!session || session.done) return; session.index++; nextCard(); };
-  if(auto) setTimeout(advance, ok ? 720 : 1600);
+  clearTimeout(advanceTimer);
+  const advance = () => { advanceTimer = null; if(!session || session.done) return; session.index++; nextCard(); };
+  if(auto) advanceTimer = setTimeout(advance, ok ? 720 : 1600);
   else advance();
 }
 
 function undo(){
+  if(!session || session.done) return toast("Nichts rückgängig zu machen");
   const last = undoStack.pop();
   if(!last) return toast("Nichts rückgängig zu machen");
-  if(!session || session.done) return;
-  state.cards[last.id] = last.before;
+  clearTimeout(advanceTimer); advanceTimer = null;
+  state.cards[last.id] = last.card;
+  if(last.dayVal) state.days[last.day] = last.dayVal; else delete state.days[last.day];
+  if(state.daysByDev){
+    if(last.dayDev) state.daysByDev[last.day] = last.dayDev; else delete state.daysByDev[last.day];
+  }
+  session.right = last.right;
+  session.wrong = last.wrong;
+  if(last.repeats) session.repeats[last.id] = last.repeats; else delete session.repeats[last.id];
+  session.queue = last.queue.map(id => VOCAB.find(w => w.id === id)).filter(Boolean);
+  session.index = Math.max(0, Math.min(last.index, session.queue.length - 1));
   session.restoreId = last.id;
-  session.index = Math.max(0, session.index - 1);
-  session.right = Math.max(0, session.right - 1);
+  session.answered = false;
   save();
   nextCard();
   toast("Rückgängig");
 }
 
 /* ================= done ================= */
-function finish(){
+function finish(quit){
   if(!session || session.done) return;
   session.done = true;
   stopExamClock();
@@ -1733,14 +1903,15 @@ function finish(){
 
   el("doneScore").textContent = total;
   el("doneCaption").textContent = session.exam
-    ? (session.timedOut ? "Zeit abgelaufen" : "Prüfung abgeschlossen") +
-      (session.started ? ` · ${durLabel(Date.now() - session.started)}` : "")
+    ? ((quit ? "Prüfung abgebrochen" : (session.timedOut ? "Zeit abgelaufen" : "Prüfung abgeschlossen")) +
+      (session.started ? ` · ${durLabel(Date.now() - session.started)}` : ""))
     : "Karten in dieser Runde";
   el("doneRight").textContent = session.right;
   el("doneWrong").textContent = session.wrong;
   el("doneAcc").textContent = total ? Math.round(100 * session.right / total) + "%" : "–";
 
-  if(session.exam && total){
+  // an exam broken off after three cards is not a grade: answers still count for the boxes
+  if(session.exam && total && !quit){
     const grade = swissGrade(session.right, total);
     addExam({
       ts: Date.now(), total, right: session.right, wrong: session.wrong, grade,
@@ -1797,7 +1968,7 @@ function renderStats(){
   const days = [];
   for(let i = 13; i >= 0; i--){
     const d = new Date(); d.setDate(d.getDate() - i);
-    const key = d.toISOString().slice(0,10);
+    const key = dayKey(d);
     const day = state.days[key] || {r:0, w:0};
     days.push({key, label: WD[d.getDay()], r: day.r, w: day.w, n: day.r + day.w});
   }
@@ -1854,18 +2025,16 @@ function renderStats(){
     const area = `${pad},${H} ${line} ${(W - pad).toFixed(1)},${H}`;
     box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
       <defs><linearGradient id="accG" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#6ee7a8" stop-opacity=".16"/>
-        <stop offset="100%" stop-color="#6ee7a8" stop-opacity="0"/>
+        <stop class="s0" offset="0%"/><stop class="s1" offset="100%"/>
       </linearGradient></defs>
-      <line x1="0" y1="${(H/2).toFixed(1)}" x2="${W}" y2="${(H/2).toFixed(1)}"
-            stroke="#252b36" stroke-width="1" vector-effect="non-scaling-stroke"/>
-      <line x1="0" y1="${pad}" x2="${W}" y2="${pad}"
-            stroke="#252b36" stroke-width="1" vector-effect="non-scaling-stroke"/>
+      <line class="grid" x1="0" y1="${(H/2).toFixed(1)}" x2="${W}" y2="${(H/2).toFixed(1)}"
+            vector-effect="non-scaling-stroke"/>
+      <line class="grid" x1="0" y1="${pad}" x2="${W}" y2="${pad}"
+            vector-effect="non-scaling-stroke"/>
       <polygon points="${area}" fill="url(#accG)"/>
-      <polyline points="${line}" fill="none" stroke="#6ee7a8" stroke-width="2"
-                stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
-      ${pts.map(p => `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="2.6"
-          fill="#0d0f13" stroke="#6ee7a8" stroke-width="1.8"/>`).join("")}
+      <polyline class="line" points="${line}" stroke-linejoin="round"
+                stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+      ${pts.map(p => `<circle class="dot" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="2.6"/>`).join("")}
     </svg>`;
     const sumR = active.reduce((a,x) => a + x.d.r, 0);
     const sumN = active.reduce((a,x) => a + x.d.n, 0);
@@ -2033,12 +2202,12 @@ function renderExams(){
   const pts = last.map((e, i) => [x(i), y(e.grade)]);
   const line = pts.map(p => p.map(v => v.toFixed(1)).join(",")).join(" ");
   chart.innerHTML = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
-      <line x1="0" y1="${y(4).toFixed(1)}" x2="${W}" y2="${y(4).toFixed(1)}"
-            stroke="#3b4452" stroke-width="1" stroke-dasharray="4 4" vector-effect="non-scaling-stroke"/>
-      ${pts.length > 1 ? `<polyline points="${line}" fill="none" stroke="#7fb6f5" stroke-width="2"
+      <line class="grid" x1="0" y1="${y(4).toFixed(1)}" x2="${W}" y2="${y(4).toFixed(1)}"
+            vector-effect="non-scaling-stroke"/>
+      ${pts.length > 1 ? `<polyline class="line" points="${line}"
             stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>` : ""}
-      ${pts.map((p, i) => `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3.4"
-            fill="${last[i].grade >= 4 ? "#6ee7a8" : "#f4707f"}"/>`).join("")}
+      ${pts.map((p, i) => `<circle class="${last[i].grade >= 4 ? "pass" : "fail"}"
+            cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3.4"/>`).join("")}
     </svg>`;
 
   const avg = exams.reduce((a, e) => a + e.grade, 0) / exams.length;
@@ -2060,6 +2229,7 @@ function esc(s){ return (s||"").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;"
 /* ================= ui ================= */
 function show(view){
   ["lobby","session","done","stats"].forEach(v => el(v).classList.toggle("hidden", v !== view));
+  window.scrollTo(0, 0);
   el("navLearn").classList.toggle("on", view !== "stats");
   el("navStats").classList.toggle("on", view === "stats");
 }
@@ -2117,8 +2287,11 @@ el("wordsFile").onchange = ev => {
     const lesson = (el("addLesson").value || "").trim() || "Eigene";
     const added = importWords(String(reader.result || ""), lesson);
     ev.target.value = "";
-    if(!added) return toast("In der Datei war kein Wort zu erkennen");
-    loadSubject(subjectId).then(() => toast(`${added} ${added === 1 ? "Wort" : "Wörter"} importiert`));
+    if(!added) return toast("Keine neuen Wörter in der Datei");
+    loadSubject(subjectId).then(() => {
+      selectLesson(lesson); renderChips(); renderLobby(); renderCustomInfo();
+      toast(`${added} ${added === 1 ? "Wort" : "Wörter"} importiert`);
+    });
   };
   reader.readAsText(f);
 };
@@ -2143,10 +2316,11 @@ el("goodBtn").onclick = () => { if(session.revealed && !session.answered){ sessi
 el("againBtn").onclick = () => { if(session.revealed && !session.answered){ session.answered = true; applyGrade(false, false); } };
 el("examNext").onclick = () => submitExam();
 el("undoBtn").onclick = undo;
-el("quitBtn").onclick = () => { if(confirm("Runde beenden?")) finish(); };
+el("quitBtn").onclick = () => { if(confirm("Runde beenden?")) finish(true); };
 
 el("exportBtn").onclick = () => {
-  const blob = new Blob([JSON.stringify({v:2, cards: state.cards, days: state.days, cfg,
+  const blob = new Blob([JSON.stringify({v:2, cards: state.cards, days: state.days,
+                                         daysByDev: state.daysByDev, cfg,
                                          exams: loadExams()}, null, 2)],
                         {type:"application/json"});
   const a = document.createElement("a");
@@ -2162,14 +2336,19 @@ el("importFile").onchange = ev => {
   if(!f) return;
   const reader = new FileReader();
   reader.onload = () => {
+    ev.target.value = "";
     try{
       const d = JSON.parse(reader.result);
-      if(d.cards){ state.cards = d.cards; state.days = d.days || {}; }
-      if(d.cfg) cfg = Object.assign(cfg, d.cfg);
-      if(Array.isArray(d.exams)) saveExams(d.exams);
+      const cards = cleanCards(d && d.cards);
+      if(!cards) throw new Error("kein Fortschritt");
+      state.cards = cards;
+      state.days = cleanDays(d.days);
+      state.daysByDev = (d.daysByDev && typeof d.daysByDev === "object" && !Array.isArray(d.daysByDev)) ? d.daysByDev : {};
+      if(d.cfg && typeof d.cfg === "object" && !Array.isArray(d.cfg)) cfg = Object.assign({}, CFG_DEFAULTS, cfg, d.cfg);
+      if(Array.isArray(d.exams)) saveExams(d.exams.filter(e => e && Number.isFinite(Number(e.grade))));
       save(); renderChips(); renderLobby(); renderStats();
-      toast("Import OK");
-    }catch(e){ toast("Datei nicht lesbar"); }
+      toast("Import OK · " + Object.keys(cards).length + " Karten");
+    }catch(e){ toast("Keine Vokabel-Datei — Import abgebrochen"); }
   };
   reader.readAsText(f);
 };
@@ -2189,11 +2368,11 @@ document.addEventListener("keydown", e => {
     return;
   }
   if(el("session").classList.contains("hidden")) return;
-  if(document.activeElement === el("typeInput")){
-    if(e.key === "Escape"){ e.preventDefault(); if(confirm("Runde beenden?")) finish(); }
+  if(document.activeElement === el("typeInput") && !el("typeInput").disabled){
+    if(e.key === "Escape"){ e.preventDefault(); if(confirm("Runde beenden?")) finish(true); }
     return;
   }
-  if(e.key === "Escape"){ e.preventDefault(); if(confirm("Runde beenden?")) finish(); return; }
+  if(e.key === "Escape"){ e.preventDefault(); if(confirm("Runde beenden?")) finish(true); return; }
   // multiple choice: 1..4 pick the visible option
   if(!el("mcBox").classList.contains("hidden") && /^[1-9]$/.test(e.key)){
     const btn = [...el("mcBox").children].filter(b => !b.disabled)[Number(e.key) - 1];
@@ -2203,13 +2382,22 @@ document.addEventListener("keydown", e => {
     e.preventDefault(); toggleMark(session.current);
   }
   if(e.key === " " && cfg.mode === "cards" && !session.exam){ e.preventDefault(); reveal(); }
-  if(e.key === "1" && session.revealed && !session.exam){ e.preventDefault(); session.answered = true; applyGrade(false, false); }
-  if(e.key === "2" && session.revealed && !session.exam){ e.preventDefault(); session.answered = true; applyGrade(true, false); }
+  if(e.key === "1" && session.revealed && !session.exam && !session.answered){ e.preventDefault(); applyGrade(false, false); }
+  if(e.key === "2" && session.revealed && !session.exam && !session.answered){ e.preventDefault(); applyGrade(true, false); }
 });
 
-el("wordSearch").addEventListener("input", e => { wordQuery = e.target.value; renderWordList(); });
+let wordTimer;
+el("wordSearch").addEventListener("input", e => {
+  wordQuery = e.target.value;
+  clearTimeout(wordTimer);
+  wordTimer = setTimeout(renderWordList, 120);
+});
 // opening the settings must show current counts, not the ones from page load
 el("settingsPanel").addEventListener("toggle", () => { if(el("settingsPanel").open) renderChips(); });
+el("syncConnectBtn").onclick = syncConnect;
+el("syncCodeInput").addEventListener("keydown", e => {
+  if(e.key === "Enter"){ e.preventDefault(); syncConnect(); }
+});
 el("examDate").addEventListener("change", e => {
   cfg.examDate = e.target.value || "";
   save(); renderStats(); renderLobby();
@@ -2221,13 +2409,14 @@ el("examDateClear").addEventListener("click", () => {
 /* ================= boot ================= */
 /* ================= theme ================= */
 function initTheme(){
-  const saved = localStorage.getItem(THEME_KEY);
+  let saved = null;
+  try{ saved = localStorage.getItem(THEME_KEY); }catch(e){}
   const sys = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
   setTheme(saved || sys);
 }
 function setTheme(t){
   document.documentElement.dataset.theme = t;
-  localStorage.setItem(THEME_KEY, t);
+  try{ localStorage.setItem(THEME_KEY, t); }catch(e){}
   const b = el("themeBtn");
   if(b) b.textContent = t === "light" ? "☀" : "☾";
   const meta = document.querySelector('meta[name="theme-color"]');
@@ -2341,25 +2530,80 @@ function importWords(text, lesson){
   const parsed = parseWordFile(text);
   if(!parsed.length) return 0;
   const list = loadCustom();
+  const keyOf = w => norm(w.term || "") + "|" + (w.german || []).map(g => norm(g)).join(",");
+  const seen = new Set([...VOCAB, ...list].map(keyOf));
   const stamp = Date.now();
-  parsed.forEach((p, i) => list.push({
-    id: `c${stamp}_${i}`, lesson: p.lesson || lesson, type: "Eigene",
-    term: p.term, form: "", german: p.german, hint: ""
-  }));
-  localStorage.setItem(CUSTOM_KEY(), JSON.stringify(list));
-  return parsed.length;
+  let added = 0;
+  parsed.forEach(p => {
+    const key = keyOf(p);
+    if(seen.has(key)) return;            // importing the same file twice adds nothing
+    seen.add(key);
+    list.push({
+      id: `c${stamp}_${added}`, lesson: p.lesson || lesson, type: "Eigene",
+      term: p.term, form: "", german: p.german, hint: ""
+    });
+    added++;
+  });
+  if(added){
+    try{ localStorage.setItem(CUSTOM_KEY(), JSON.stringify(list)); }
+    catch(e){ toast("Speicher voll — Datei zu gross"); return 0; }
+  }
+  return added;
+}
+/* An imported word sits in its own lesson; without selecting that lesson the learner
+   adds twelve words and sees none of them. */
+function selectLesson(lesson){
+  if(!lesson || cfg.lessons.includes(lesson)) return;
+  cfg.lessons.push(lesson);
+  save();
+}
+function cleanCards(raw){
+  if(!raw || typeof raw !== "object" || Array.isArray(raw)) return null;
+  const out = {};
+  Object.keys(raw).forEach(id => {
+    const c = raw[id];
+    if(!c || typeof c !== "object") return;
+    out[id] = {
+      box: Math.max(0, Math.min(BOX_DAYS.length - 1, Math.floor(Number(c.box) || 0))),
+      due: Number(c.due) || 0,
+      right: Math.max(0, Math.floor(Number(c.right) || 0)),
+      wrong: Math.max(0, Math.floor(Number(c.wrong) || 0)),
+      seen: Math.max(0, Math.floor(Number(c.seen) || 0)),
+      marked: !!c.marked,
+    };
+    if(Number.isFinite(Number(c.t))) out[id].t = Number(c.t);
+  });
+  return Object.keys(out).length ? out : null;   // an empty "cards" object is not progress
+}
+function cleanDays(raw){
+  const out = {};
+  if(!raw || typeof raw !== "object" || Array.isArray(raw)) return out;
+  Object.keys(raw).forEach(d => {
+    const v = raw[d] || {};
+    out[d] = {r: Math.max(0, Math.floor(Number(v.r) || 0)), w: Math.max(0, Math.floor(Number(v.w) || 0))};
+  });
+  return out;
 }
 function addCustomWords(){
   const lesson = (el("addLesson").value || "").trim() || "Eigene";
   const added = importWords(el("addWords").value || "", lesson);
-  if(!added) return toast("Keine gültige Zeile — Format: wort = übersetzung");
+  if(!added) return toast("Nichts neu — leer, falsches Format oder schon vorhanden");
   el("addWords").value = "";
-  loadSubject(subjectId).then(() => toast(`${added} ${added === 1 ? "Wort" : "Wörter"} hinzugefügt`));
+  loadSubject(subjectId).then(() => {
+    selectLesson(lesson); renderChips(); renderLobby(); renderCustomInfo();
+    toast(`${added} ${added === 1 ? "Wort" : "Wörter"} hinzugefügt`);
+  });
 }
 
+async function fetchJson(url){
+  const r = await fetch(url, {cache: "no-cache"});
+  if(!r.ok) throw new Error(url + " → " + r.status);
+  return r.json();
+}
 async function loadSubject(id){
+  const prev = {subjectId, subjectMeta, deck, deckLang};
   subjectId = id;
-  localStorage.setItem(SUBJ_KEY, id);
+  try{ localStorage.setItem(SUBJ_KEY, id); }catch(e){}
   const meta = SUBJECTS.find(x => x.id === id) || SUBJECTS[0];
   subjectMeta = meta;
   deckLang = null;
@@ -2375,7 +2619,14 @@ async function loadSubject(id){
       deckLang = langs.includes(saved) ? saved : langs[0];
       file = meta.decks[deckLang];
     }
-    deck = await (await fetch("data/" + file)).json();
+    try{
+      deck = await fetchJson("data/" + file);
+    }catch(e){
+      // keep the subject that was open instead of showing a half-switched app
+      subjectId = prev.subjectId; subjectMeta = prev.subjectMeta;
+      deck = prev.deck; deckLang = prev.deckLang;
+      return toast("Deck nicht geladen — Verbindung prüfen");
+    }
   }
 
   VOCAB = (deck.words || []).concat(loadCustom());
@@ -2398,7 +2649,12 @@ async function loadSubject(id){
 
 async function boot(){
   initTheme();
-  const index = await (await fetch("data/subjects.json")).json();
+  let index;
+  try{
+    index = await fetchJson("data/subjects.json");
+  }catch(e){
+    return toast("Decks nicht geladen — Verbindung prüfen und die App neu öffnen");
+  }
   SUBJECTS = (index.subjects || []).concat(loadCustomSubjects());
   if(!SUBJECTS.length) return toast("Keine Fächer gefunden");
   let id = localStorage.getItem(SUBJ_KEY);
