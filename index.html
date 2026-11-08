@@ -745,7 +745,7 @@ function restoreSession(){
    per grammar language); when both devices touched the same card, the newer one wins. */
 const SYNC_API_KEY = "latin-vokabeln:sync:api";
 const SYNC_CODE_KEY = "latin-vokabeln:sync:code";
-const SYNC_API_DEFAULT = "https://buffln-sync.workers.dev";
+const SYNC_API_DEFAULT = "https://buffln-sync.marco-hofmann-264.workers.dev";
 const SYNC_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";   /* no I, O, 0, 1 */
 
 function syncApi(){ return localStorage.getItem(SYNC_API_KEY) || SYNC_API_DEFAULT; }
