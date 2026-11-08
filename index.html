@@ -2312,8 +2312,8 @@ el("addLesson").addEventListener("keydown", e => {
 el("navLearn").onclick = () => { renderLobby(); show("lobby"); };
 el("navStats").onclick = () => { renderStats(); show("stats"); };
 el("flipBtn").onclick = reveal;
-el("goodBtn").onclick = () => { if(session.revealed && !session.answered){ session.answered = true; applyGrade(true, false); } };
-el("againBtn").onclick = () => { if(session.revealed && !session.answered){ session.answered = true; applyGrade(false, false); } };
+el("goodBtn").onclick = () => { if(session.revealed && !session.answered) applyGrade(true, false); };
+el("againBtn").onclick = () => { if(session.revealed && !session.answered) applyGrade(false, false); };
 el("examNext").onclick = () => submitExam();
 el("undoBtn").onclick = undo;
 el("quitBtn").onclick = () => { if(confirm("Runde beenden?")) finish(true); };
